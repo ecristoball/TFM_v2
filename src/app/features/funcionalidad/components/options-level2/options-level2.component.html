@@ -1,0 +1,26 @@
+<main class="cont">
+  <div *ngIf="loading">Cargando...</div>
+
+  <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
+    <h3 class="group-title">{{ groupKey | uppercase }}</h3>
+
+    <div
+      cdkDropList
+      [id]="groupKey + '-list'"
+      class="group-items"
+      [cdkDropListData]="level2Groups[groupKey]"
+      [cdkDropListConnectedTo]="['selected-list']"
+      (cdkDropListDropped)="onItemDropped($event)"
+    >
+      <app-item
+        *ngFor="let item of level2Groups[groupKey]"
+        [item]="item"
+        class="item"
+        cdkDrag
+         [cdkDragDisabled]="item.locked"
+        [ngClass]="{ 'locked': item.locked }"
+      ></app-item>
+    </div>
+  </div>
+</main>
+

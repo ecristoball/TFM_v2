@@ -1,0 +1,30 @@
+
+.layout-grid{
+    display: grid;
+    grid-template-columns: 15% 1fr 25%;
+    height: 100vh;
+    background-color: rgb(247, 243, 243);
+    gap:10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.options-level1 {
+    background-color:#b1b1b1;
+    padding: 16px;
+    color: white;
+
+}
+.options-level2 {
+    background-color: rgb(255, 255, 255);
+    padding: 16px;
+    
+      
+  flex-wrap: wrap;   
+
+}
+.options-selected {
+    background-color: #b1b1b1;
+    padding: 16px;
+    color: white;
+
+}
