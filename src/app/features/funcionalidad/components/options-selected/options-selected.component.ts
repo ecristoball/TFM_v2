@@ -3,6 +3,8 @@ import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CrearJsonService } from '../../../../services/crear-json.service';
 import { Showlevel1Service,JsonKey } from '../../../../services/showlevel1.service';
 import { MostrarDialogoService } from '../../../../services/mostrar-dialogo.service';
+import { DialogoJsonComponent } from '../../../../shared/dialogo-json/dialogo-json.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -19,7 +21,9 @@ export class OptionsSelectedComponent {
   tojsonItems: any[] = [];
   jsonResult: any;
 
-  constructor (private mostrarDialogoService: MostrarDialogoService, private showlevel1service: Showlevel1Service, private crearJsonService:CrearJsonService) {}
+  constructor (private mostrarDialogoService: MostrarDialogoService, 
+    private showlevel1service: Showlevel1Service, private crearJsonService:CrearJsonService,
+  private dialog: MatDialog) {}
 
 
   
@@ -56,15 +60,28 @@ export class OptionsSelectedComponent {
 
       const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
 // para mostrar dialogos, no drag&drop
-     if (dialog$) {
-      dialog$.subscribe(result => {
-        if (result) {
-          console.log(`Resultado del diálogo (${itemType}):`, result);
-        // guardar el valor en backend Laravel
-        this.insertValue(itemType,result)
-        }
-     });
+   if (dialog$) {
+  dialog$.subscribe(result => {
+    if (result) {
+      console.log(`Resultado del diálogo (${itemType}):`, result);
+
+      // 🔹 Actualizar el valor directamente en el componente
+      const updatedItem = this.selectedItems.find(i => i.key_name === itemType);
+      if (updatedItem) {
+        updatedItem.value = result;
+        console.log("Item actualizado localmente:", updatedItem,updatedItem.value, result);
+      }
+
+      // 🔹 Guardar en el backend
+      this.insertValue(itemType, result);
     }
+  });
+}
+
+
+
+
+
   }
 
   insertValue(key:string,valor:any){
@@ -82,10 +99,16 @@ crearJson() {
    this.tojsonItems = (data as any[]).map(item => ({
   ...item,
   value: this.parseValue(item.value)
-}));
+    })
+  );
     console.log("datos de tabla", this.tojsonItems);
     this.jsonResult = this.crearJsonService.convertTableToJson(this.tojsonItems);
     console.log('JSON generado:', this.jsonResult);
+    //const jsonData = this.generarJson(); // Aquí generas tu objeto JSON
+    this.dialog.open(DialogoJsonComponent, {
+      width: '600px',
+      data: this.jsonResult
+    });
   });
 }
 

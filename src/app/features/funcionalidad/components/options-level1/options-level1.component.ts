@@ -19,6 +19,7 @@ export class OptionsLevel1Component {
       console.log(data);
     });
   }
+}
 
 /*
   level1Items=[
@@ -37,4 +38,4 @@ export class OptionsLevel1Component {
     {id:13, name:'eSign'}
   ]
 */
-}
+

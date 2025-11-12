@@ -1,6 +1,9 @@
 <main class="main" >
     <div class="item-card"[ngClass] ="{'active':isActive}" (click)="onCardClick()">
         <h2>{{item.key_name}}</h2>
+        <span *ngIf="item.value && item.value.active !== undefined">:{{ item.value.active }}</span>
+        <span *ngIf="item.value && item.value.type">:{{ item.value.type }}</span>
+        <span *ngIf="item.value && item.value.max">:{{ item.value.max }}</span>
     </div>
     
 </main>

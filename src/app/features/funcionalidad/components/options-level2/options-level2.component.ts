@@ -21,7 +21,7 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
 
   ngOnInit(): void { 
 
-    this.subscription = this.selectionService.selectedKey$.subscribe(key => {
+    /*this.subscription = this.selectionService.selectedKey$.subscribe(key => {
       if (!key) return;
       this.loading = true;
      
@@ -31,7 +31,47 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
       this.loading = false;
       console.log(data);
     });
+    });*/
+
+this.subscription = this.selectionService.selectedKeys$.subscribe(event => {
+    // si un item se seleccionó
+    if (event.selected && event.toggledKey) {
+      this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {
+        this.level2Groups[event.toggledKey!] = data;
+      });
+    }
+
+    // si un item se deseleccionó
+    if (event.selected === false && event.toggledKey) {
+      delete this.level2Groups[event.toggledKey];
+    }
+  });
+
+/*
+
+    this.subscription = this.selectionService.selectedKey$.subscribe(key => {
+    // Si key === null -> limpiar lo cargado
+    if (!key) {
+      this.level2Groups = {};        // limpia las listas mostradas
+      this.loading = false;
+      return;
+    }
+
+    // Si hay clave -> cargar opciones de nivel 2
+    this.loading = true;
+    this.showlevel1service.getOptionsBy(2, key).subscribe(data => {
+      this.level2Groups[key] = data;
+      this.loading = false;
+      console.log(data);
+    }, err => {
+      this.loading = false;
+      console.error(err);
     });
+  });
+
+*/
+
+
        
   }
    objectKeys(obj: any): string[] {

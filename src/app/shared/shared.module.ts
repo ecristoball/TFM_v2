@@ -12,14 +12,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import { MatRadioModule } from '@angular/material/radio'; ;
+import { MatRadioModule } from '@angular/material/radio';
+import { DialogoJsonComponent } from './dialogo-json/dialogo-json.component'; ;
 
 
 @NgModule({
   declarations: [
     ItemComponent,
     ItemListComponent,
-    DialogoGenericoComponent],
+    DialogoGenericoComponent,
+    DialogoJsonComponent],
   imports: [
     CommonModule,
     FormsModule, // 

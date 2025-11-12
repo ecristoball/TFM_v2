@@ -30,6 +30,14 @@
             {{ option.label }}
         </mat-radio-button>
     </mat-radio-group>
+    <mat-dialog-content>
+      <textarea
+        [(ngModel)]="texto"
+        rows="2"
+        placeholder="Escribe tu texto aquí..."
+        style="width: 100%;"
+      ></textarea>
+    </mat-dialog-content>
 
 
   </div>

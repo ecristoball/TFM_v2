@@ -1,122 +1,77 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoGenericoComponent } from '../shared/dialogo-generico/dialogo-generico.component';
-import { Dialog } from '@angular/cdk/dialog';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MostrarDialogoService {
+  constructor(private dialog: MatDialog) {}
 
-  constructor(private dialog: MatDialog) { }
-  private dialogConfig: Record<string, any> = {
+  /** 🔧 Helpers para generar tipos de configuración */
+  private numberField = (key: string) => ({
+    title: key,
+    fields: [{ label: '', type: 'number', key: 'max' }]
+  });
+
+  private booleanField = (key: string) => ({
+    title: key,
+    fields: [{
+      label: 'Tipo',
+      type: 'boolean',
+      key: 'active',
+      options: [
+        { label: 'True', value: true },
+        { label: 'False', value: false }
+      ]
+    }]
+  });
+
+  private selectField = (key: string, options: string[]) => ({
+    title: key,
+    fields: [{
+      label: 'Tipo',
+      type: 'select',
+      key: 'type',
+      options
+    }]
+  });
+  private textField = (key:string)=>({
+    title: key,
+    fields: [{
+       
+    type: 'text',
     
-     serviceMode: {
-      title: 'serviceMode',
-      fields: [
-          { label: 'Nombre', type: 'text', key: 'name' },
-          { label: 'Tipo', type: 'select', key: 'type', options: ['validation', 'ocr'] }
-      ]
-    },
-    //enteros
-    minimumAcceptableAge: {
-      title: 'minimumAcceptableAge',
-      fields: [
-        { label: '', type: 'number', key: 'max' }
-      ]
-    },
-    maximumAcceptableTimeSinceExpiration: {
-      title: 'maximumAcceptableTimeSinceExpiratin',
-      fields: [
-        { label: '', type: 'number', key: 'max' }
-      ]
-    },
-     manualCaptureDelay: {
-      title: 'manualCaptureDelay',
-      fields: [
-        { label: '', type: 'number', key: 'max' }
-      ]
-    },
-     detectionTimeout: {
-      title: 'detectionTimeout',
-      fields: [
-        { label: '', type: 'number', key: 'max' }
-      ]
-    },
-    //Booleanos
-    extendedCoverage: {
-      title: 'extendedCoverage',
-      fields: [
-       { 
-        label: 'Tipo', 
-        type: 'boolean', 
-        key: 'active', 
-        options: [
-          { label: 'True', value: true },
-          { label: 'False', value: false }
-        ]
-      }
-      ]
-    },
-    geolocation: {
-      title: 'geolocation',
-      fields: [
-       { 
-        label: 'Tipo', 
-        type: 'boolean', 
-        key: 'active', 
-        options: [
-          { label: 'True', value: true },
-          { label: 'False', value: false }
-        ]
-      }
-      ]
-    },
-     manualCaptureShow: {
-      title: 'manualCaptureShow',
-      fields: [
-       { 
-        label: 'Tipo', 
-        type: 'boolean', 
-        key: 'active', 
-        options: [
-          { label: 'True', value: true },
-          { label: 'False', value: false }
-        ]
-      }
-      ]
-    },
-    instructionsShow: {
-      title: 'instructionsShow',
-      fields: [
-       { 
-        label: 'Tipo', 
-        type: 'boolean', 
-        key: 'active', 
-        options: [
-          { label: 'True', value: true },
-          { label: 'False', value: false }
-        ]
-      }
-      ]
-    },
-    reviewShow: {
-      title: 'reviewShow',
-      fields: [
-       { 
-        label: 'Tipo', 
-        type: 'boolean', 
-        key: 'active', 
-        options: [
-          { label: 'True', value: true },
-          { label: 'False', value: false }
-        ]
-      }
-      ]
-    }
-  }
-   openDialogForItem(itemType: string) {
+    }]
+  });
+
+
+  /**  Mapa de configuraciones */
+  private dialogConfig: Record<string, any> = {
+    // Ejemplo con select
+    serviceMode: this.selectField('serviceMode', ['validation', 'ocr']),
+    deviceRotatedOnOrientation:this.selectField('deviceRotatedOnOrientation',['landscape','portrait','none']),
+    selectCamera:this.selectField('selectCamera',['front','back']),
+
+    // Ejemplo con number
+    minimumAcceptableAge: this.numberField('minimumAcceptableAge'),
+    maximumAcceptableTimeSinceExpiration: this.numberField('maximumAcceptableTimeSinceExpiration'),
+    manualCaptureDelay: this.numberField('manualCaptureDelay'),
+    detectionTimeout: this.numberField('detectionTimeout'),
+
+    // Ejemplo con boolean
+    extendedCoverage: this.booleanField('extendedCoverage'),
+    geolocation: this.booleanField('geolocation'),
+    manualCaptureShow: this.booleanField('manualCaptureShow'),
+    instructionsShow: this.booleanField('instructionsShow'),
+    reviewShow: this.booleanField('reviewShow'),
+    defaultCountry:this.textField('defaultCountry'),
+  };
+
+  /** 🪟 Abre el diálogo según el tipo */
+  openDialogForItem(itemType: string) {
     const config = this.dialogConfig[itemType];
+
     if (!config) {
       console.warn(`No hay configuración para el tipo: ${itemType}`);
       return null;
@@ -125,9 +80,8 @@ export class MostrarDialogoService {
     const dialogRef = this.dialog.open(DialogoGenericoComponent, {
       width: '500px',
       data: config
-      
     });
-    
+
     return dialogRef.afterClosed();
   }
 }

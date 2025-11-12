@@ -23,5 +23,5 @@ h2{
     line-height:1;
 }
 .item-card.active{
-    background-color: red;
+    background-color:#ff7777;
 }

@@ -46,7 +46,9 @@ export class Showlevel1Service {
        return this.http.put<JsonKey[]>(`${this.apiUrl}/update/${keyName}`, {value});
     }
 
-
+    deleteValues(): Observable<JsonKey[]> {
+      return this.http.delete<JsonKey[]>(this.apiUrl);
+    }
 }
 
 

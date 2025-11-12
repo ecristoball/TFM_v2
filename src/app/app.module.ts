@@ -7,12 +7,13 @@ import { HomeComponent } from './features/home/home.component';
 import { FuncionalidadModule } from './features/funcionalidad/funcionalidad.module';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { EstilosComponent } from './features/estilos/estilos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    EstilosComponent
   ],
   imports: [
     BrowserModule,
