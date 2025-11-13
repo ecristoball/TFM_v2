@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoGenericoComponent } from '../shared/dialogo-generico/dialogo-generico.component';
+import { __values } from 'tslib';
 
 @Injectable({
   providedIn: 'root'
@@ -39,12 +40,30 @@ export class MostrarDialogoService {
   private textField = (key:string)=>({
     title: key,
     fields: [{
-       
-    type: 'text',
+       label: 'Tipo',
+       type: 'text',
+       key:'text'
     
     }]
   });
-
+ private arrayField = (key:string)=>({
+    title: key,
+    fields: [{
+       label: 'Tipo',
+       type: 'array',
+       key:'value'
+    
+    }]
+  });
+   private objectField = (key:string)=>({
+    title: key,
+    fields: [{
+       label: 'Tipo',
+       type: 'text',
+       key:'text'
+    
+    }]
+  });
 
   /**  Mapa de configuraciones */
   private dialogConfig: Record<string, any> = {
@@ -52,12 +71,15 @@ export class MostrarDialogoService {
     serviceMode: this.selectField('serviceMode', ['validation', 'ocr']),
     deviceRotatedOnOrientation:this.selectField('deviceRotatedOnOrientation',['landscape','portrait','none']),
     selectCamera:this.selectField('selectCamera',['front','back']),
+    liveness:this.selectField('liveness',['passive','active']),
+    authority:this.selectField('authority',['fnmt','izenpe','standard']),
 
     // Ejemplo con number
     minimumAcceptableAge: this.numberField('minimumAcceptableAge'),
     maximumAcceptableTimeSinceExpiration: this.numberField('maximumAcceptableTimeSinceExpiration'),
     manualCaptureDelay: this.numberField('manualCaptureDelay'),
     detectionTimeout: this.numberField('detectionTimeout'),
+    challengeLength: this.numberField('challengeLength'),
 
     // Ejemplo con boolean
     extendedCoverage: this.booleanField('extendedCoverage'),
@@ -65,8 +87,24 @@ export class MostrarDialogoService {
     manualCaptureShow: this.booleanField('manualCaptureShow'),
     instructionsShow: this.booleanField('instructionsShow'),
     reviewShow: this.booleanField('reviewShow'),
+    videoDocComparison:this.booleanField('videoDocComparison'),
+    requiredTermsAndConditions:this.booleanField('requiredTermsAndConditions'),
+    required:this.booleanField('required'),
+    
+    //ejemplo con string
     defaultCountry:this.textField('defaultCountry'),
+    title:this.textField('title'),
+    name:this.textField('name'),
+    email:this.textField('email'),
+    applicationCode:this.textField('applicationCode'),
+    
+      //ejemplo de array
+
+    documentTypes: this.arrayField('documentTypes'),
+    countryFilter: this.arrayField('countryFilter'),
   };
+
+
 
   /** 🪟 Abre el diálogo según el tipo */
   openDialogForItem(itemType: string) {

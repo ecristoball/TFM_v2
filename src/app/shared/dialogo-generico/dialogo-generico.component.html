@@ -1,4 +1,4 @@
-<p>dialogo-generico works!</p>
+
 <h2 mat-dialog-title>{{ data.title }}</h2>
 
 <mat-dialog-content>
@@ -21,6 +21,8 @@
       </mat-select>
     </mat-form-field>
 
+    
+
 
     <mat-radio-group *ngIf="field.type === 'boolean'" [(ngModel)]="formValues[field.key]" class="boolean-radio-group">
         <mat-radio-button
@@ -30,15 +32,12 @@
             {{ option.label }}
         </mat-radio-button>
     </mat-radio-group>
-    <mat-dialog-content>
-      <textarea
-        [(ngModel)]="texto"
-        rows="2"
-        placeholder="Escribe tu texto aquí..."
-        style="width: 100%;"
-      ></textarea>
-    </mat-dialog-content>
 
+
+    <mat-form-field *ngIf="field.type === 'array'">
+      <mat-label>{{ field.value }}</mat-label>
+      <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
+    </mat-form-field>
 
   </div>
 </mat-dialog-content>

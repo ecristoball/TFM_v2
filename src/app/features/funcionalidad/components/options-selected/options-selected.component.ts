@@ -141,4 +141,16 @@ onDrop(event: any) {
   }
 }
 
+  onDelete(){
+    if (confirm('¿Seguro que quieres borrar todos los valores?')){
+      this.showlevel1service.deleteValues().subscribe({
+        next: (res) => {
+            console.log('Valores eliminados correctamente:', res);
+            // Si quieres, actualiza tu vista aquí (por ejemplo, recargar datos)
+          },
+          error: (err) => console.error('Error al eliminar valores:', err)
+        });
+  }
 }
+
+    }

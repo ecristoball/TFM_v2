@@ -26,3 +26,11 @@
   bottom: 10px;
   right: 10px;
 }
+.del-btn{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+      position: absolute;
+  bottom: 10px;
+  right: 200px;
+}

@@ -47,7 +47,7 @@ export class Showlevel1Service {
     }
 
     deleteValues(): Observable<JsonKey[]> {
-      return this.http.delete<JsonKey[]>(this.apiUrl);
+      return this.http.delete<JsonKey[]>(`${this.apiUrl}/values`);
     }
 }
 
