@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './estilos.component.css'
 })
 export class EstilosComponent {
+selectedColor: string = '#000000';
 
 }
