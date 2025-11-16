@@ -3,6 +3,7 @@ import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.serv
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
 import { CdkDragDrop,transferArrayItem } from '@angular/cdk/drag-drop';
+import { skip } from 'rxjs';
 
 @Component({
   selector: 'app-options-level2',
@@ -33,7 +34,9 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
     });
     });*/
 
-this.subscription = this.selectionService.selectedKeys$.subscribe(event => {
+this.subscription = this.selectionService.selectedKeys$
+.pipe(skip(1))
+.subscribe(event => {
     // si un item se seleccionó
     if (event.selected && event.toggledKey) {
       this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {

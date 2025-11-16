@@ -10,15 +10,3 @@
         <app-estilos-selected ></app-estilos-selected>
     </section>
 </div>
-<input type="color" [(ngModel)]="selectedColor">
-<p>Color seleccionado: {{ selectedColor }}</p>
-
-<!-- Botón que cambia de color según selectedColor -->
-<p>estilos works!</p>
-<input type="color" [(ngModel)]="selectedColor">
-<p>Color seleccionado: {{ selectedColor }}</p>
-
-<!-- Botón que cambia de color según selectedColor -->
-<button [style.background-color]="selectedColor" style="color: white; padding: 8px 16px; border: none; border-radius: 4px;">
-  Botón de color dinámico
-</button>

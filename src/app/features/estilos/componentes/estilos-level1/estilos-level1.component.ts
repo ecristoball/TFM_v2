@@ -8,3 +8,4 @@ import { Component } from '@angular/core';
 export class EstilosLevel1Component {
 
 }
+console.log("cargando")
