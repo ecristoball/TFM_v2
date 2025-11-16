@@ -1,3 +1,19 @@
+
+<div class="layout-grid">
+    <section class="estilos-level1">
+        <app-estilos-level1></app-estilos-level1>
+    </section>
+    <section class="estilos-level2">
+        <app-estilos-level2></app-estilos-level2>
+    </section>
+    <section class="estilos-selected">
+        <app-estilos-selected ></app-estilos-selected>
+    </section>
+</div>
+<input type="color" [(ngModel)]="selectedColor">
+<p>Color seleccionado: {{ selectedColor }}</p>
+
+<!-- Botón que cambia de color según selectedColor -->
 <p>estilos works!</p>
 <input type="color" [(ngModel)]="selectedColor">
 <p>Color seleccionado: {{ selectedColor }}</p>

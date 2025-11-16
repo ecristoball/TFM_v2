@@ -1,0 +1,27 @@
+
+.layout-grid{
+    display: block;
+    grid-template-columns: 15% 1fr 25%;
+    height: 100vh;
+    gap:10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.componentes {
+
+    padding: 16px;
+    border:1px solid #ffffff;
+
+}
+.temas {
+    padding: 16px;   
+  flex-wrap: wrap;  
+      border:1px solid #ffffff; 
+
+}
+.fuentes {
+    border:1px solid #ffffff;
+    padding: 16px;
+    color: white;
+
+}
