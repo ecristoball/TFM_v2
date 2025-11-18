@@ -4,7 +4,12 @@
   flex-direction: column;
   gap: 0.8rem;
   padding: 0.2rem;
+  overflow-y: auto;
+  height: 100vh; /* Igual que la grid o su contenedor */
+   max-height: 100vh;
 }
+  
+
 
 /* Cada grupo (document, selfie, etc.) */
 .group-box {

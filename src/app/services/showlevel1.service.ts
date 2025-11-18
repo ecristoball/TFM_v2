@@ -39,6 +39,7 @@ export class Showlevel1Service {
         return this.http.get<JsonKey[]>(`${this.apiUrl}/${frontlevel}/${frontparent}`);
     }
 
+    //Devuelve toda la jerarquía para crear el json.
     getLevelsBy(frontlevel: number) {
         return this.http.get<JsonKey[]>(`${this.apiUrl}/levelsbyfrontlevel/${frontlevel}`);
     }

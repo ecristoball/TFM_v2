@@ -31,4 +31,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule
   ]
 })
-export class FuncionalidadModule { }
+export class FuncionalidadModule {
+  constructor() {
+  console.log('funcionalidadmodule cargado');
+}
+ }

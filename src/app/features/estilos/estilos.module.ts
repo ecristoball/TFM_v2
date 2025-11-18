@@ -12,6 +12,8 @@ import { ComponentesComponent } from './componentes/estilos-level1/componentes/c
 import { FuentesComponent } from './componentes/estilos-level1/fuentes/fuentes.component';
 import { TemasComponent } from './componentes/estilos-level1/temas/temas.component';
 
+import { EstilosRoutingModule } from './estilos-routing.module';
+
 import { SharedModule } from '../../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -34,6 +36,11 @@ import { MatButtonModule } from '@angular/material/button';
     DragDropModule,
     MatDialogModule,
     MatButtonModule,
+    EstilosRoutingModule,
   ]
 })
-export class EstilosModule { }
+export class EstilosModule { 
+  constructor() {
+  console.log('EstilosModule cargado');
+}
+}

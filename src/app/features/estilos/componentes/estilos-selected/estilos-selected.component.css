@@ -1,0 +1,36 @@
+
+.selected-container {
+  min-height: 90%;
+  border: 2px dashed #999;
+  padding: 10px;
+  display: block;
+   }
+.json-btn{
+    border:1px solid #ccc;
+    border-radius: 1px;
+    background-color: #ffffff;
+    padding:4px;
+    margin-top: 16px;
+    color: #000000;
+    max-width: 300px;
+    max-height: 30px;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.del-btn{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+      position: absolute;
+  bottom: 10px;
+  right: 200px;
+}
