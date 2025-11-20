@@ -1,0 +1,11 @@
+.boolean-radio-group,
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.boolean-radio-group .boolean-radio,
+.radio-group .radio-option {
+  margin-bottom: 4px;
+}

@@ -8,7 +8,7 @@ import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.serv
   styleUrl: './options-level1.component.css'
 })
 export class OptionsLevel1Component {
-
+/* movido a stages y options
   level1Items: any[] = [];
 
   constructor(private showlevel1service: Showlevel1Service) {}
@@ -19,6 +19,7 @@ export class OptionsLevel1Component {
       console.log(data);
     });
   }
+    */
 }
 
 /*

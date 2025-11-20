@@ -11,7 +11,7 @@ export class ItemComponent {
   isActive=false;
   selectedBackgroundColor: string = '#000000';
   selectedBorderColor = '#000000';
-selectedBorderWidth = 1;
+  selectedBorderWidth = 1;
 
   constructor(private selectionService: SelectionService) {}
 
@@ -34,14 +34,15 @@ selectedBorderWidth = 1;
     }
     console.log("el item en level front es ", this.item);
   }
+
   onBackgroundChange() {
     console.log("onBackgroudnCahange")
     this.selectionService.updateStyle(this.item.key_name, { backgroundColor: this.selectedBackgroundColor });
   }
   onBorderColorChange(color: string) {
- this.selectionService.updateStyle(this.item.key_name, { borderColor: this.selectedBorderColor });
-console.log(color, "border")
-    }
+    this.selectionService.updateStyle(this.item.key_name, { borderColor: this.selectedBorderColor });
+    console.log(color, "border")
+  }
 
   onBorderWidthChange(width: number) {
     console.log("number")

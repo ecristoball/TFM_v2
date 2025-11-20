@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 export interface SelectionEvent {
   selectedKeys: string[];
   toggledKey?: string;
+  front_parent?:string;
   selected?: boolean; // true = seleccionado, false = deseleccionado
 }
 export interface StyleEvent {
@@ -70,17 +71,15 @@ export class SelectionService {
    // this.selectedKeySource.next(key);
   }
 
-  old_toggleSelect(key: string) {
-   // const current = this.selectedKeySource.value;
-    //this.selectedKeySource.next(current === key ? null : key);
-  }
+ 
 
-  toggleSelect(key: string) {
+  toggleSelect(key: string,front_parent?: string) {
     const currentKeys = this.selectedKeysSource.value.selectedKeys;
     const isSelected = currentKeys.includes(key);
 
     let newKeys: string[];
     console.log("estoy en selelected")
+
     if (isSelected) {
       // si ya estaba seleccionado, lo eliminamos
       newKeys = currentKeys.filter(k => k !== key);
@@ -92,7 +91,8 @@ export class SelectionService {
     this.selectedKeysSource.next({
       selectedKeys: newKeys,
       toggledKey: key,
-      selected: !isSelected
+      selected: !isSelected,
+      front_parent //para distinguir componentes que vienene de options y core
     });
   }
 

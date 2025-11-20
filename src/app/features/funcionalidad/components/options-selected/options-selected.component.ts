@@ -104,6 +104,18 @@ crearJson() {
     console.log("datos de tabla", this.tojsonItems);
     this.jsonResult = this.crearJsonService.convertTableToJson(this.tojsonItems);
     console.log('JSON generado:', this.jsonResult);
+
+     // 1VALIDACIÓN: comprobar los campos requeridos
+    const itemsInvalidos = this.tojsonItems.filter(item =>
+      item.required === 1 && (item.value === null || item.value === '' || item.value === undefined)
+    );
+
+    if (itemsInvalidos.length > 0) {
+     const lista = itemsInvalidos.map(i => i.level1 || i.key_name).join(", ");
+  alert("Faltan valores obligatorios para: " + lista);
+  return;
+    }
+
     //const jsonData = this.generarJson(); // Aquí generas tu objeto JSON
     this.dialog.open(DialogoJsonComponent, {
       width: '600px',
@@ -146,6 +158,12 @@ onDrop(event: any) {
       this.showlevel1service.deleteValues().subscribe({
         next: (res) => {
             console.log('Valores eliminados correctamente:', res);
+              this.selectedItems = [];
+        this.tojsonItems = [];
+        this.jsonResult = null;
+
+        // 🔹 Opcional: si tienes items bloqueados por drag&drop
+        this.copiedItem = {};
             // Si quieres, actualiza tu vista aquí (por ejemplo, recargar datos)
           },
           error: (err) => console.error('Error al eliminar valores:', err)

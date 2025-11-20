@@ -24,7 +24,7 @@ export class CrearJsonService {
 
     keys.forEach((rawKey, index) => {
       // 🔹 Normalizamos el texto (sin espacios, minúsculas)
-      const normalizedKey = rawKey.replace(/\s+/g, '').toLowerCase();
+      const normalizedKey = rawKey.replace(/\s+/g, '');
       const isArray = normalizedKey.endsWith("[]");
       const cleanKey = normalizedKey.replace(/\[\]$/, "");
       const isLast = index === keys.length - 1;

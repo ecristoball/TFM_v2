@@ -12,6 +12,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { StagesComponent } from './components/options-level1/stages/stages.component';
+import { OptionsComponent } from './components/options-level1/options/options.component';
 //import { DialogoGenericoComponent } from '../../shared/dialogo-generico/dialogo-generico.component';
 
 @NgModule({
@@ -19,7 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
     FuncionalidadComponent,
     OptionsLevel1Component,
     OptionsLevel2Component,
-    OptionsSelectedComponent
+    OptionsSelectedComponent,
+    StagesComponent,
+    OptionsComponent
   ],
 
   imports: [

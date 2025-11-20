@@ -2,7 +2,7 @@
   <div *ngIf="loading">Cargando...</div>
 
   <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
-    <h3 class="group-title">{{ groupKey | uppercase }}</h3>
+    <p class="group-title">{{ groupKey | uppercase }}</p>
 
     <div
       cdkDropList

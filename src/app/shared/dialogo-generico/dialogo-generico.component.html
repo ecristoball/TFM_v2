@@ -2,14 +2,15 @@
 <h2 mat-dialog-title>{{ data.title }}</h2>
 
 <mat-dialog-content>
-  <div *ngFor="let field of data.fields">
+  
+<div *ngFor="let field of data.fields">
     <mat-form-field *ngIf="field.type === 'text' || field.type === 'number'" appearance="outline">
-      <mat-label>{{ field.label }}</mat-label>
+      <mat-label>text {{ field.label }}</mat-label>
       <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
     </mat-form-field>
 
     <mat-checkbox *ngIf="field.type === 'checkbox'" [(ngModel)]="formValues[field.key]">
-      {{ field.label }}
+      number {{ field.label }}
     </mat-checkbox>
 
     <mat-form-field *ngIf="field.type === 'select'" appearance="outline">
@@ -36,8 +37,47 @@
       <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
     </mat-form-field>
 
+    <mat-form-field *ngIf="field.type === 'option'">
+      <mat-label>{{ field.value }}</mat-label>
+      <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
+    </mat-form-field>
+    <mat-radio-group
+      *ngIf="field.type === 'radio'"
+      [(ngModel)]="formValues[field.key]"
+      class="radio-group"
+    >
+      <mat-radio-button
+        *ngFor="let option of field.options"
+        class="radio-option"
+        [value]="option.value"
+      >
+        {{ option.label }}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <!-- Selección múltiple -->
+  <div *ngIf="field.type === 'multiselect'" class="multi-checkbox-group">
+    <h4>{{ field.label }}</h4>
+
+    <mat-checkbox
+      *ngFor="let option of field.options"
+      [(ngModel)]="formValues[field.key][option]"
+    >
+      {{ option }}
+    </mat-checkbox>
   </div>
+
+<!-- Tipo objeto: varios campos de texto -->
+  <div *ngIf="data.type === 'objectyy'" class="object-group">
+   
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [(ngModel)]="formValues[field.key]" type="text" />
+   
+  </div>
+
+</div>
 </mat-dialog-content>
+
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="cancel()">Cancelar</button>

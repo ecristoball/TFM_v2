@@ -19,7 +19,6 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
 
   constructor(private showlevel1service: Showlevel1Service, private selectionService:SelectionService) {}
 
-
   ngOnInit(): void { 
 
     /*this.subscription = this.selectionService.selectedKey$.subscribe(key => {
@@ -34,21 +33,22 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
     });
     });*/
 
-this.subscription = this.selectionService.selectedKeys$
-.pipe(skip(1))
-.subscribe(event => {
-    // si un item se seleccionó
-    if (event.selected && event.toggledKey) {
-      this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {
-        this.level2Groups[event.toggledKey!] = data;
-      });
-    }
+  this.subscription = this.selectionService.selectedKeys$
+  .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
+  .subscribe(event => {
+      // si un item se seleccionó
+      if (event.selected && event.toggledKey && event.front_parent!="core") {
+        this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {
+          this.level2Groups[event.toggledKey!] = data;
+        });
+        console.log("evento ", event.toggledKey,event.front_parent)
+      }
 
-    // si un item se deseleccionó
-    if (event.selected === false && event.toggledKey) {
-      delete this.level2Groups[event.toggledKey];
-    }
-  });
+      // si un item se deseleccionó
+      if (event.selected === false && event.toggledKey) {
+        delete this.level2Groups[event.toggledKey];
+      }
+    });
 
 /*
 
