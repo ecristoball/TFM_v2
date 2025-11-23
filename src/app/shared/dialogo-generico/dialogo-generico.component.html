@@ -5,9 +5,28 @@
   
 <div *ngFor="let field of data.fields">
     <mat-form-field *ngIf="field.type === 'text' || field.type === 'number'" appearance="outline">
-      <mat-label>text {{ field.label }}</mat-label>
-      <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
-    </mat-form-field>
+  <mat-label>{{ field.label }}</mat-label>
+
+  <input 
+    matInput 
+    [type]="field.type" 
+    [(ngModel)]="formValues[field.key]"
+    
+    *ngIf="field.type === 'text'"
+  />
+
+  <input 
+    matInput 
+    type="number"
+    [(ngModel)]="formValues[field.key]"
+    [attr.min]="field.min"
+    [attr.max]="field.max"
+    [attr.step]="field.step || 1"
+
+    *ngIf="field.type === 'number'"
+  />
+</mat-form-field>
+
 
     <mat-checkbox *ngIf="field.type === 'checkbox'" [(ngModel)]="formValues[field.key]">
       number {{ field.label }}
@@ -74,8 +93,19 @@
       <input matInput [(ngModel)]="formValues[field.key]" type="text" />
    
   </div>
-
+<div *ngIf="field.type === 'radio-with-text'">
+  <mat-radio-group [(ngModel)]="formValues[field.key].selectedOption">
+    <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
+      {{ option.label }}
+      <input *ngIf="option.value === 'other'" matInput 
+             [(ngModel)]="formValues[field.key].otherText"
+             [disabled]="formValues[field.key].selectedOption !== 'other'"
+             placeholder="Escribe aquí"/>
+    </mat-radio-button>
+  </mat-radio-group>
 </div>
+</div>
+
 </mat-dialog-content>
 
 

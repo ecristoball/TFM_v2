@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CrearJsonService } from '../../../../services/crear-json.service';
 import { Showlevel1Service,JsonKey } from '../../../../services/showlevel1.service';
 import { MostrarDialogoService } from '../../../../services/mostrar-dialogo.service';
 import { DialogoJsonComponent } from '../../../../shared/dialogo-json/dialogo-json.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription, skip  } from 'rxjs';
+import { SelectionService } from '../../../../services/selection.service';
 
 
 @Component({
@@ -14,74 +16,88 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 
-
-
 export class OptionsSelectedComponent {
 
   tojsonItems: any[] = [];
   jsonResult: any;
-
+  private subscription!: Subscription;
   constructor (private mostrarDialogoService: MostrarDialogoService, 
     private showlevel1service: Showlevel1Service, private crearJsonService:CrearJsonService,
-  private dialog: MatDialog) {}
-
-
-  
-  /*tableData = [
-    { L1: 'flowSetup', L2: 'options', L3: 'document', L4: 'extendedCoverage', Valor: 'valor1' },
-    { L1: 'flowSetup', L2: 'options', L3: 'document', L4: 'captur', Valor: 'valor2' },
-    { L1: 'flowSetup', L2: 'options', L3: 'document', L4: 'captures[]', L5:'scoreConfiguration',Valor: 'valor3' },
-    { L1: 'flowSetup', L2: 'options', L3: 'document', L4: 'captures[]',L5:'scoreConfon', Valor: 'valor3' },
-    {L1: 'flowSetup', L2: 'options', L3: 'document', L4: 'extendedCoverage', Valor: '' },
-    {L1: 'flowSetup', L2: 'options', L3: 'document', L4: 'extendedCoverage', Valor: 'valor1' },
-  ];*/
+  private dialog: MatDialog,private selectionService:SelectionService) {}
 
  
   @Input() connectedTo: string[] = [];
   selectedItems: any[] = [];
   copiedItem: any={};
+  ngOnInit(): void { 
+    
+  }
 
   onItemDropped(event: CdkDragDrop<any[]>) {
+
+    this.subscription = this.selectionService.selectedKeys$ //escucha el observable
+      .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
+      .subscribe(event => {
+          // si un item se seleccionó
+          if (event.selected && event.toggledKey ) {
+            //this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {
+             // this.level2Groups[event.toggledKey!] = data;
+             console.log("er")
+            //});
+            console.log("evento ", event.toggledKey,event.front_parent)
+          }
+    
+          // si un item se deseleccionó
+          if (event.selected === false && event.toggledKey) {
+            this.tojsonItems=[];
+            this.selectedItems = [];
+            this.jsonResult = null;
+            this.copiedItem = {};
+            console.log ("dlete")
+          }
+        });
     console.log("itemgrop")
-      if (event.previousContainer !== event.container) {
-        const item = event.previousContainer.data[event.previousIndex];
+    if (event.previousContainer !== event.container) {
+      const item = event.previousContainer.data[event.previousIndex];
 
         // Clonamos el item para no modificar el original
-        this.copiedItem = { ...item };
-        item.locked = true;
+      this.copiedItem = { ...item };
+      const itemType = event.item.data?.type || this.copiedItem.key_name;
+        console.log("item es ", itemType)
+        const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
+        console.log ("dialogo", dialog$,itemType)
+      // Muestra el dialogo, todavía no se ha hecho drop
+      if (dialog$) {
+        dialog$.subscribe(result => {
+          if (result) {
+            console.log(`Resultado del diálogo (${itemType}):`, result);
+
+          // Actualizar el valor directamente en el componente
+            const updatedItem = this.selectedItems.find(i => i.key_name === itemType);
+            if (updatedItem) {
+              updatedItem.value = result;
+              console.log("Item actualizado localmente:", updatedItem,updatedItem.value, result);
+            }
+
+          // Guardar en el backend
+            this.insertValue(itemType, result);
+             item.locked = true;
 
         // Insertamos el clon en la lista destino
         event.container.data.splice(event.currentIndex, 0, this.copiedItem);
         console.log("Item copiado sin borrar el original:", this.copiedItem);
+          }
+          if (!result){
+             console.log("El diálogo se cerró SIN datos");
+             return
+          }
+        });
       }
-      console.log ("drop")
-      const itemType = event.item.data?.type || this.copiedItem.key_name;
-      console.log("item es ", itemType)
+      
 
-      const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
-// para mostrar dialogos, no drag&drop
-   if (dialog$) {
-  dialog$.subscribe(result => {
-    if (result) {
-      console.log(`Resultado del diálogo (${itemType}):`, result);
-
-      // 🔹 Actualizar el valor directamente en el componente
-      const updatedItem = this.selectedItems.find(i => i.key_name === itemType);
-      if (updatedItem) {
-        updatedItem.value = result;
-        console.log("Item actualizado localmente:", updatedItem,updatedItem.value, result);
-      }
-
-      // 🔹 Guardar en el backend
-      this.insertValue(itemType, result);
+       
     }
-  });
-}
-
-
-
-
-
+    console.log ("drop")
   }
 
   insertValue(key:string,valor:any){
@@ -168,7 +184,7 @@ onDrop(event: any) {
           },
           error: (err) => console.error('Error al eliminar valores:', err)
         });
+    }
   }
-}
 
     }

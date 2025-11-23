@@ -21,19 +21,8 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
 
   ngOnInit(): void { 
 
-    /*this.subscription = this.selectionService.selectedKey$.subscribe(key => {
-      if (!key) return;
-      this.loading = true;
-     
-      this.showlevel1service.getOptionsBy(2, key).subscribe(data => {
-      //this.level2Items =[...this.level2Items, ...data];
-      this.level2Groups[key] = data;
-      this.loading = false;
-      console.log(data);
-    });
-    });*/
 
-  this.subscription = this.selectionService.selectedKeys$
+  this.subscription = this.selectionService.selectedKeys$ //escucha el observable
   .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
   .subscribe(event => {
       // si un item se seleccionó

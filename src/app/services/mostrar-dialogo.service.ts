@@ -10,9 +10,9 @@ export class MostrarDialogoService {
   constructor(private dialog: MatDialog) {}
 
   /**  Helpers para generar tipos de configuración */
-  private numberField = (key: string) => ({
+  private numberField = (key: string, min?: number,max?: number,step: number = 1) => ({
     title: key,
-    fields: [{ label: '', type: 'number', key: 'max' }]
+    fields: [{ label: '', type: 'number', key: 'max' , min, max, step}]
   });
 
   private booleanField = (key: string) => ({
@@ -110,6 +110,21 @@ private objectField = (title: string, fields: string[]) => ({
   }]
 });
 
+private radioWithTextField = (key: string, radioLabel: string, textLabel: string) => ({
+  title: key,
+  fields: [
+    {
+      label: radioLabel,
+      type: 'radio-with-text', // tipo nuevo que identificará tu HTML
+      key: 'choice',
+      options: [
+        { label: radioLabel, value: 'radio' },  // opción predefinida
+        { label: textLabel, value: 'other' }    // opción con input libre
+      ]
+    }
+  ]
+});
+
   /**  Mapa de configuraciones. Ir añadiendo configuracions aquí para mostrar en selected*/
   private dialogConfig: Record<string, any> = {
     // Ejemplo con select
@@ -124,41 +139,48 @@ private objectField = (title: string, fields: string[]) => ({
     language: this.radioField('language', ['es', 'en', ''],''),
     platform: this.radioField('platform', ['web']),
     // Ejemplo con number
-    minimumAcceptableAge: this.numberField('minimumAcceptableAge'),
+    minimumAcceptableAge: this.numberField('minimumAcceptableAge',1,100),
     maximumAcceptableTimeSinceExpiration: this.numberField('maximumAcceptableTimeSinceExpiration'),
     manualCaptureDelay: this.numberField('manualCaptureDelay'),
-    detectionTimeout: this.numberField('detectionTimeout'),
+    doc_detectionTimeout: this.numberField('doc_detectionTimeout'),
     challengeLength: this.numberField('challengeLength'),
+    selfie_detectionTimeout: this.numberField('selfie_detectionTimeout'),
 
     // Ejemplo con boolean
     extendedCoverage: this.booleanField('extendedCoverage'),
     geolocation: this.booleanField('geolocation'),
     manualCaptureShow: this.booleanField('manualCaptureShow'),
-    instructionsShow: this.booleanField('instructionsShow'),
+    doc_instructionsShow: this.booleanField('doc_instructionsShow'),
+    selfie_instructionsShow: this.booleanField('selfie_instructionsShow'),
+    ivideo_nstructionsShow: this.booleanField('video_instructionsShow'),
     reviewShow: this.booleanField('reviewShow'),
     videoDocComparison:this.booleanField('videoDocComparison'),
     requiredTermsAndConditions:this.booleanField('requiredTermsAndConditions'),
     required:this.booleanField('required'),
     confirmProcess:this.booleanField('confirmProcess'),
+    requireTermsAndConditions:this.booleanField('requireTermsAndConditions'),
     
     //ejemplo con string
     defaultCountry:this.textField('defaultCountry'),
     title:this.textField('title'),
-    name:this.textField('name'),
+    libraryDocumentIds:this.textField('libraryDocumentIds'),
     email:this.textField('email'),
     applicationCode:this.textField('applicationCode'),
+    signers_name:this.textField('signers_name'),
     
       //ejemplo de array
 
-    //documentTypes: this.arrayField('documentTypes'),
+    
     countryFilter: this.arrayField('countryFilter'),
+    documentTypes: this.arrayField('documentTypes'),
 
+
+    //documentTypes: this.radioWithTextField('documentTypes','SelectedByUser', 'otros'),
 
     pauseAfterStage:this.multiSelectField('pauseAfterStage',['document','selfie','video']),
-    documentTypes:this.multiSelectField('documentTypes',['selectedByUser','IDCard','ResidencePermit',
+    /*documentTypes:this.multiSelectField('documentTypes',['selectedByUser','IDCard','ResidencePermit',
       'DrivingLicense','IDCard-PO','DCard-MilitaryRS','DCard-MilitaryRT',
-      'DCard-MilitaryRR','HealthCard','ProfessionalCard','Passport'
-    ]),
+      'DCard-MilitaryRR','HealthCard','ProfessionalCard','Passport']),*/
     documentKindFilter:this.multiSelectField('documentKindFilter',['IDCard','DrivingLicense','HealthCard',
       'ProfessionalCard','Passport','XX_XX_XXXX','AnyCard'
     ]),
@@ -174,6 +196,7 @@ private objectField = (title: string, fields: string[]) => ({
   /** 🪟 Abre el diálogo según el tipo */
   openDialogForItem(itemType: string) {
     const config = this.dialogConfig[itemType];
+    console.log ("config",config)
 
     if (!config) {
       console.warn(`No hay configuración para el tipo: ${itemType}`);

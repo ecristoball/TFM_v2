@@ -21,11 +21,46 @@ export class SelectionService {
   // Estado compartido: el elemento seleccionado
   //private old_selectedKeySource = new BehaviorSubject<string | null>(null);
   //selectedKey$ = this.selectedKeySource.asObservable();
- private selectedKeysSource = new BehaviorSubject<SelectionEvent>({ selectedKeys: [] });
+ 
+  selectedKeysSource = new BehaviorSubject<SelectionEvent>({ selectedKeys: [] });
   selectedKeys$ = this.selectedKeysSource.asObservable();
 
-//  ESTILOS COMPARTIDOS ---
+   // ESTILOS POR ITEM
+  private styleSource = new BehaviorSubject<StyleEvent>({
+    key: '',
+    backgroundColor: '#000000',
+    borderColor: '#000000',
+    borderWidth: '1px'
+  });
+  style$ = this.styleSource.asObservable();
 
+  toggleSelect(key: string,front_parent?: string) {
+      const currentKeys = this.selectedKeysSource.value.selectedKeys;
+      const isSelected = currentKeys.includes(key);
+
+      let newKeys: string[];
+     
+
+      if (isSelected) {
+        // si ya estaba seleccionado, lo eliminamos
+        newKeys = currentKeys.filter(k => k !== key);
+      } else {
+        // si no estaba seleccionado, lo añadimos
+        newKeys = [...currentKeys, key];
+      }
+      console.log("estoy en selelected",newKeys)
+
+      this.selectedKeysSource.next({
+        selectedKeys: newKeys,
+        toggledKey: key,
+        selected: !isSelected,
+        front_parent //para distinguir componentes que vienene de options y core
+      });
+    }
+
+
+
+//  ESTILOS COMPARTIDOS ---
 
 /*
 
@@ -42,14 +77,7 @@ export class SelectionService {
 */
 
 
-  // ESTILOS POR ITEM
- private styleSource = new BehaviorSubject<StyleEvent>({
-  key: '',
-  backgroundColor: '#000000',
-  borderColor: '#000000',
-  borderWidth: '1px'
-});
-  style$ = this.styleSource.asObservable();
+ 
 
   updateStyle(key: string, style: Partial<StyleEvent>) {
   const current = this.styleSource.value;
@@ -73,28 +101,7 @@ export class SelectionService {
 
  
 
-  toggleSelect(key: string,front_parent?: string) {
-    const currentKeys = this.selectedKeysSource.value.selectedKeys;
-    const isSelected = currentKeys.includes(key);
-
-    let newKeys: string[];
-    console.log("estoy en selelected")
-
-    if (isSelected) {
-      // si ya estaba seleccionado, lo eliminamos
-      newKeys = currentKeys.filter(k => k !== key);
-    } else {
-      // si no estaba seleccionado, lo añadimos
-      newKeys = [...currentKeys, key];
-    }
-
-    this.selectedKeysSource.next({
-      selectedKeys: newKeys,
-      toggledKey: key,
-      selected: !isSelected,
-      front_parent //para distinguir componentes que vienene de options y core
-    });
-  }
+  
 
 }
 

@@ -1,5 +1,6 @@
 import { Component , Input} from '@angular/core';
 import { SelectionService } from '../../services/selection.service';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-item',
@@ -14,7 +15,30 @@ export class ItemComponent {
   selectedBorderWidth = 1;
 
   constructor(private selectionService: SelectionService) {}
+// item.component.ts (simplificado)
+ngOnInit() {
+  this.selectionService.selectedKeys$
+    .subscribe(evt => {
+      this.isActive = evt.selectedKeys.includes(this.item.key_name);
+    });
+}
 
+onCardClick() {
+  if (this.item.frontlevel !== '1' && this.item.frontlevel !== '20') return;
+
+  if (this.isActive) {
+    // si ya está activa pedimos confirmación y solo si acepta hacemos toggle
+    if (!confirm('¿Seguro que quieres borrar todos los valores?')) {
+      return;
+    }
+  }
+
+  // No tocamos this.isActive manualmente: delegamos en el servicio
+  this.selectionService.toggleSelect(this.item.key_name);
+}
+
+
+/*
   old_onCardClick() {
      if (this.item.frontlevel=="1"){
         this.isActive=!this.isActive;
@@ -24,16 +48,27 @@ export class ItemComponent {
   }
 
   onCardClick() {
+    
     if (this.item.frontlevel == "1" || this.item.frontlevel == "20") {
-        this.isActive=!this.isActive;
-      // alterna la selección: si ya estaba seleccionada, la deselecciona
-      this.selectionService.toggleSelect(this.item.key_name);
+      if(this.isActive){
+        console.log(this.isActive, "es activo")
+        if (confirm('¿Seguro que quieres borrar todos los valores?')){
+          this.isActive=!this.isActive;
+          console.log(this.isActive, "es activo")
+        // alterna la selección: si ya estaba seleccionada, la deselecciona
+        //this.selectionService.toggleSelect(this.item.key_name);
+        }
+      }
+      if(!this.isActive){
+        console.log(this.isActive, "mo es activo")
+          this.isActive=!this.isActive;
+        // alterna la selección: si ya estaba seleccionada, la deselecciona
+        this.selectionService.toggleSelect(this.item.key_name);
+      }
+     
     }
-    else if(this.item.frontlevel == "21"){
-
-    }
-    console.log("el item en level front es ", this.item);
-  }
+  console.log("el item en level front es ", this.item);  
+  }*/
 
   onBackgroundChange() {
     console.log("onBackgroudnCahange")
