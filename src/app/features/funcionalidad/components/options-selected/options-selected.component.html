@@ -1,14 +1,16 @@
 <main class="main-container">
   <h2>OPCIONES SELECCIONADAS</h2>
-  <div
-    cdkDropList
-    id="selected-list"
-    [cdkDropListData]="selectedItems"
-    class="selected-container"
-    [cdkDropListConnectedTo]="['groupKey + -list']"
-    (cdkDropListDropped)="onItemDropped($event)"
-  >
-    <app-item *ngFor="let item of selectedItems" [item]="item" cdkDrag></app-item>
+<div
+  cdkDropList
+  id="selected-list"
+  [cdkDropListData]="selectedItems"
+  class="selected-container"
+  [cdkDropListConnectedTo]="dropListIds"
+  (cdkDropListDropped)="onItemDropped($event)"
+>
+  
+ 
+    <app-item *ngFor="let item of selectedItems" [item]="item" cdkDrag [cdkDragData]="item"></app-item>
 
     <!--<button (click)="insertValue()"> insertar</button>-->
     <button class="json-btn" (click)="crearJson()"> MOSTRAR JSON</button>
@@ -21,3 +23,4 @@
     -->
   </div>
 </main>
+

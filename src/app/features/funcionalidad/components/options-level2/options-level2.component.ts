@@ -2,29 +2,29 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.service';
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
-import { CdkDragDrop,transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop,transferArrayItem,CdkDropList} from '@angular/cdk/drag-drop';
 import { skip } from 'rxjs';
+import { DragDropService } from '../../../../services/drag-drop.service';
+import { ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-options-level2',
   templateUrl: './options-level2.component.html',
   styleUrl: './options-level2.component.css'
 })
-export class OptionsLevel2Component implements OnInit, OnDestroy {
-  //level2Items: any[] = [];
 
+export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
+  //level2Items: any[] = [];
   level2Groups: {[key:string]:any[]}={};
   loading=false;
   private subscription!: Subscription;
-
-  constructor(private showlevel1service: Showlevel1Service, private selectionService:SelectionService) {}
+ @ViewChildren(CdkDropList) dropLists!: QueryList<CdkDropList>;
+  constructor(private showlevel1service: Showlevel1Service,private state: DragDropService, private selectionService:SelectionService) {}
 
   ngOnInit(): void { 
-
-
-  this.subscription = this.selectionService.selectedKeys$ //escucha el observable
-  .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
-  .subscribe(event => {
+    this.subscription = this.selectionService.selectedKeys$ //escucha el observable
+    .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
+    .subscribe(event => {
       // si un item se seleccionó
       if (event.selected && event.toggledKey && event.front_parent!="core") {
         this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {
@@ -32,12 +32,110 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
         });
         console.log("evento ", event.toggledKey,event.front_parent)
       }
-
       // si un item se deseleccionó
       if (event.selected === false && event.toggledKey) {
         delete this.level2Groups[event.toggledKey];
       }
     });
+
+    this.state.level2Groups$.subscribe(groups => {
+      this.level2Groups = groups;
+      const ids = Object.keys(groups).map(key => `${key}-list`);
+      this.state.setDropListIds(ids);
+      console.log("ids",ids)
+      console.log("IDS ENVIADOS DESDE LEVEL2", ids);
+    });
+
+   
+  }
+  objectKeys(obj: any): string[] {
+    return Object.keys(obj);
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+ngAfterViewInit() {
+  console.log("afete")
+  this.updateDropListIds();
+
+  this.dropLists.changes.subscribe(() => {
+    this.updateDropListIds();
+  });
+}
+
+private updateDropListIds() {
+  const ids = this.dropLists.map(list => list.id);
+  this.state.setDropListIds(ids);
+  console.log("Actualizando dropListIds:", ids);
+}
+  onItemDropped(event: CdkDragDrop<any[]>) {
+
+    console.log('previous:', event.previousContainer.id, 'destious:', event.container.id);
+console.log('prevDataios:', event.previousContainer.data);
+console.log('destDataios:', event.container.data);
+const item = event.previousContainer.data[event.previousIndex];
+console.log("estoy aqui=", item)
+
+  const fromSelected = event.previousContainer.id === 'selected-list';
+  const toSelected = event.container.id === 'selected-list';
+
+  this.state.moveItemBetweenLists(item, fromSelected, toSelected, event.currentIndex);
+/*
+    console.log("dropeado")
+    if (event.previousContainer !== event.container) {
+    console.log("dropeado")
+    this.state.moveItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+    console.log("intento hacer drop")
+  }*/
+    /*
+  }
+    if (event.previousContainer.id === 'optionsSelected') {
+
+        const item = event.previousContainer.data[event.previousIndex];
+
+        // Insertar en el grupo correcto
+        this.level2Groups[groupKey].splice(event.currentIndex, 0, item);
+
+        // Eliminar de options-selected
+        event.previousContainer.data.splice(event.previousIndex, 1);
+
+        return;
+        */
+  }
+
+      /*
+    if (event.previousContainer !== event.container) {
+      
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }*/
+  
+
+}
+
+/*
+
+    this.subscription = this.selectionService.selectedKey$.subscribe(key => {
+      if (!key) return;
+      this.loading = true;
+     
+      this.showlevel1service.getItemsBy(1, key).subscribe(data => {
+      this.level2Items = data;
+      this.loading = false;
+      console.log(data);
+    });
+    });
+    */
+
 
 /*
 
@@ -64,61 +162,6 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
 */
 
 
-       
-  }
-   objectKeys(obj: any): string[] {
-    return Object.keys(obj);
-   }
-  ngOnDestroy(): void {
-     this.subscription.unsubscribe();
-  }
-  onItemDropped(event: CdkDragDrop<any[]>) {
-    if (event.previousContainer !== event.container) {
-      
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-  }
-
-}
-
-/*
-
-    this.subscription = this.selectionService.selectedKey$.subscribe(key => {
-      if (!key) return;
-      this.loading = true;
-     
-      this.showlevel1service.getItemsBy(1, key).subscribe(data => {
-      this.level2Items = data;
-      this.loading = false;
-      console.log(data);
-    });
-    });
-    */
-
-
-
-
-  /*
-   level2DocumentItems=[
-    {id:1, name:'Con Selector'},
-    {id:2, name:'Sin Selector'},
-    {id:3, name:'País'},
-    {id:4, name:'Datos Contextuales'},
-    {id:5, name:'Documento'},
-    {id:6, name:'Selfie Pasivo'},
-    {id:7, name:'Selfie Activo'},
-    {id:8, name:'Video'},
-    {id:9, name:'QR'},
-    {id:10, name:'Sellado de tiempo'},
-    {id:11, name:'Servicio del Ministerio'},
-    {id:12, name:'Peps & Sanctions'},
-    {id:13, name:'eSign'}
-  ]*/
 
 
 

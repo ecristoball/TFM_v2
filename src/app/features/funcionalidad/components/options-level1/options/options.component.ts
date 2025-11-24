@@ -21,10 +21,7 @@ export class OptionsComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.level1Items = data;
-        data.forEach(item => {
-          console.log('ID:', item.id);
-        });
-        console.log(data);
+        
       });
   }
 

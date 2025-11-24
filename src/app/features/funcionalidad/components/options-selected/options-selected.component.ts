@@ -7,6 +7,7 @@ import { DialogoJsonComponent } from '../../../../shared/dialogo-json/dialogo-js
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, skip  } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
+import { DragDropService } from '../../../../services/drag-drop.service';
 
 
 @Component({
@@ -23,18 +24,37 @@ export class OptionsSelectedComponent {
   private subscription!: Subscription;
   constructor (private mostrarDialogoService: MostrarDialogoService, 
     private showlevel1service: Showlevel1Service, private crearJsonService:CrearJsonService,
-  private dialog: MatDialog,private selectionService:SelectionService) {}
+  private dialog: MatDialog,private selectionService:SelectionService,private state: DragDropService) {}
 
  
   @Input() connectedTo: string[] = [];
   selectedItems: any[] = [];
   copiedItem: any={};
-  ngOnInit(): void { 
+
+  //escucha los ids y conéctalos
+
+  dropListIds: string[] = [];
+
+  ngOnInit() {
+    console.log(this.dropListIds)
+    this.state.selectedItems$.subscribe(items => {
+      this.selectedItems = items;
+      console.log("itesss", items)
+    });
     
-  }
+
+    this.state.dropListIds$.subscribe(ids => {
+  console.log('dropListIds', ids);
+  this.dropListIds = ids;
+});
+  } 
+
+
 
   onItemDropped(event: CdkDragDrop<any[]>) {
-
+console.log('prev:', event.previousContainer.id, 'dest:', event.container.id);
+console.log('prevData:', event.previousContainer.data);
+console.log('destData:', event.container.data);
     this.subscription = this.selectionService.selectedKeys$ //escucha el observable
       .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
       .subscribe(event => {
@@ -56,16 +76,24 @@ export class OptionsSelectedComponent {
             console.log ("dlete")
           }
         });
-    console.log("itemgrop")
+    console.log("itemgropxx")
     if (event.previousContainer !== event.container) {
+      console.log("itemgrop2222")
       const item = event.previousContainer.data[event.previousIndex];
-
-        // Clonamos el item para no modificar el original
+      console.log("itemgrop222888", item)
       this.copiedItem = { ...item };
       const itemType = event.item.data?.type || this.copiedItem.key_name;
-        console.log("item es ", itemType)
+      console.log("item ess ", itemType)
+   
         const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
+        
         console.log ("dialogo", dialog$,itemType)
+
+
+
+
+        
+
       // Muestra el dialogo, todavía no se ha hecho drop
       if (dialog$) {
         dialog$.subscribe(result => {
@@ -84,8 +112,10 @@ export class OptionsSelectedComponent {
              item.locked = true;
 
         // Insertamos el clon en la lista destino
-        event.container.data.splice(event.currentIndex, 0, this.copiedItem);
-        console.log("Item copiado sin borrar el original:", this.copiedItem);
+            this.state.addItemToSelected(this.copiedItem);
+            console.log("item esssssssssssss ", this.copiedItem)
+            //event.container.data.splice(event.currentIndex, 0, this.copiedItem);
+            console.log("Item copiado sin borrar el original:", this.copiedItem);
           }
           if (!result){
              console.log("El diálogo se cerró SIN datos");
@@ -93,9 +123,7 @@ export class OptionsSelectedComponent {
           }
         });
       }
-      
-
-       
+           
     }
     console.log ("drop")
   }
@@ -152,7 +180,7 @@ parseValue(value: any) {
 
 
 
-
+/*
 onDrop(event: any) {
   console.log ("drop")
   const itemType = event.item.data?.type || 'scoresConfiguration';
@@ -168,6 +196,7 @@ onDrop(event: any) {
     });
   }
 }
+  */
 
   onDelete(){
     if (confirm('¿Seguro que quieres borrar todos los valores?')){

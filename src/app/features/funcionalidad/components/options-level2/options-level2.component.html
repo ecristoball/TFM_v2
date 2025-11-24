@@ -1,9 +1,7 @@
+ <h2>OPCIONES DISPONIBLESS</h2>
 <main class="cont">
-  <div *ngIf="loading">Cargando...</div>
-
   <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
     <p class="group-title">{{ groupKey | uppercase }}</p>
-
     <div
       cdkDropList
       [id]="groupKey + '-list'"
@@ -17,9 +15,10 @@
         [item]="item"
         class="item"
         cdkDrag
+        [cdkDragData]="item"
          [cdkDragDisabled]="item.locked"
         [ngClass]="{ 'locked': item.locked }"
-      ></app-item>
+      >{{ item.name }}</app-item>
     </div>
   </div>
 </main>
