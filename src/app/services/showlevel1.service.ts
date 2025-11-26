@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment/environment';
 
 export interface JsonKey {
   id: number;
@@ -15,8 +16,8 @@ export interface JsonKey {
   providedIn: 'root'
 })
 export class Showlevel1Service {
-  private apiUrl = 'http://127.0.0.1:8000/api/json_funcionalidades_keys'; // endpoint Laravel
-
+  //private apiUrl = 'http://127.0.0.1:8000/api/json_funcionalidades_keys'; // endpoint Laravel
+private apiUrl = `${environment.apiUrl}/json_funcionalidades_keys`;
   constructor(private http: HttpClient) { }
 
     getAllKeys(): Observable<JsonKey[]> {
