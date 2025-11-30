@@ -130,19 +130,26 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     // Ejemplo con select
     serviceMode: this.radioField('serviceMode', ['validation', 'ocr']),
     deviceRotatedOnOrientation:this.radioField('deviceRotatedOnOrientation',['landscape','portrait','none']),
-    selectCamera:this.radioField('selectCamera',['front','back']),
+    doc_selectCamera:this.radioField('doc_selectCamera',['front','back']),
+    selfie_selectCamera:this.radioField('selfie_selectCamera',['front','back']),
+    video_selectCamera:this.radioField('video_selectCamera',['front','back']),
     liveness:this.radioField('liveness',['passive','active']),
     authority:this.radioField('authority',['fnmt','izenpe','standard']),
 
     // seleccion
     operationMode: this.radioField('operationMode', ['idv'], 'idv'),
-    language: this.radioField('language', ['es', 'en', ''],''),
-    platform: this.radioField('platform', ['web']),
+    language: this.radioField('language', ['es', 'en']),
+    platform: this.radioField('platform', ['web'],'web'),
+    services: this.radioField('services', ['AAMVA', 'RENIEC', 'ReceitaFederal','ESMinistry']),
+    types: this.radioField('types', ['pep', 'pep-class-1', 'pep-class-2', 'pep-class-3', 'pep-class-4', 'sanction', 'warning', 'adverse-media-v2-property', 'adverse-media-v2-financial-aml-cft', 'adverse-media-v2-fraud-linked', 'adverse-media-v2-narcotics-aml-cft', 'adverse-media-v2-violence-aml-cft', 'adverse-media-v2-terrorism', 'adverse-media-v2-cybercrime', 'adverse-media-v2-general-aml-cft', 'adverse-media-v2-regulatory', 'adverse-media-v2-financial-difficulty', 'adverse-media-v2-violence-non-aml-cft', 'adverse-media-v2-other-financial', 'adverse-media-v2-other-serious', 'adverse-media-v2-other-minor'],'web'),
+
+    
     // Ejemplo con number
     minimumAcceptableAge: this.numberField('minimumAcceptableAge',1,100),
     maximumAcceptableTimeSinceExpiration: this.numberField('maximumAcceptableTimeSinceExpiration'),
     manualCaptureDelay: this.numberField('manualCaptureDelay'),
     doc_detectionTimeout: this.numberField('doc_detectionTimeout'),
+    video_detectionTimeout: this.numberField('video_detectionTimeout'),
     challengeLength: this.numberField('challengeLength'),
     selfie_detectionTimeout: this.numberField('selfie_detectionTimeout'),
 
@@ -152,14 +159,17 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     manualCaptureShow: this.booleanField('manualCaptureShow'),
     doc_instructionsShow: this.booleanField('doc_instructionsShow'),
     selfie_instructionsShow: this.booleanField('selfie_instructionsShow'),
-    ivideo_nstructionsShow: this.booleanField('video_instructionsShow'),
-    reviewShow: this.booleanField('reviewShow'),
+    video_instructionsShow: this.booleanField('video_instructionsShow'),
+    doc_reviewShow: this.booleanField('doc_reviewShow'),
+    selfie_reviewShow: this.booleanField('selfie_reviewShow'),
     videoDocComparison:this.booleanField('videoDocComparison'),
     requiredTermsAndConditions:this.booleanField('requiredTermsAndConditions'),
     required:this.booleanField('required'),
     confirmProcess:this.booleanField('confirmProcess'),
     requireTermsAndConditions:this.booleanField('requireTermsAndConditions'),
-    
+    modal_show:this.booleanField('modal_show'),  
+    continue_desktop:this.booleanField('continue_desktop'),  
+
     //ejemplo con string
     defaultCountry:this.textField('defaultCountry'),
     title:this.textField('title'),
@@ -167,6 +177,9 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     email:this.textField('email'),
     applicationCode:this.textField('applicationCode'),
     signers_name:this.textField('signers_name'),
+    signers_email:this.textField('signers_email'),
+    redirectionUrl:this.textField('redirectionUrl'),
+    
     
       //ejemplo de array
 

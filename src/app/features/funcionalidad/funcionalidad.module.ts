@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { StagesComponent } from './components/options-level1/stages/stages.component';
 import { OptionsComponent } from './components/options-level1/options/options.component';
 //import { DialogoGenericoComponent } from '../../shared/dialogo-generico/dialogo-generico.component';
+// Importar módulos de Angular Material
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { OptionsComponent } from './components/options-level1/options/options.co
     SharedModule,
     DragDropModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule
   ]
 })
 export class FuncionalidadModule {

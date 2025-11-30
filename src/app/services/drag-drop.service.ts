@@ -89,7 +89,7 @@ export class DragDropService {
     this.selectedItemsSubject.next(updated);
   }
 
-  // mover/reordenar dentro de listas (si quieres usarlo)
+  // mover/reordenar dentro de listas 
   moveItem(previousList: any[], currentList: any[], previousIndex: number, currentIndex: number) {
     const item = previousList.splice(previousIndex, 1)[0];
     currentList.splice(currentIndex, 0, item);

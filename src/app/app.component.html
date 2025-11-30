@@ -1,11 +1,13 @@
-<nav class="navbar">
-  <div class="logo">MiLogo</div>
-  <ul class="nav-links">
-    <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
-    <li><a routerLink="/funcionalidad" routerLinkActive="active">Funcionalidad</a></li>
-     <li><a routerLink="/estilos" routerLinkActive="active">Estilos</a></li>
-  </ul>
-</nav>
-
-
-<router-outlet />
+<div class="app-container">
+  <nav class="navbar">
+    <div class="logo">MiLogo</div>
+    <ul class="nav-links">
+      <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
+      <li><a routerLink="/funcionalidad" routerLinkActive="active">Funcionalidad</a></li>
+      <li><a routerLink="/estilos" routerLinkActive="active">Estilos</a></li>
+    </ul>
+  </nav>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

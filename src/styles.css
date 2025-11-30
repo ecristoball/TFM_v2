@@ -7,5 +7,9 @@ html, body {
     overflow: hidden;
     box-sizing: border-box;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    border:1px solid #f30404;
+}

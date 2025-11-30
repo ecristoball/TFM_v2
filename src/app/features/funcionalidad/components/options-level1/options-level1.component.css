@@ -2,7 +2,7 @@
 .layout-grid{
     display: block;
     grid-template-columns: 15% 1fr 25%;
-    height: 100vh;
+    height: 100%;
     gap:10px;
     padding: 10px;
     box-sizing: border-box;

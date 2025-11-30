@@ -51,6 +51,10 @@ private apiUrl = `${environment.apiUrl}/json_funcionalidades_keys`;
     deleteValues(): Observable<JsonKey[]> {
       return this.http.delete<JsonKey[]>(`${this.apiUrl}/values`);
     }
+
+    deleteValue(keyName: string, ): Observable<JsonKey[]> {
+      return this.http.delete<JsonKey[]>(`${this.apiUrl}/delete/${keyName}`);
+    }
 }
 
 
