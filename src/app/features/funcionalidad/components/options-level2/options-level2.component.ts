@@ -42,45 +42,49 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
       this.level2Groups = groups;
       const ids = Object.keys(groups).map(key => `${key}-list`);
       this.state.setDropListIds(ids);
-      console.log("ids",ids)
       console.log("IDS ENVIADOS DESDE LEVEL2", ids);
     });
 
    
   }
+
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-ngAfterViewInit() {
-  console.log("afete")
-  this.updateDropListIds();
-
-  this.dropLists.changes.subscribe(() => {
+  ngAfterViewInit() {
+    console.log("afete")
     this.updateDropListIds();
-  });
-}
 
-private updateDropListIds() {
-  const ids = this.dropLists.map(list => list.id);
-  this.state.setDropListIds(ids);
-  console.log("Actualizando dropListIds:", ids);
-}
+    this.dropLists.changes.subscribe(() => {
+      this.updateDropListIds();
+    });
+  }
+
+  private updateDropListIds() {
+    const ids = this.dropLists.map(list => list.id);
+    this.state.setDropListIds(ids);
+    console.log("Actualizando dropListIds: en options level2", ids);
+  }
+
+  //drop en options-level2, cuando vuelve de selected
   onItemDropped(event: CdkDragDrop<any[]>) {
 
     console.log('previous:', event.previousContainer.id, 'destious:', event.container.id);
-console.log('prevDataios:', event.previousContainer.data);
-console.log('destDataios:', event.container.data);
-const item = event.previousContainer.data[event.previousIndex];
-console.log("estoy aqui=", item)
+    console.log('prevDataios:', event.previousContainer.data);
+    console.log('destDataios:', event.container.data);
+    const item = event.previousContainer.data[event.previousIndex];
+    console.log("estoy aqui=", item)
 
-  const fromSelected = event.previousContainer.id === 'selected-list';
-  const toSelected = event.container.id === 'selected-list';
+    const fromSelected = event.previousContainer.id === 'selected-list';
+    const toSelected = event.container.id === 'selected-list';
 
-  this.state.moveItemBetweenLists(item, fromSelected, toSelected, event.currentIndex);
-/*
+    this.state.moveItemBetweenLists(item, fromSelected, toSelected, event.currentIndex);
+  }
+}
+  /*
     console.log("dropeado")
     if (event.previousContainer !== event.container) {
     console.log("dropeado")
@@ -106,7 +110,7 @@ console.log("estoy aqui=", item)
 
         return;
         */
-  }
+ 
 
       /*
     if (event.previousContainer !== event.container) {
@@ -120,7 +124,7 @@ console.log("estoy aqui=", item)
     }*/
   
 
-}
+
 
 /*
 

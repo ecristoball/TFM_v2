@@ -104,32 +104,34 @@ export class DragDropService {
   fromSelected: boolean,
   toSelected: boolean,
   currentIndex: number
-) {
-  const level2Groups = this.level2GroupsSubject.value;
-  let selectedItems = this.selectedItemsSubject.value;
-  console.log(item, "fromseleceted",fromSelected, "toselected",toSelected)
-  if (fromSelected && toSelected) return; // no hacer nada si es el mismo
+  ) {
+    const level2Groups = this.level2GroupsSubject.value;
+    let selectedItems = this.selectedItemsSubject.value;
+    console.log(item, "fromseleceted",fromSelected, "toselected",toSelected)
+    if (fromSelected && toSelected) return; // no hacer nada si es el mismo
 
-  if (fromSelected && !toSelected) {
-    // mover desde selected → level2
-    console.log("a 2")
-    const groupKey = item.frontparent;
-    console.log(groupKey,"groupkey")
-    selectedItems = selectedItems.filter(i => i !== item);
-    console.log(groupKey,selectedItems,"groupkey")
-   const originalItem = level2Groups[groupKey].find(i => i.id === item.id);
+    if (fromSelected && !toSelected) {
+      // mover desde selected → level2
+      console.log("a level2")
+      const groupKey = item.frontparent;
+      console.log(groupKey,"groupkey", selectedItems)
+      selectedItems = selectedItems.filter(i => i !== item);
+      console.log(groupKey,selectedItems,"groupkey")
+      const originalItem = level2Groups[groupKey].find(i => i.id === item.id);
 
-  // 3. desbloquearlo
-  if (originalItem) {
-    originalItem.locked = false;
-  }
+      // desbloquearlo
+      if (originalItem) {
+        originalItem.locked = false;
+      }
 
-  } else if (!fromSelected && toSelected) {
-    // mover desde level2 → selected
-    const groupKey = item.originalGroupKey;
-    level2Groups[groupKey] = level2Groups[groupKey].filter(i => i !== item);
-    selectedItems.splice(currentIndex, 0, item);
-  }
+    } else if (!fromSelected && toSelected) {
+      // mover desde level2 → selected
+      console.log("a selected ")
+      const groupKey = item.originalGroupKey;
+      level2Groups[groupKey] = level2Groups[groupKey].filter(i => i !== item);
+      selectedItems.splice(currentIndex, 0, item);
+      console.log("items seleccionados",selectedItems)
+    }
 
   // Emitimos el nuevo estado
   this.level2GroupsSubject.next({ ...level2Groups });

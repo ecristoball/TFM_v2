@@ -16,26 +16,26 @@ export interface JsonKey {
   providedIn: 'root'
 })
 export class Showlevel1Service {
-  //private apiUrl = 'http://127.0.0.1:8000/api/json_funcionalidades_keys'; // endpoint Laravel
-private apiUrl = `${environment.apiUrl}/json_funcionalidades_keys`;
+  //private apiUrl = 'http://127.0.0.1:8000/api/json_funcionalidades_keys'; // en local
+  private apiUrl = `${environment.apiUrl}/json_funcionalidades_keys`;
   constructor(private http: HttpClient) { }
-
+    //Recupera todas las claves de la base de datos.
     getAllKeys(): Observable<JsonKey[]> {
       return this.http.get<JsonKey[]>(this.apiUrl);
     }
-
+    //Obtiene los elementos que dependen de una clave padre específica.
     getByParent(parent: string): Observable<JsonKey[]> {
       return this.http.get<JsonKey[]>(`${this.apiUrl}/parent/${parent}`);
     }
-
+    //Filtra los elementos según su nivel en la jerarquía de la interfaz.
     getByFrontLevel(frontlevel: number | string): Observable<JsonKey[]> {
       return this.http.get<JsonKey[]>(`${this.apiUrl}/frontlevel/${frontlevel}`);
     }
-
+    //Devuelve  los keynames asociados a un determinado frontlevel 
     getItemsBy(frontlevel: number, keyName: string) {
        return this.http.get<JsonKey[]>(`${this.apiUrl}/filter/${frontlevel}/${keyName}`);
     }
-
+    //Devuelve  los keynames asociados a un determinado frontparent 
     getOptionsBy(frontlevel: number, frontparent: string) {
         return this.http.get<JsonKey[]>(`${this.apiUrl}/${frontlevel}/${frontparent}`);
     }
@@ -44,14 +44,15 @@ private apiUrl = `${environment.apiUrl}/json_funcionalidades_keys`;
     getLevelsBy(frontlevel: number) {
         return this.http.get<JsonKey[]>(`${this.apiUrl}/levelsbyfrontlevel/${frontlevel}`);
     }
+    //Inserta en BBDD un valor para un determinado keyName 
     updateValue(keyName: string, value: any) {
        return this.http.put<JsonKey[]>(`${this.apiUrl}/update/${keyName}`, {value});
     }
-
-    deleteValues(): Observable<JsonKey[]> {
-      return this.http.delete<JsonKey[]>(`${this.apiUrl}/values`);
+    //Borra todos los valores de la BBDD
+    deleteValues(): Observable<void> {
+      return this.http.delete<void>(`${this.apiUrl}/deleteall`);
     }
-
+    //Borra un determinado valor de la BBDD, el asociado a keyName
     deleteValue(keyName: string, ): Observable<JsonKey[]> {
       return this.http.delete<JsonKey[]>(`${this.apiUrl}/delete/${keyName}`);
     }

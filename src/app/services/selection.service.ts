@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-
-
 export interface SelectionEvent {
   selectedKeys: string[];
   toggledKey?: string;
@@ -20,7 +18,7 @@ export interface StyleEvent {
 export class SelectionService {
   // Estado compartido: el elemento seleccionado
   //private old_selectedKeySource = new BehaviorSubject<string | null>(null);
-  //selectedKey$ = this.selectedKeySource.asObservable();
+  //selectedKey$ = this.selec tedKeySource.asObservable();
  
   selectedKeysSource = new BehaviorSubject<SelectionEvent>({ selectedKeys: [] });
   selectedKeys$ = this.selectedKeysSource.asObservable();
@@ -48,7 +46,7 @@ export class SelectionService {
         // si no estaba seleccionado, lo añadimos
         newKeys = [...currentKeys, key];
       }
-      console.log("estoy en selelected",newKeys)
+      console.log("new keys",newKeys)
 
       this.selectedKeysSource.next({
         selectedKeys: newKeys,

@@ -9,7 +9,9 @@ import { HomeComponent } from './features/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 //import { EstilosModule } from './features/estilos/estilos.module';
-
+import { Showlevel1Service } from './services/showlevel1.service';
+import { appInitializer } from './app-init';
+import { APP_INITIALIZER } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    Showlevel1Service,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      deps: [Showlevel1Service],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -52,9 +52,9 @@ export class OptionsSelectedComponent {
 
 
   onItemDropped(event: CdkDragDrop<any[]>) {
-console.log('prev:', event.previousContainer.id, 'dest:', event.container.id);
-console.log('prevData:', event.previousContainer.data);
-console.log('destData:', event.container.data);
+    console.log('prev:', event.previousContainer.id, 'dest:', event.container.id);
+    console.log('prevData:', event.previousContainer.data);
+    console.log('destData:', event.container.data);
     this.subscription = this.selectionService.selectedKeys$ //escucha el observable
       .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
       .subscribe(event => {
@@ -102,14 +102,17 @@ console.log('destData:', event.container.data);
 
           // Actualizar el valor directamente en el componente
             const updatedItem = this.selectedItems.find(i => i.key_name === itemType);
+            console.log("updated",updatedItem)
             if (updatedItem) {
               updatedItem.value = result;
               console.log("Item actualizado localmente:", updatedItem,updatedItem.value, result);
-            }
+            }  
 
           // Guardar en el backend
             this.insertValue(itemType, result);
              item.locked = true;
+             console.log("result",result)
+             
 
         // Insertamos el clon en la lista destino
             this.state.addItemToSelected(this.copiedItem);
