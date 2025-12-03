@@ -1,1 +1,42 @@
 <p>home works!</p>
+<!--
+<form (ngSubmit)="onSubmit()" [formGroup]="homeForm" class="home-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="email" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" type="password" required>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="homeForm.invalid">
+    Login
+  </button>
+</form>
+
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>*
+-->
+ <h2>Formulario Reactivo</h2>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+  <label>Email</label>
+  <input type="email" formControlName="email">
+  
+  <label>Password</label>
+  <input type="password" formControlName="password">
+
+  <button type="submit" [disabled]="myForm.invalid">Enviar</button>
+</form>
+
+<div *ngIf="loginOK" style="color: green; margin-top: 10px;">
+  ✔ Login OK
+</div>
+
+<div *ngIf="errorMessage" style="color: red; margin-top: 10px;">
+  {{ errorMessage }}
+</div>
+
+

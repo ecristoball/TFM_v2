@@ -12,11 +12,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { Showlevel1Service } from './services/showlevel1.service';
 import { appInitializer } from './app-init';
 import { APP_INITIALIZER } from '@angular/core';
+import { HomeModule } from './features/home/home.module';
+//import { LoginComponent } from './features/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    //HomeComponent,
+    //LoginComponent,
     
   ],
   imports: [
@@ -26,6 +29,7 @@ import { APP_INITIALIZER } from '@angular/core';
     HttpClientModule,
     FormsModule,
     //EstilosModule,
+    HomeModule
 
   ],
   providers: [
