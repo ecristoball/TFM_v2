@@ -1,0 +1,20 @@
+<h2>LOGIN</h2>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+  <label>Email</label>
+  <input type="email" formControlName="email">
+  
+  <label>Password</label>
+  <input type="password" formControlName="password">
+
+  <button type="submit" [disabled]="myForm.invalid">Enviar</button>
+</form>
+
+<div *ngIf="loginOK" style="color: green; margin-top: 10px;">
+  ✔ Login OK
+</div>
+
+<div *ngIf="errorMessage" style="color: red; margin-top: 10px;">
+  {{ errorMessage }}
+</div>

@@ -21,6 +21,10 @@
       <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
 
       <!-- Esta opción pueden verla Admin y User1 -->
+      <li>
+        <a routerLink="/login" routerLinkActive="active">LOGIN</a>
+      </li>
+
       <li *appCan="[1, 2]">
         <a routerLink="/funcionalidad" routerLinkActive="active">Funcionalidad</a>
       </li>
