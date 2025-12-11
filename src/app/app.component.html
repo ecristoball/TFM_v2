@@ -1,3 +1,4 @@
+<!--
 <div class="app-container">
   <nav class="navbar">
     <div class="logo">MiLogo</div>
@@ -7,6 +8,31 @@
       <li><a routerLink="/estilos" routerLinkActive="active">Estilos</a></li>
     </ul>
   </nav>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+-->
+<div class="app-container">
+  <nav class="navbar">
+    <div class="logo">MiLogo</div>
+    <ul class="nav-links">
+
+      <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
+
+      <!-- Esta opción pueden verla Admin y User1 -->
+      <li *appCan="[1, 2]">
+        <a routerLink="/funcionalidad" routerLinkActive="active">Funcionalidad</a>
+      </li>
+
+      <!-- Esta opción SOLO para admin -->
+      <li *appCan="1">
+        <a routerLink="/estilos" routerLinkActive="active">Estilos</a>
+      </li>
+
+    </ul>
+  </nav>
+
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>

@@ -13,11 +13,13 @@ import { Showlevel1Service } from './services/showlevel1.service';
 import { appInitializer } from './app-init';
 import { APP_INITIALIZER } from '@angular/core';
 import { HomeModule } from './features/home/home.module';
+import { CanDirective } from './directivas/can.directive';
 //import { LoginComponent } from './features/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    CanDirective,
     //HomeComponent,
     //LoginComponent,
     
