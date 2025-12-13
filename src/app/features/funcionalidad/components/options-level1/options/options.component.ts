@@ -27,38 +27,23 @@ export class OptionsComponent {
 */
 ngOnInit():void {
   console.log("carga options document, selfie...")
-    /*this.authService.user$.subscribe(user => {
-      console.log("user",user)
-      if (!user) return; // sale si no hay usuario
+  const user = this.authService.currentUser;
+  const user2 = this.authService.user$;
+  const parentKey = 'stages';
 
-      this.showlevel1service.getOptionsBy(1,"options").subscribe(data => {
-        if (user.role_id == 3) {
-          console.log("es documento y data",data)
-          this.level1Items = data.filter(i => i.key_name === 'document' ||  i.key_name === 'selfie' ||
-             i.key_name === 'video' ||  i.key_name === 'qr' ||
-              i.key_name === 'timestamp' ||  i.key_name === 'esign' ||
-               i.key_name === 'pepSanctions' ||  i.key_name === 'identityVerification'
-          );
-        } else if (user.role_id == 2) {
-          this.level1Items = data.filter(i => i.key_name === 'selfie');
-        } else {
-          this.level1Items = data; // todos
-        }
-      });
-    });*/
-    const user = this.authService.currentUser;
-    console.log(user)
-    if (!user) {
-      console.error("Usuario no autenticado");
-      return;
-    }
-    const userId = user.id;
+  console.log(user, user2)
+  if (!user) {
+    console.error("Usuario no autenticado");
+    return;
+  }
+  const userId = user.id;
     console.log("userid es : ",userId)
-    this.authService.getUserFunctionalities(userId)
+    this.authService.getUserFunctionalities(userId,parentKey)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (data:any) => {
         console.log("DATA COMPLETA DEL BACKEND:", data);
+
         this.level1Items = data
         console.log(this.level1Items);
       },

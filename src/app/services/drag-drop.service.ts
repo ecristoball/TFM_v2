@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+
 /*** previo funciona 
 @Injectable({
   providedIn: 'root'
@@ -123,6 +124,8 @@ export class DragDropService {
       if (originalItem) {
         originalItem.locked = false;
       }
+  
+
 
     } else if (!fromSelected && toSelected) {
       // mover desde level2 → selected

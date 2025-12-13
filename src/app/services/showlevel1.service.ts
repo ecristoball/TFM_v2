@@ -53,9 +53,21 @@ export class Showlevel1Service {
       return this.http.delete<void>(`${this.apiUrl}/deleteall`);
     }
     //Borra un determinado valor de la BBDD, el asociado a keyName
-    deleteValue(keyName: string, ): Observable<JsonKey[]> {
-      return this.http.delete<JsonKey[]>(`${this.apiUrl}/delete/${keyName}`);
+    deleteValue(keyName: string): Observable<any> {
+      return this.http.delete(
+        `${this.apiUrl}/delete`,
+        {
+          body: { key_name: keyName }
+        }
+      );
     }
+  clearValue(keyName: string): Observable<any> {
+    return this.http.put(
+      `${this.apiUrl}/value`,
+      { key_name: keyName }
+    );
+  }
+
 }
 
 

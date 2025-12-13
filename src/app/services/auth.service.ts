@@ -16,7 +16,7 @@ interface User {
 export class AuthService {
   //BehaviourSubject guarda siempre el último valor
   private userSubject = new BehaviorSubject<User | null>(null); 
-  public user$ = this.userSubject.asObservable();
+  public user$ = this.userSubject.asObservable(); // $ porque es observable
   private functionalitiesSubject = new BehaviorSubject<string[]>([]);
   /*
   En la aplicación he utilizado un patrón basado en RxJS para gestionar el estado del usuario autenticado.
@@ -46,6 +46,7 @@ export class AuthService {
   }
   
   logout() {
+    console.log 
     this.userSubject.next(null);
   }
 
@@ -60,9 +61,9 @@ export class AuthService {
     return this.userSubject.value?.role_id || null;
   }
 
-  getUserFunctionalities(userId: number) {
+  getUserFunctionalities(userId: number, parentKey: string) {
     console.log("auth service con userid",userId )
-    return this.http.get(`${this.apiUrlf}/${userId}`);
+    return this.http.get(`${this.apiUrlf}/${userId}/${parentKey}`);
   }
   functionalities$ = this.functionalitiesSubject.asObservable();
 

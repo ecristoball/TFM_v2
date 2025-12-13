@@ -29,3 +29,7 @@
     color:white;
     text-decoration: none;
 }
+.logo img {
+  height: 75px;      /* o el tamaño que quieras */
+  width: auto;
+}

@@ -27,4 +27,8 @@
 }
 h2{
   font-size: 1.5rem;
+  color:#000D44;
+}
+.slash {
+  color: #FF7777; /* el color que quieras */
 }

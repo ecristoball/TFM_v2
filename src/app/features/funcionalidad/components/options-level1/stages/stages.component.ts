@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Showlevel1Service } from '../../../../../services/showlevel1.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
+import { AuthService } from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-stages',
@@ -11,20 +11,33 @@ import { takeUntil } from 'rxjs';
 export class StagesComponent {
   level1Items: any[] = [];
 
-  constructor(private showlevel1service: Showlevel1Service) {}
+  constructor( private authService:AuthService) {}
 
   private destroy$ = new Subject<void>();
 
   ngOnInit() {
-    this.showlevel1service.getOptionsBy(1,"core")
+    console.log("carga options document, selfie...")
+    const user = this.authService.currentUser;
+    const user2 = this.authService.user$;
+    const parentKey = 'core';
+
+    console.log(user, user2)
+    if (!user) {
+      console.error("Usuario no autenticado");
+      return;
+    }
+    const userId = user.id;
+    console.log("userid es : ",userId)
+    this.authService.getUserFunctionalities(userId,parentKey)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-        this.level1Items = data;
-        data.forEach(item => {
-          console.log('ID:', item.id);
-        });
-        console.log(data);
-      });
+      .subscribe({
+        next: (data:any) => {
+          console.log("DATA COMPLETA DEL BACKEND:", data);
+          this.level1Items = data
+          console.log(this.level1Items);
+        },
+        error: (err) => console.error(err)
+      }); 
   }
 
   ngOnDestroy() {
@@ -33,8 +46,3 @@ export class StagesComponent {
   }
 
 }
-// antiguo, menos correcto porque no destruye la suscripcion
-/*this.showlevel1service.getByFrontLevel(1).subscribe(data => {
-  this.level1Items = data;
-  console.log(data);
-});*/

@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from '../login/login.component';
-
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -24,7 +24,8 @@ import { LoginComponent } from '../login/login.component';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
   ]
 })
 export class HomeModule { }

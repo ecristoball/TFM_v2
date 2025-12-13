@@ -13,23 +13,23 @@ const routes: Routes = [
   
  {
     path: 'funcionalidad',
-    loadChildren: () =>
-      import('./features/funcionalidad/funcionalidad.module').then(
-        m => m.FuncionalidadModule
-      ),
-    canActivate: [roleGuard],
-    data: { roles: [1, 2] } // admin y user1 pueden acceder
+      loadChildren: () =>
+        import('./features/funcionalidad/funcionalidad.module').then(
+          m => m.FuncionalidadModule
+        ),
+      canActivate: [roleGuard],
+      data: { roles: [1, 2] } // admin y user1 pueden acceder
   },
 
    
   {
     path: 'estilos',
-    loadChildren: () =>
-      import('./features/estilos/estilos.module').then(
-        m => m.EstilosModule
-      ),
-    canActivate: [roleGuard],
-    data: { roles: [1] } // solo admin
+      loadChildren: () =>
+        import('./features/estilos/estilos.module').then(
+          m => m.EstilosModule
+        ),
+      canActivate: [roleGuard],
+      data: { roles: [1] } // solo admin
   }
 
 ];

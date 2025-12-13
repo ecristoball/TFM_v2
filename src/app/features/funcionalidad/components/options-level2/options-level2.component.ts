@@ -34,6 +34,7 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
       }
       // si un item se deseleccionó
       if (event.selected === false && event.toggledKey) {
+        console.log("estoy borrando")
         delete this.level2Groups[event.toggledKey];
       }
     });
@@ -82,6 +83,9 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
     const toSelected = event.container.id === 'selected-list';
 
     this.state.moveItemBetweenLists(item, fromSelected, toSelected, event.currentIndex);
+    console.log("borrar el item", item.key_name)
+    //this.showlevel1service.deleteValue(item.key_name);
+    this.showlevel1service.clearValue(item.key_name).subscribe();
   }
 }
   /*
