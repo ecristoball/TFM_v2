@@ -12,7 +12,6 @@ export class FuncionalidadService {
   private apiUrl = 'http://127.0.0.1:8000/api/funcionalidades1'; // tu endpoint Laravel
 
   constructor(private http: HttpClient) {}
-
   getFuncionalidades(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
