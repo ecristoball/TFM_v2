@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../environment/environment';
 
 
 @Component({
@@ -22,6 +23,9 @@ myForm: FormGroup;
   }
 
   onSubmit() {
+    console.log(environment.production);
+console.log(environment.apiUrl);
+
     if (this.myForm.invalid) return;
 
     //devuelve un observable, se usa subscribe() para recibir la respuesta.
