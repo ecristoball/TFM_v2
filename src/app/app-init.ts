@@ -4,6 +4,6 @@ import { firstValueFrom } from 'rxjs';
 export function appInitializer(showLevel1Service: Showlevel1Service) {
   return () => {
     console.log('APP_INITIALIZER: ejecutando deleteValues() al iniciar...');
-    return firstValueFrom(showLevel1Service.deleteValues());
+    //return firstValueFrom(showLevel1Service.deleteValues());
   };
 }
