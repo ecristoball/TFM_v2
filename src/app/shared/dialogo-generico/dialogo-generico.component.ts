@@ -15,6 +15,7 @@ export class DialogoGenericoComponent {
   ) {}
 
   ngOnInit() {
+    console.log("data inyectado",this.data)
     if (this.data.type === 'object') {
       this.formValues = {};
 
@@ -33,12 +34,14 @@ export class DialogoGenericoComponent {
       this.formValues[field.key] = { selectedOption: '', otherText: '' };
       }else {
         this.formValues[field.key] = '';
+        console.log(this.formValues);
       }
     }
   }
   private isFormValid(): boolean {
     for (const key in this.formValues) {
       const value = this.formValues[key];
+      console.log("value:",value);
 
       // Validación para campos simples
       if (value === null || value === undefined || value === '') {
@@ -85,13 +88,13 @@ export class DialogoGenericoComponent {
 
     // Recorremos los valores del formulario
     for (const key in this.formValues) {
-      console.log("ob", this.data.type)
+      console.log("ob",this.data, this.data.type)
       if (this.formValues.hasOwnProperty(key)) {
         let value = this.formValues[key];
 
         // Convertir a número si el tipo del campo es number
         const fieldConfig = this.data.fields.find((f: any) => f.key === key);
-console.log("ob", this.data.type, fieldConfig)
+        console.log("ob", this.data.type, fieldConfig)
         if (fieldConfig?.type === 'number' && value !== null && value !== '') {
           value = Number(value); // aquí transformamos el string a número
         }

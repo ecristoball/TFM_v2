@@ -41,12 +41,10 @@ export class OptionsSelectedComponent {
       this.selectedItems = items;
       console.log("itesss", items)
     });
-    
-
     this.state.dropListIds$.subscribe(ids => {
-  console.log('dropListIds', ids);
-  this.dropListIds = ids;
-});
+      console.log('dropListIds', ids);
+      this.dropListIds = ids;
+    });
   } 
 
 
@@ -88,33 +86,39 @@ export class OptionsSelectedComponent {
         const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
         
         console.log ("dialogo", dialog$,itemType)
-
-
-
-
-        
+     
 
       // Muestra el dialogo, todavía no se ha hecho drop
       if (dialog$) {
         dialog$.subscribe(result => {
-          if (result) {
+          if (result) {/* eva 1412
             console.log(`Resultado del diálogo (${itemType}):`, result);
-
-          // Actualizar el valor directamente en el componente
+            console.log("selecteditems es", this.selectedItems)
+            // Actualizar el valor directamente en el componente
             const updatedItem = this.selectedItems.find(i => i.key_name === itemType);
             console.log("updated",updatedItem)
             if (updatedItem) {
               updatedItem.value = result;
               console.log("Item actualizado localmente:", updatedItem,updatedItem.value, result);
             }  
+*/
+this.copiedItem.value = result;
 
-          // Guardar en el backend
+  // actualizar el ITEM ORIGINAL
+  const originalItem = event.previousContainer.data.find(
+    (i: any) => i.key_name === itemType
+  );
+
+  if (originalItem) {
+    originalItem.value = result;
+  }
+            // Guardar en el backend
             this.insertValue(itemType, result);
              item.locked = true;
              console.log("result",result)
              
 
-        // Insertamos el clon en la lista destino
+          // Insertamos el clon en la lista destino
             this.state.addItemToSelected(this.copiedItem);
             console.log("item esssssssssssss ", this.copiedItem)
             //event.container.data.splice(event.currentIndex, 0, this.copiedItem);

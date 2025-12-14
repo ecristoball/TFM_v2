@@ -39,7 +39,7 @@
 
       <!-- Mostrar logout solo si hay usuario -->
       <li *ngIf="authService.user$ | async">
-        <a (click)="logout()">Logout</a>
+        <a href="#" (click)="logout()">Logout</a>
       </li>
 
       <li>TEXTOS</li>
@@ -47,7 +47,7 @@
       <li>SETUP</li>
 
     <!-- Funcionalidades visibles solo si hay usuario logado -->
- 
+    
 
     </ul>
   </nav>

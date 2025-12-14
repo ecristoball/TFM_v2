@@ -46,8 +46,13 @@ export class AuthService {
   }
   
   logout() {
-    console.log 
-    this.userSubject.next(null);
+    console.log ("estoy en logout");
+    const confirmLogout = confirm('¿Seguro que quieres cerrar sesión?');
+
+    if (confirmLogout) {
+     this.userSubject.next(null);  
+    }
+    
   }
 
   
