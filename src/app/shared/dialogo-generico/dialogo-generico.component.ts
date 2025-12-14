@@ -17,27 +17,41 @@ export class DialogoGenericoComponent {
   ngOnInit() {
     console.log("data inyectado",this.data)
     if (this.data.type === 'object') {
+      console.log("iterable")
       this.formValues = {};
-
       this.data.fields.forEach((f: any) => {
         this.formValues[f.key] = ''; // valores iniciales
       });
-
       return; // NO seguir procesando los demás tipos
     }
-
+    //tipos con dapos por default
+    if (this.data.type === 'info-confirm'){
+        console.log("veo valores por defecto",this.data.defaultValues)
+   // 🔹 USAMOS EL VALOR POR DEFECTO
+      this.formValues = this.data.defaultValues;
+      return; // NO seguir procesando los demás tipos
+    }
     // Para el resto de tipos
     for (const field of this.data.fields) {
       if (field.type === 'multiselect') {
         this.formValues[field.key] = {};
-      }  else if (field.type === 'radio-with-text') {
+        console.log("valor1")
+      }  
+      else if (field.type === 'radio-with-text') {
       this.formValues[field.key] = { selectedOption: '', otherText: '' };
-      }else {
+      }
+      else if (field.defaultValues !== undefined){
+        console.log("veo valores por defecto",field.defaultValues)
+   // 🔹 USAMOS EL VALOR POR DEFECTO
+      this.formValues[field.key] = field.defaultValues;
+      }
+      else {
         this.formValues[field.key] = '';
-        console.log(this.formValues);
+        console.log(this.formValues, "salida default");
       }
     }
   }
+
   private isFormValid(): boolean {
     for (const key in this.formValues) {
       const value = this.formValues[key];
@@ -48,31 +62,31 @@ export class DialogoGenericoComponent {
         return false;
       }
       // Validación number con min/max dinámicos
-    if (this.data.type === 'number') {
-      const num = Number(value);
-      if (num < this.data.this.datamin || num > this.data.max) {
-        alert(`El valor debe estar entre ${this.data.min} y ${this.data.max}`);
-        return false;
+      if (this.data.type === 'number') {
+        const num = Number(value);
+        if (num < this.data.this.datamin || num > this.data.max) {
+          alert(`El valor debe estar entre ${this.data.min} y ${this.data.max}`);
+          return false;
+        }
       }
-    }
       // Validación para radio-with-text
-    const fieldConfig = this.data.fields.find((f: any) => f.key === key);
-    if (fieldConfig?.type === 'radio-with-text') {
-      if (!value.selectedOption) {
-        return false; // no ha seleccionado ninguna opción
+      const fieldConfig = this.data.fields.find((f: any) => f.key === key);
+      if (fieldConfig?.type === 'radio-with-text') {
+        if (!value.selectedOption) {
+          return false; // no ha seleccionado ninguna opción
+        }
+        if (value.selectedOption === 'other' && !value.otherText?.trim()) {
+          return false; // seleccionó "other" pero no escribió texto
+        }
+        continue; // ya validamos este campo
       }
-      if (value.selectedOption === 'other' && !value.otherText?.trim()) {
-        return false; // seleccionó "other" pero no escribió texto
-      }
-      continue; // ya validamos este campo
-    }
 
       // Validación para multiselect
-       if (this.data.type === 'object') {
-      const hasAtLeastOne = Object.values(this.formValues).some(v => v !== null && v !== undefined && v !== '');
-      if (!hasAtLeastOne) return false;
-      break; // ya validamos el objeto, no seguimos con cada propiedad
-    }
+      if (this.data.type === 'object') {
+        const hasAtLeastOne = Object.values(this.formValues).some(v => v !== null && v !== undefined && v !== '');
+        if (!hasAtLeastOne) return false;
+        break; // ya validamos el objeto, no seguimos con cada propiedad
+      }
     }
     return true;
   }

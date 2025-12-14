@@ -28,7 +28,7 @@ export class ItemComponent {
         this.isActive = evt.selectedKeys.includes(this.item.key_name); 
         //Cada vez que se actualiza la lista de ítems seleccionados (selectedKeys$), actualiza isActive según si este ítem está incluido.
       });
-      console.log("ITEM RECIBIDO:", this.item);
+      console.log("ITEM RECIBIDO:", this.item, this.item.value,"active", this.isActive);
   }
 
 

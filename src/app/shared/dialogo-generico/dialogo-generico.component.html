@@ -3,29 +3,29 @@
 
 <mat-dialog-content>
   
-<div *ngFor="let field of data.fields">
+  <div *ngFor="let field of data.fields">
     <mat-form-field *ngIf="field.type === 'text' || field.type === 'number'" appearance="outline">
-  <mat-label>{{ field.label }}</mat-label>
+      <mat-label>{{ field.label }}</mat-label>
 
-  <input 
-    matInput 
-    [type]="field.type" 
-    [(ngModel)]="formValues[field.key]"
-    
-    *ngIf="field.type === 'text'"
-  />
+      <input 
+        matInput 
+        [type]="field.type" 
+        [(ngModel)]="formValues[field.key]"
+        
+        *ngIf="field.type === 'text'"
+      />
 
-  <input 
-    matInput 
-    type="number"
-    [(ngModel)]="formValues[field.key]"
-    [attr.min]="field.min"
-    [attr.max]="field.max"
-    [attr.step]="field.step || 1"
+      <input 
+        matInput 
+        type="number"
+        [(ngModel)]="formValues[field.key]"
+        [attr.min]="field.min"
+        [attr.max]="field.max"
+        [attr.step]="field.step || 1"
 
-    *ngIf="field.type === 'number'"
-  />
-</mat-form-field>
+        *ngIf="field.type === 'number'"
+      />
+    </mat-form-field>
 
 
     <mat-checkbox *ngIf="field.type === 'checkbox'" [(ngModel)]="formValues[field.key]">
@@ -33,78 +33,86 @@
     </mat-checkbox>
 
     <mat-form-field *ngIf="field.type === 'select'" appearance="outline">
-      <mat-label>{{ field.label }}</mat-label>
-      <mat-select [(ngModel)]="formValues[field.key]">
-        <mat-option *ngFor="let option of field.options" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-select>
+        <mat-label>{{ field.label }}</mat-label>
+        <mat-select [(ngModel)]="formValues[field.key]">
+          <mat-option *ngFor="let option of field.options" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-radio-group *ngIf="field.type === 'boolean'" [(ngModel)]="formValues[field.key]" class="boolean-radio-group">
-        <mat-radio-button
-            class="boolean-radio"
-            *ngFor="let option of field.options"
-            [value]="option.value">
-            {{ option.label }}
-        </mat-radio-button>
+          <mat-radio-button
+              class="boolean-radio"
+              *ngFor="let option of field.options"
+              [value]="option.value">
+              {{ option.label }}
+          </mat-radio-button>
     </mat-radio-group>
 
 
     <mat-form-field *ngIf="field.type === 'array'">
-      <mat-label>{{ field.value }}</mat-label>
-      <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
+        <mat-label>{{ field.value }}</mat-label>
+        <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
     </mat-form-field>
 
     <mat-form-field *ngIf="field.type === 'option'">
-      <mat-label>{{ field.value }}</mat-label>
-      <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
+        <mat-label>{{ field.value }}</mat-label>
+        <input matInput [type]="field.type" [(ngModel)]="formValues[field.key]" />
     </mat-form-field>
+
     <mat-radio-group
-      *ngIf="field.type === 'radio'"
-      [(ngModel)]="formValues[field.key]"
-      class="radio-group"
-    >
-      <mat-radio-button
-        *ngFor="let option of field.options"
-        class="radio-option"
-        [value]="option.value"
-      >
-        {{ option.label }}
-      </mat-radio-button>
+        *ngIf="field.type === 'radio'"
+        [(ngModel)]="formValues[field.key]"
+        class="radio-group">
+        <mat-radio-button
+          *ngFor="let option of field.options"
+          class="radio-option"
+          [value]="option.value">
+          {{ option.label }}
+        </mat-radio-button>
     </mat-radio-group>
 
-    <!-- Selección múltiple -->
-  <div *ngIf="field.type === 'multiselect'" class="multi-checkbox-group">
-    <h4>{{ field.label }}</h4>
+      <!-- Selección múltiple -->
+    <div *ngIf="field.type === 'multiselect'" class="multi-checkbox-group">
+      <h4>{{ field.label }}</h4>
 
-    <mat-checkbox
-      *ngFor="let option of field.options"
-      [(ngModel)]="formValues[field.key][option]"
-    >
-      {{ option }}
-    </mat-checkbox>
-  </div>
+      <mat-checkbox
+        *ngFor="let option of field.options"
+        [(ngModel)]="formValues[field.key][option]"
+      >
+        {{ option }}
+      </mat-checkbox>
+    </div>
 
-<!-- Tipo objeto: varios campos de texto -->
-  <div *ngIf="data.type === 'objectyy'" class="object-group">
-   
-      <mat-label>{{ field.label }}</mat-label>
-      <input matInput [(ngModel)]="formValues[field.key]" type="text" />
-   
+  <!-- Tipo objeto: varios campos de texto -->
+    <div *ngIf="data.type === 'objectyy'" class="object-group">
+    
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [(ngModel)]="formValues[field.key]" type="text" />
+    
+    </div>
+    <div *ngIf="field.type === 'radio-with-text'">
+      <mat-radio-group [(ngModel)]="formValues[field.key].selectedOption">
+        <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
+        {{ option.label }}
+        <input *ngIf="option.value === 'other'" matInput 
+              [(ngModel)]="formValues[field.key].otherText"
+              [disabled]="formValues[field.key].selectedOption !== 'other'"
+              placeholder="Escribe aquí"/>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div *ngIf="field.type === 'info-confirm'">
+      <ul>
+        <li *ngFor="let entry of field.defaultValues | keyvalue">
+          <strong>{{ entry.key }}:</strong> {{ entry.value }}
+        </li>
+      </ul>
+    </div>
+
   </div>
-<div *ngIf="field.type === 'radio-with-text'">
-  <mat-radio-group [(ngModel)]="formValues[field.key].selectedOption">
-    <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
-      {{ option.label }}
-      <input *ngIf="option.value === 'other'" matInput 
-             [(ngModel)]="formValues[field.key].otherText"
-             [disabled]="formValues[field.key].selectedOption !== 'other'"
-             placeholder="Escribe aquí"/>
-    </mat-radio-button>
-  </mat-radio-group>
-</div>
-</div>
 
 </mat-dialog-content>
 

@@ -110,6 +110,20 @@ private objectField = (title: string, fields: string[]) => ({
   }]
 });
 
+private infoConfirmField = (key: string, defaultValues: any) => ({
+  title:key,
+  fields: [{
+    type: 'info-confirm',
+    defaultValues,
+    key:defaultValues
+    
+  }]
+ 
+});
+
+
+
+
 private radioWithTextField = (key: string, radioLabel: string, textLabel: string) => ({
   title: key,
   fields: [
@@ -179,11 +193,8 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     signers_name:this.textField('signers_name'),
     signers_email:this.textField('signers_email'),
     redirectionUrl:this.textField('redirectionUrl'),
-    
-    
-      //ejemplo de array
-
-    
+     
+    //ejemplo de array
     countryFilter: this.arrayField('countryFilter'),
     documentTypes: this.arrayField('documentTypes'),
 
@@ -200,7 +211,26 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
 
     //contextualData: this.objectField('contextualData', ['user_id', 'user_data']),
     //contextualData: this.objectField('contextualData', ['user_id', 'user_data'])
-    contextualData: this.objectField('Contextual Data', ['user_id', 'user_data'])
+    contextualData: this.objectField('Contextual Data', ['user_id', 'user_data']),
+
+    antispoofing: this.infoConfirmField('Se aplicarán las siguientes palancas:',
+      {
+        "ScoreGroup-PrintAttackTest": 1,
+        "ScoreGroup-ReplayAttackTest": 1,
+        "ScoreGroup-PhotoAuthenticity": 1
+      }
+    ),
+    cumplimiento_CCN: this.infoConfirmField('Se aplciarán las siguietnes palancas',
+      {
+        "ScoreRel-PD_BirthDate_FrontNoFlash-PD_BirthDate_MRZ-Text": 1,
+        "ScoreRel-DD_ExpirationDate_FrontNoFlash-DD_ExpirationDate_MRZ-Text": 1,
+        "ScoreRel-PD_IdentificationNumber_FrontNoFlash-PD_IdentificationNumber_MRZ-Text": 1,
+        "ScoreGroup-SD_MRZ-MRZDecoding": 1,
+        "ScoreGroup-PrintAttackTest": 1,
+        "ScoreGroup-ReplayAttackTest": 1,
+        "ScoreGroup-PhotoAuthenticity": 1
+      }
+    )
 
   };
 

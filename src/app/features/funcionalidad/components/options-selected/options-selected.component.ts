@@ -103,15 +103,17 @@ export class OptionsSelectedComponent {
             }  
 */
 this.copiedItem.value = result;
+console.log("copia a selected", this.copiedItem)
 
-  // actualizar el ITEM ORIGINAL
+  // actualizar el ITEM ORIGINAL 
+  /*
   const originalItem = event.previousContainer.data.find(
     (i: any) => i.key_name === itemType
   );
 
   if (originalItem) {
-    originalItem.value = result;
-  }
+   // originalItem.value = result;
+  }*/
             // Guardar en el backend
             this.insertValue(itemType, result);
              item.locked = true;
