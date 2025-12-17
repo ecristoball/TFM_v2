@@ -1,6 +1,69 @@
 
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
+
+/* 🎨 Paleta primaria personalizada */
+$primary-palette: mat.define-palette((
+  50:  #ffecec,
+  100: #ffcccc,
+  200: #ffaaaa,
+  300: #ff8888,
+  400: #ff7777, // TU COLOR
+  500: #ff6666,
+  600: #ff5e5e,
+  700: #ff5555,
+  800: #ff4d4d,
+  900: #ff3c3c,
+  contrast: (
+    50:  black,
+    100: black,
+    200: black,
+    300: black,
+    400: black,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white
+  )
+));
+
+/* 🎨 Paleta secundaria personalizada */
+$accent-palette: mat.define-palette((
+  50:  #e0e2eb,
+  100: #b3b7cc,
+  200: #808aa9,
+  300: #4d5d86,
+  400: #263a6b,
+  500: #000d44, // TU COLOR
+  600: #000c3e,
+  700: #000a35,
+  800: #00082d,
+  900: #00041f,
+  contrast: (
+    50:  black,
+    100: black,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white
+  )
+));
+
+/* 🧩 Tema */
+$theme: mat.define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette
+  )
+));
+
+@include mat.all-component-themes($theme);
+
 html, body {
     margin:0;
     padding:0;
@@ -18,14 +81,3 @@ body {
 
 
 
-$primary: mat.define-palette(mat.$purple-palette);
-$accent: mat.define-palette(mat.$teal-palette);
-
-$theme: mat.define-light-theme((
-  color: (
-    primary: $primary,
-    accent: $accent
-  )
-));
-
-@include mat.all-component-themes($theme);

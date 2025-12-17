@@ -14,12 +14,18 @@ import { appInitializer } from './app-init';
 import { APP_INITIALIZER } from '@angular/core';
 import { HomeModule } from './features/home/home.module';
 import { CanDirective } from './directivas/can.directive';
+//import { TextosComponent } from './textos/textos.component';
+//import { SetupComponent } from './features/setup/setup.component';
+//import { MediasComponent } from './features/medias/medias.component';
 //import { LoginComponent } from './features/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CanDirective,
+    //TextosComponent,
+    //SetupComponent,
+    //MediasComponent,
     //HomeComponent,
     //LoginComponent,
     

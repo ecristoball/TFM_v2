@@ -61,12 +61,25 @@ export class Showlevel1Service {
         }
       );
     }
-  clearValue(keyName: string): Observable<any> {
-    return this.http.put(
-      `${this.apiUrl}/value`,
-      { key_name: keyName }
-    );
-  }
+    clearValue(keyName: string): Observable<any> {
+      return this.http.put(
+        `${this.apiUrl}/value`,
+        { key_name: keyName }
+      );
+    }
+
+getDefaultValue(keyName: string): Observable<any> {
+  console.log(keyName);
+  return this.http.get<any>(
+    `${this.apiUrl}/defaultvalue/${keyName}`
+  );
+}
+getImageUrl(keyName: string): Observable<any> {
+  console.log(keyName);
+  return this.http.get<any>(
+    `${this.apiUrl}/imageurl/${keyName}`
+  );
+}
 
 }
 

@@ -36,15 +36,23 @@
       <li *appCan="1">
         <a routerLink="/estilos" routerLinkActive="active">ESTILOS</a>
       </li>
+      
+       <li *appCan="1">
 
+        <a routerLink="/textos" routerLinkActive="active">TEXTOS</a>
+      </li>
+       <li *appCan="1">
+        <a routerLink="/medias" routerLinkActive="active">MEDIAS</a>
+      </li>
+       <li *appCan="1">
+        <a routerLink="/setup" routerLinkActive="active">SETUP</a>
+      </li>
       <!-- Mostrar logout solo si hay usuario -->
       <li *ngIf="authService.user$ | async">
         <a href="#" (click)="logout()">Logout</a>
       </li>
 
-      <li>TEXTOS</li>
-      <li>MEDIAS</li>
-      <li>SETUP</li>
+
 
     <!-- Funcionalidades visibles solo si hay usuario logado -->
     

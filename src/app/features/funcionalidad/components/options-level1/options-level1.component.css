@@ -1,4 +1,15 @@
 
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;        /* ocupar toda la altura del contenedor padre */
+  gap: 1rem;           /* opcional, espacio entre elementos */
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  flex:1;
+ 
+}
 .layout-grid{
     display: block;
     grid-template-columns: 15% 1fr 25%;
@@ -6,6 +17,9 @@
     gap:10px;
     padding: 10px;
     box-sizing: border-box;
+     flex: 1 1 auto;      /* ocupa todo el espacio disponible */
+  overflow-y: auto;    /* scroll si hay muchos items */
+  min-height: 0;       /* muy importante para que flex funcione correctamente */
 }
 .componentes {
 

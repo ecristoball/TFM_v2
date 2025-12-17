@@ -34,7 +34,7 @@ export class ItemComponent {
 
 
   onCardClick() {
-    if (this.item.frontlevel !== '1' && this.item.frontlevel !== '20') return;
+    if (this.item.frontlevel !== '1' && this.item.frontlevel !== '11' && this.item.frontlevel !== '12') return;
 
     if (this.isActive) {
       // si ya está activa pedimos confirmación y solo si acepta hacemos toggle

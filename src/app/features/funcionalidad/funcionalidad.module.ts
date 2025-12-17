@@ -17,6 +17,7 @@ import { OptionsComponent } from './components/options-level1/options/options.co
 //import { DialogoGenericoComponent } from '../../shared/dialogo-generico/dialogo-generico.component';
 // Importar módulos de Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { SetupComponent } from './components/options-level1/setup/setup.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     OptionsLevel2Component,
     OptionsSelectedComponent,
     StagesComponent,
-    OptionsComponent
+    OptionsComponent,
+    SetupComponent
   ],
 
   imports: [

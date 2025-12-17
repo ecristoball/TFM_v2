@@ -1,0 +1,29 @@
+<main class="main-container">
+    <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Documento">
+
+    <div *ngIf="mostrarTextoVacio" class="free-text-container">
+    <label for="freeText">Texto fijo</label>
+    <input
+        id="freeText"
+        type="text"
+        [(ngModel)]="valorTexto"
+        readonly
+        
+    />
+    </div>
+    <div *ngIf="mostrarTextoVacio" class="free-text-container">
+    <label for="freeText">Texto libre</label>
+    <input
+        id="freeText"
+        type="text"
+        [(ngModel)]="textoPorDefecto"
+        placeholder="Escribe aquí..."
+    />
+    </div>
+    <div class="actions">
+        <button class="del-btn" (click)="onDelete()"> BORRAR</button>
+        <button class="json-btn" (click)="crearJson()"> MOSTRAR JSON</button>
+    
+    </div>
+    
+</main>

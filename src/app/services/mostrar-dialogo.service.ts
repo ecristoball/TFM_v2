@@ -183,6 +183,12 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     requireTermsAndConditions:this.booleanField('requireTermsAndConditions'),
     modal_show:this.booleanField('modal_show'),  
     continue_desktop:this.booleanField('continue_desktop'),  
+    logo_Show:this.booleanField('logo_Show'),  
+    success_Show:this.booleanField('success_Show'),  
+    errorModal_Show:this.booleanField('errorModal_Show'),  
+    captureHeading_Show:this.booleanField('captureHeading_Show'),  
+    helpModal_Show:this.booleanField('helpModal_Show'),  
+    closeButton_Show:this.booleanField('closeButton_Show'),
 
     //ejemplo con string
     defaultCountry:this.textField('defaultCountry'),

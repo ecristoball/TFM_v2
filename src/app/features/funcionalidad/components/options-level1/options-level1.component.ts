@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FuncionalidadService } from '../../../../services/funcionalidad.service';
+//import { FuncionalidadService } from '../../../../services/funcionalidad.service';
 import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.service';
 import { AuthService } from '../../../../services/auth.service';
 

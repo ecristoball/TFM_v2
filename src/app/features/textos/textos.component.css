@@ -1,0 +1,51 @@
+
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.layout-grid{
+    display: grid;
+    grid-template-columns: 15% 1fr 25%;
+    height: 100%;
+    background-color: rgb(227, 228, 225);
+    gap:10px;
+    padding: 8px;
+    box-sizing: border-box;
+
+     min-height: 0;
+
+}
+.options-level1 {
+      display: flex;
+    background-color:#b1b1b1;
+    padding: 16px;
+    color: white;
+    min-height: 0;        /* PERMITE que el contenido interno haga scroll */
+    overflow:hidden;
+    justify-content: center;  
+
+}
+.options-level2 {
+    background-color: rgb(255, 255, 255);
+    padding: 16px;
+    flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+ 
+  overflow: auto; /* Para que el scroll interno funcione */
+   min-height: 0;
+   
+}
+.options-selected {
+    display: flex;
+    background-color: #b1b1b1;
+    /*flex-direction: column;*/
+    padding: 16px;
+    color: white;
+    min-height: 0;        /* PERMITE que el contenido interno haga scroll */
+  overflow: auto;  
+  width: 100%;
+  justify-content: center;
+
+}

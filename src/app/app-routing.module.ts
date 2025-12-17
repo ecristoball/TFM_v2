@@ -30,6 +30,34 @@ const routes: Routes = [
         ),
       canActivate: [roleGuard],
       data: { roles: [1] } // solo admin
+  },
+
+   {
+    path: 'medias',
+      loadChildren: () =>
+        import('./features/medias/medias.module').then(
+          m => m.MediasModule
+        ),
+      canActivate: [roleGuard],
+      data: { roles: [1] } // solo admin
+  },
+   {
+    path: 'textos',
+      loadChildren: () =>
+        import('./features/textos/textos.module').then(
+          m => m.TextosModule
+        ),
+      canActivate: [roleGuard],
+      data: { roles: [1] } // solo admin
+  },
+   {
+    path: 'setup',
+      loadChildren: () =>
+        import('./features/setup/setup.module').then(
+          m => m.SetupModule
+        ),
+      canActivate: [roleGuard],
+      data: { roles: [1] } // solo admin
   }
 
 ];

@@ -35,7 +35,7 @@ export class SelectionService {
   toggleSelect(key: string,front_parent?: string) {
       const currentKeys = this.selectedKeysSource.value.selectedKeys;
       const isSelected = currentKeys.includes(key);
-
+    console.log("currentkeys", currentKeys)
       let newKeys: string[];
      
 

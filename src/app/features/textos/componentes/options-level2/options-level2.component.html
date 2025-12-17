@@ -1,0 +1,24 @@
+<p>options-level2 works!</p>
+
+ <h2><span class="slash">/</span>OPCIONES DISPONIBLES</h2>
+ <p>Arrastra a la parte de opciones seleccionadas los componentes que quieres personalizar. </p>
+<main class="cont">
+  <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
+    <p class="group-title">{{ groupKey | uppercase }}</p>
+    <div
+      cdkDropList
+      [id]="groupKey + '-list'"
+      class="group-items"
+      
+    >
+      <app-item
+        *ngFor="let item of level2Groups[groupKey]"
+        [item]="item"
+        class="item"
+        cdkDrag
+      
+      >{{ item.name }}</app-item>
+    </div>
+  </div>
+</main>
+
