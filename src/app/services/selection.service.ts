@@ -33,30 +33,26 @@ export class SelectionService {
   style$ = this.styleSource.asObservable();
 
   toggleSelect(key: string,front_parent?: string) {
-      const currentKeys = this.selectedKeysSource.value.selectedKeys;
-      const isSelected = currentKeys.includes(key);
+    const currentKeys = this.selectedKeysSource.value.selectedKeys;
+    const isSelected = currentKeys.includes(key);
     console.log("currentkeys", currentKeys)
-      let newKeys: string[];
-     
-
-      if (isSelected) {
-        // si ya estaba seleccionado, lo eliminamos
-        newKeys = currentKeys.filter(k => k !== key);
-      } else {
-        // si no estaba seleccionado, lo añadimos
-        newKeys = [...currentKeys, key];
-      }
-      console.log("new keys",newKeys)
-
-      this.selectedKeysSource.next({
-        selectedKeys: newKeys,
-        toggledKey: key,
-        selected: !isSelected,
-        front_parent //para distinguir componentes que vienene de options y core
-      });
+    let newKeys: string[];
+    if (isSelected) {
+      // si ya estaba seleccionado, lo eliminamos
+      newKeys = currentKeys.filter(k => k !== key);
+    } else {
+    // si no estaba seleccionado, lo añadimos
+      newKeys = [...currentKeys, key];
     }
+    console.log("new keys",newKeys)
 
-
+    this.selectedKeysSource.next({
+      selectedKeys: newKeys,
+      toggledKey: key,
+      selected: !isSelected,
+      front_parent //para distinguir componentes que vienene de options y core
+    });
+  }
 
 //  ESTILOS COMPARTIDOS ---
 
@@ -73,10 +69,6 @@ export class SelectionService {
     this.styleSource.next({ ...current, ...style });
   }
 */
-
-
- 
-
   updateStyle(key: string, style: Partial<StyleEvent>) {
   const current = this.styleSource.value;
   this.styleSource.next({
@@ -87,20 +79,12 @@ export class SelectionService {
     borderColor: style.borderColor ?? current.borderColor,
     borderWidth: style.borderWidth ?? current.borderWidth
   });
-}
-
-  
-
-
-  // Método público para cambiar el valor
-  selectItem(key: string) {
-   // this.selectedKeySource.next(key);
   }
-
- 
-
+// Método público para cambiar el valor
+  selectItem(key: string) {
+  // this.selectedKeySource.next(key);
+  }
   
-
 }
 
 

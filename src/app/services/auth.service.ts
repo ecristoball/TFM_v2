@@ -67,7 +67,8 @@ export class AuthService {
   }
 
   getUserFunctionalities(userId: number, parentKey: string) {
-    console.log("auth service con userid",userId )
+    console.log("auth service con userid",userId ,"y parentkey", parentKey)
+    console.log(this.http.get(`${this.apiUrlf}/${userId}/${parentKey}`),"eeeseteat")
     return this.http.get(`${this.apiUrlf}/${userId}/${parentKey}`);
   }
   functionalities$ = this.functionalitiesSubject.asObservable();

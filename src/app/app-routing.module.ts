@@ -18,7 +18,7 @@ const routes: Routes = [
           m => m.FuncionalidadModule
         ),
       canActivate: [roleGuard],
-      data: { roles: [1, 2] } // admin y user1 pueden acceder
+      data: { roles: [1, 2, 3] } // 
   },
 
    
@@ -29,7 +29,7 @@ const routes: Routes = [
           m => m.EstilosModule
         ),
       canActivate: [roleGuard],
-      data: { roles: [1] } // solo admin
+      data: { roles: [1,2] } // 
   },
 
    {
@@ -39,7 +39,7 @@ const routes: Routes = [
           m => m.MediasModule
         ),
       canActivate: [roleGuard],
-      data: { roles: [1] } // solo admin
+      data: { roles: [1,2] } // 
   },
    {
     path: 'textos',
@@ -48,16 +48,7 @@ const routes: Routes = [
           m => m.TextosModule
         ),
       canActivate: [roleGuard],
-      data: { roles: [1] } // solo admin
-  },
-   {
-    path: 'setup',
-      loadChildren: () =>
-        import('./features/setup/setup.module').then(
-          m => m.SetupModule
-        ),
-      canActivate: [roleGuard],
-      data: { roles: [1] } // solo admin
+      data: { roles: [1,2] } // 
   }
 
 ];

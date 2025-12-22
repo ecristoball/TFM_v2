@@ -1,18 +1,3 @@
-<!--
-<div class="app-container">
-  <nav class="navbar">
-    <div class="logo">MiLogo</div>
-    <ul class="nav-links">
-      <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
-      <li><a routerLink="/funcionalidad" routerLinkActive="active">Funcionalidad</a></li>
-      <li><a routerLink="/estilos" routerLinkActive="active">Estilos</a></li>
-    </ul>
-  </nav>
-  <main class="main-content">
-    <router-outlet></router-outlet>
-  </main>
-</div>
--->
 <div class="app-container">
   <nav class="navbar">
    <div class="logo">
@@ -22,18 +7,18 @@
 
       <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
 
-      <!-- Esta opción pueden verla Admin y User1 -->
+      <!-- Esta opción pueden verla todos  -->
            <!-- Mostrar login solo si NO hay usuario -->
       <li *ngIf="!(authService.user$ | async)">
         <a routerLink="/login" routerLinkActive="active">LOGIN</a>
       </li>
 
-      <li *appCan="[1, 2]">
+      <li *appCan="[1, 2, 3]">
         <a routerLink="/funcionalidad" routerLinkActive="active">FUNCIONALIDADES</a>
       </li>
 
       <!-- Esta opción SOLO para admin -->
-      <li *appCan="1">
+      <li *appCan="[1, 2]">
         <a routerLink="/estilos" routerLinkActive="active">ESTILOS</a>
       </li>
       
@@ -44,19 +29,10 @@
        <li *appCan="1">
         <a routerLink="/medias" routerLinkActive="active">MEDIAS</a>
       </li>
-       <li *appCan="1">
-        <a routerLink="/setup" routerLinkActive="active">SETUP</a>
-      </li>
       <!-- Mostrar logout solo si hay usuario -->
       <li *ngIf="authService.user$ | async">
         <a href="#" (click)="logout()">Logout</a>
       </li>
-
-
-
-    <!-- Funcionalidades visibles solo si hay usuario logado -->
-    
-
     </ul>
   </nav>
 

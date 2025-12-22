@@ -1,6 +1,6 @@
 import { Component , Input} from '@angular/core';
 import { SelectionService } from '../../services/selection.service';
-import { takeUntil } from 'rxjs';
+import { takeUntil,Subject} from 'rxjs';
 
 @Component({
   selector: 'app-item',
@@ -18,23 +18,26 @@ export class ItemComponent {
   selectedBackgroundColor: string = '#000000';
   selectedBorderColor = '#000000';
   selectedBorderWidth = 1;
-
+  private destroy$ = new Subject<void>();
+  
   constructor(private selectionService: SelectionService) {}
   
   ngOnInit() {
     
-    this.selectionService.selectedKeys$ //Se suscribe a los cambios de selección del servicio.
-      .subscribe(evt => {
-        this.isActive = evt.selectedKeys.includes(this.item.key_name); 
-        //Cada vez que se actualiza la lista de ítems seleccionados (selectedKeys$), actualiza isActive según si este ítem está incluido.
-      });
+  
+    this.selectionService.selectedKeys$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(evt => {
+      this.isActive = evt.selectedKeys.includes(this.item.key_name);
+       //Cada vez que se actualiza la lista de ítems seleccionados (selectedKeys$), actualiza isActive según si este ítem está incluido
+    });
       console.log("ITEM RECIBIDO:", this.item, this.item.value,"active", this.isActive);
   }
 
 
 
   onCardClick() {
-    if (this.item.frontlevel !== '1' && this.item.frontlevel !== '11' && this.item.frontlevel !== '12') return;
+    if (this.item.frontlevel !== '1' && this.item.frontlevel !== '11' && this.item.frontlevel !== '12' && this.item.frontlevel !== '21') return;
 
     if (this.isActive) {
       // si ya está activa pedimos confirmación y solo si acepta hacemos toggle
@@ -46,6 +49,12 @@ export class ItemComponent {
     // No tocamos this.isActive manualmente: delegamos en el servicio
     this.selectionService.toggleSelect(this.item.key_name);
   }
+  /*
+  ngOnDestroy() {
+  this.destroy$.next();
+  this.destroy$.complete();
+  }*/
+
 
   //ESTILOS
   onBackgroundChange() {
@@ -63,3 +72,9 @@ export class ItemComponent {
   }
 
 }
+
+
+
+
+
+

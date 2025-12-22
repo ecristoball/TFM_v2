@@ -12,7 +12,7 @@ import { Showlevel1Service } from '../../../../services/showlevel1.service';
 export class OptionsLevel1Component {
   level1Items: any[] = [];
 
-  constructor(private showlevel1service: Showlevel1Service, private authService:AuthService) {}
+  constructor(private authService:AuthService) {}
 
   private destroy$ = new Subject<void>();
 

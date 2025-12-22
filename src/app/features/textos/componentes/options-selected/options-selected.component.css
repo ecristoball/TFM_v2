@@ -1,0 +1,61 @@
+/* CONTENEDOR PADRE */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-container {
+  width: 90%;
+  max-width: 90%;
+  flex: 1; /* empuja actions-general hacia abajo */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border:1px solid #292929;
+}
+
+/* FORMULARIOS */
+.full-width {
+  width: 100%;
+}
+
+/* BOTONES INTERMEDIOS */
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* BOTONES INFERIORES */
+.actions-general {
+  width: 90%;
+  max-width: 90%;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-top: 1px solid #e0e0e0;
+}
+img {
+  max-width: 90%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.textarea-white textarea {
+  background-color: white;
+}
+h2{
+  font-size: 1.6rem;
+  color:#000D44;
+}
+.slash {
+  color: #FF7777; /* el color que quieras */
+}
+h3{
+    color:#000D44;
+    font-size: 1.3rem;
+}

@@ -1,6 +1,6 @@
-import { CdkDragDrop,transferArrayItem,CdkDropList} from '@angular/cdk/drag-drop';
+import { CdkDropList} from '@angular/cdk/drag-drop';
 import { skip, Subscription } from 'rxjs';
-import { ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { ViewChildren, QueryList } from '@angular/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Showlevel1Service } from '../../../../services/showlevel1.service';
 import { SelectionService } from '../../../../services/selection.service';
@@ -16,7 +16,8 @@ export class OptionsLevel2Component implements OnInit, OnDestroy{
   level2Groups: {[key:string]:any[]}={};
   loading=false;
   private subscription!: Subscription;
- @ViewChildren(CdkDropList) dropLists!: QueryList<CdkDropList>;
+  @ViewChildren(CdkDropList) dropLists!: QueryList<CdkDropList>;
+
   constructor(private showlevel1service: Showlevel1Service, private selectionService:SelectionService) {}
 
   ngOnInit(): void { 
@@ -24,23 +25,27 @@ export class OptionsLevel2Component implements OnInit, OnDestroy{
     .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
     .subscribe(event => {
       // si un item se seleccionó
-      if (event.selected && event.toggledKey && event.front_parent!="core") {
-        console.log("mostrando")
+      if (event.selected && event.toggledKey) {
+        console.log(event, event.front_parent, event.toggledKey)
+        //extrae de la bbdd los valores de nivel2 que tienen en front_parent el valor seleccionado
         this.showlevel1service.getOptionsBy(12, event.toggledKey).subscribe(data => {
-          this.level2Groups[event.toggledKey!] = data;
+          if (data.length===0){
+            return;   
+          }
+          else { 
+            this.level2Groups[event.toggledKey!] = data;
+            console.log("data",data)
+          }
+         
         });
-        console.log("evento ", event.toggledKey,event.front_parent)
       }
       // si un item se deseleccionó
       if (event.selected === false && event.toggledKey) {
-        console.log("estoy borrando")
+        console.log("deseselecc", event.toggledKey)
         delete this.level2Groups[event.toggledKey];
+        this.showlevel1service.clearValue( event.toggledKey).subscribe();
       }
-    });
-
-  
-
-   
+    });   
   }
 
   objectKeys(obj: any): string[] {

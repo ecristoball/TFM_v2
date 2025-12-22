@@ -23,15 +23,13 @@ export class EstilosLevel2Component {
 
 
   ngOnInit(): void { 
-
     this.selectionService.selectedKeys$
-    .pipe(
-      skip(1),        // ignora el valor almacenado
-      takeUntil(this.destroy$)
-    )
+    .pipe(skip(1),takeUntil(this.destroy$))
       .subscribe(event => {
+        console.log('EVENTO COMPLETO:', event);
 
         if (event.selected && event.toggledKey) {
+          console.log("mostrando")
           this.showlevel1service.getOptionsBy(21, event.toggledKey)
             .pipe(takeUntil(this.destroy$))
             .subscribe(data => {
@@ -44,7 +42,7 @@ export class EstilosLevel2Component {
         }
       });
 
-    // 🔵 SUSCRIPCIÓN 2: estilos
+    // SUSCRIPCIÓN 2: estilos
     /*this.selectionService.style$
       .pipe(takeUntil(this.destroy$))
       .subscribe(style => {

@@ -24,7 +24,8 @@ export class OptionsSelectedComponent {
   private subscription!: Subscription;
   constructor (private mostrarDialogoService: MostrarDialogoService, 
     private showlevel1service: Showlevel1Service, private crearJsonService:CrearJsonService,
-  private dialog: MatDialog,private selectionService:SelectionService,private state: DragDropService) {}
+    private dialog: MatDialog, private selectionService:SelectionService,
+    private state: DragDropService) {}
 
  
   @Input() connectedTo: string[] = [];
@@ -148,7 +149,7 @@ console.log("copia a selected", this.copiedItem)
 
 
 crearJson() {
-  this.showlevel1service.getLevelsBy(2).subscribe(data => {
+  this.showlevel1service.getLevelsBy().subscribe(data => {
    this.tojsonItems = (data as any[]).map(item => ({
   ...item,
   value: this.parseValue(item.value)
@@ -209,7 +210,7 @@ onDrop(event: any) {
 
   onDelete(){
     if (confirm('¿Seguro que quieres borrar todos los valores?')){
-      this.showlevel1service.deleteValues().subscribe({
+      this.showlevel1service.deleteAllValues().subscribe({
         next: (res) => {
             console.log('Valores eliminados correctamente:', res);
               this.selectedItems = [];

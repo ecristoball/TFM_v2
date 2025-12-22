@@ -41,15 +41,15 @@ export class Showlevel1Service {
     }
 
     //Devuelve toda la jerarquía para crear el json.
-    getLevelsBy(frontlevel: number) {
-        return this.http.get<JsonKey[]>(`${this.apiUrl}/levelsbyfrontlevel/${frontlevel}`);
+    getLevelsBy() {
+        return this.http.get<JsonKey[]>(`${this.apiUrl}/levelsbyfrontlevel`);
     }
     //Inserta en BBDD un valor para un determinado keyName 
     updateValue(keyName: string, value: any) {
        return this.http.put<JsonKey[]>(`${this.apiUrl}/update/${keyName}`, {value});
     }
-    //Borra todos los valores de la BBDD
-    deleteValues(): Observable<void> {
+    //Borra todos los valores de la BBDD. NO devuelve nada.
+    deleteAllValues(): Observable<void> {
       return this.http.delete<void>(`${this.apiUrl}/deleteall`);
     }
     //Borra un determinado valor de la BBDD, el asociado a keyName
@@ -70,10 +70,10 @@ export class Showlevel1Service {
 
 getDefaultValue(keyName: string): Observable<any> {
   console.log(keyName);
-  return this.http.get<any>(
-    `${this.apiUrl}/defaultvalue/${keyName}`
-  );
+  return this.http.get<any>(`${this.apiUrl}/defaultvalue/${keyName}`);
 }
+
+
 getImageUrl(keyName: string): Observable<any> {
   console.log(keyName);
   return this.http.get<any>(

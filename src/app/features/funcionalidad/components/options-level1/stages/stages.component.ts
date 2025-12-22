@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../../../../../services/auth.service';
 
 @Component({

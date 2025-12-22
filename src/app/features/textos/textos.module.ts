@@ -11,6 +11,10 @@ import { SharedModule } from '../../shared/shared.module';
 import { OpcionesComponent } from './componentes/options-level2/opciones/opciones.component';
 import { ValoresComponent } from './componentes/options-level2/valores/valores.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCard, MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TextosRoutingModule,
     SharedModule,
     DragDropModule,
-    CommonModule
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
   ]
 })
 export class TextosModule { }
