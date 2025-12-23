@@ -18,7 +18,7 @@ export class ComponentesComponent {
      console.log("carga componentes de estilos")
      const user = this.authService.currentUser;
      const user2 = this.authService.user$;
-     const parentKey = 'estilos';
+     const parentKey = 'componentes';
  
      console.log(user, user2)
      if (!user) {

@@ -151,6 +151,7 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     authority:this.radioField('authority',['fnmt','izenpe','standard']),
 
     // seleccion
+    borderColor: this.radioField('borderColor', ['idv'], 'idv'),
     operationMode: this.radioField('operationMode', ['idv'], 'idv'),
     language: this.radioField('language', ['es', 'en']),
     platform: this.radioField('platform', ['web'],'web'),

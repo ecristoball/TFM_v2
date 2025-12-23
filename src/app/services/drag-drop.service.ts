@@ -90,15 +90,16 @@ export class DragDropService {
     this.selectedItemsSubject.next(updated);
   }
 
-  // mover/reordenar dentro de listas 
+  // mover/reordenar dentro de listas ¿borrar?221225
+  /*
   moveItem(previousList: any[], currentList: any[], previousIndex: number, currentIndex: number) {
     const item = previousList.splice(previousIndex, 1)[0];
     currentList.splice(currentIndex, 0, item);
     console.log("no debo estar aqui")
-    // emitir nuevos estados (si las listas están en level2Groups o selectedItems)
+    //emitir nuevos estados (si las listas están en level2Groups o selectedItems)
     this.level2GroupsSubject.next({ ...this.level2GroupsSubject.value });
     this.selectedItemsSubject.next([...this.selectedItemsSubject.value]);
-  }
+  }*/
 
   moveItemBetweenLists(
   item: any,
@@ -139,6 +140,10 @@ export class DragDropService {
   // Emitimos el nuevo estado
   this.level2GroupsSubject.next({ ...level2Groups });
   this.selectedItemsSubject.next([...selectedItems]);
+}
+clearLevel2Groups() {
+  this.level2GroupsSubject.next({});
+  this.selectedItemsSubject.next([]);
 }
 
 }

@@ -1,4 +1,5 @@
-<p>estilos-level2 works!</p>
+
+<!--
 <main class="cont">
   <div *ngIf="loading">Cargando...</div>
 
@@ -24,9 +25,18 @@
      
     </div>
     <div class="ejemplo-header">
+      -->
     <!-- Botón que cambia de color según selectedColor -->
 
     <!-- Botón que cambia de color según selectedColor -->
+     <!--
+    <mat-form-field appearance="outline">
+  <mat-label>Color</mat-label>
+  <input
+    matInput
+    type="color"
+    [(ngModel)]="selectedColor">
+</mat-form-field>
         <button 
             [style.background-color]="selectedBackgroundColor"
             [style.border-bottom-color]="selectedBorderColor"
@@ -35,11 +45,46 @@
             style="color: white; padding: 8px 16px; border-radius: 0px;"
             >
         </button>
-
+      <div class="actions" >
+        <button mat-stroked-button color="accent" >CANCELAR</button>
+        <button mat-raised-button color="primary">GUARDAR CAMBIOS</button>
+    </div>
+    -->
+    <!--
+    <div class="actions" *ngIf="mostrarTextoVacio">
+        <button mat-stroked-button color="accent" (click)="onCancel()">CANCELAR</button>
+        <button mat-raised-button color="primary" (click)="insertValue()">GUARDAR CAMBIOS</button>
+    </div>
     </div>
     
   </div>
 
 
+</main>-->
+
+ <h2><span class="slash">/</span>OPCIONES DISPONIBLES</h2>
+ <p>Arrastra a la parte de opciones seleccionadas los componentes que quieres personalizar. </p>
+<main class="cont">
+  <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
+    <p class="group-title">{{ groupKey | uppercase }}</p>
+    <div
+      cdkDropList
+      [id]="groupKey + '-list'"
+      class="group-items"
+      [cdkDropListData]="level2Groups[groupKey]"
+      [cdkDropListConnectedTo]="['selected-list']"
+      (cdkDropListDropped)="onItemDropped($event)"
+    >
+      <app-item
+        *ngFor="let item of level2Groups[groupKey]"
+        [item]="item"
+        class="item"
+        cdkDrag
+        [cdkDragData]="item"
+         [cdkDragDisabled]="item.locked"
+        [ngClass]="{ 'locked': item.locked }"
+      >{{ item.name }}</app-item>
+    </div>
+  </div>
 </main>
 

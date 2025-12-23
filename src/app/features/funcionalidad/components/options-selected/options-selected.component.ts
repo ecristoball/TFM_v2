@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy} from '@angular/core';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CrearJsonService } from '../../../../services/crear-json.service';
 import { Showlevel1Service,JsonKey } from '../../../../services/showlevel1.service';
 import { MostrarDialogoService } from '../../../../services/mostrar-dialogo.service';
 import { DialogoJsonComponent } from '../../../../shared/dialogo-json/dialogo-json.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription, skip  } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
 import { DragDropService } from '../../../../services/drag-drop.service';
-
+import { Subject, takeUntil, skip } from 'rxjs';
 
 @Component({
   selector: 'app-options-selected',
@@ -17,15 +17,16 @@ import { DragDropService } from '../../../../services/drag-drop.service';
 })
 
 
-export class OptionsSelectedComponent {
-
+export class OptionsSelectedComponent implements OnDestroy {
+  private destroy$ = new Subject<void>();
   tojsonItems: any[] = [];
   jsonResult: any;
   private subscription!: Subscription;
+
   constructor (private mostrarDialogoService: MostrarDialogoService, 
     private showlevel1service: Showlevel1Service, private crearJsonService:CrearJsonService,
     private dialog: MatDialog, private selectionService:SelectionService,
-    private state: DragDropService) {}
+    private dragdropservice: DragDropService) {}
 
  
   @Input() connectedTo: string[] = [];
@@ -38,11 +39,11 @@ export class OptionsSelectedComponent {
 
   ngOnInit() {
     console.log(this.dropListIds)
-    this.state.selectedItems$.subscribe(items => {
+    this.dragdropservice.selectedItems$.subscribe(items => {
       this.selectedItems = items;
       console.log("itesss", items)
     });
-    this.state.dropListIds$.subscribe(ids => {
+    this.dragdropservice.dropListIds$.subscribe(ids => {
       console.log('dropListIds', ids);
       this.dropListIds = ids;
     });
@@ -122,7 +123,7 @@ console.log("copia a selected", this.copiedItem)
              
 
           // Insertamos el clon en la lista destino
-            this.state.addItemToSelected(this.copiedItem);
+            this.dragdropservice.addItemToSelected(this.copiedItem);
             console.log("item esssssssssssss ", this.copiedItem)
             //event.container.data.splice(event.currentIndex, 0, this.copiedItem);
             console.log("Item copiado sin borrar el original:", this.copiedItem);
@@ -187,7 +188,11 @@ parseValue(value: any) {
     return value;
   }
 }
-
+ngOnDestroy(): void {
+  this.dragdropservice.clearLevel2Groups();
+  this.destroy$.next();
+  this.destroy$.complete();
+}
 
 
 /*

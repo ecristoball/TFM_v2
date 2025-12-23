@@ -1,23 +1,22 @@
-<p>estilos-selected works!</p>
 <main class="main-container">
+   <h2><span class="slash">/</span>OPCIONES SELECCIONADAS</h2>
+
   <div
     cdkDropList
     id="selected-list"
     [cdkDropListData]="selectedItems"
     class="selected-container"
-    [cdkDropListConnectedTo]="['groupKey + -list']"
-    (cdkDropListDropped)="onItemDropped($event)"
-  >
-    <app-item *ngFor="let item of selectedItems" [item]="item" cdkDrag></app-item>
+    [cdkDropListConnectedTo]="dropListIds"
+    (cdkDropListDropped)="onItemDropped($event)">
+ 
+      <app-item *ngFor="let item of selectedItems" [item]="item" cdkDrag [cdkDragData]="item"></app-item>
 
     <!--<button (click)="insertValue()"> insertar</button>-->
-    <button class="json-btn" (click)="crearJson()"> MOSTRAR JSON</button>
+    
+  </div>
+  <div class="actions">
     <button class="del-btn" (click)="onDelete()"> BORRAR</button>
-<!--
-    <div *ngIf="jsonResult" class="json-output">
-      <h3>Resultado:</h3>
-      <pre>{{ jsonResult | json }}</pre>
-    </div>
-    -->
+    <button class="json-btn" (click)="crearJson()"> MOSTRAR JSON</button>
+    
   </div>
 </main>

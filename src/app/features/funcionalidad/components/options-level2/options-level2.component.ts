@@ -3,9 +3,10 @@ import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.serv
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
 import { CdkDragDrop,transferArrayItem,CdkDropList} from '@angular/cdk/drag-drop';
-import { skip } from 'rxjs';
+import { skip,takeUntil } from 'rxjs';
 import { DragDropService } from '../../../../services/drag-drop.service';
 import { ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-options-level2',
@@ -18,17 +19,23 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
   level2Groups: {[key:string]:any[]}={};
   loading=false;
   private subscription!: Subscription;
+    private destroy$ = new Subject<void>();
+
  @ViewChildren(CdkDropList) dropLists!: QueryList<CdkDropList>;
-  constructor(private showlevel1service: Showlevel1Service,private state: DragDropService, private selectionService:SelectionService) {}
+  constructor(private showlevel1service: Showlevel1Service,private dragdropservice: DragDropService, private selectionService:SelectionService) {}
 
   ngOnInit(): void { 
     this.subscription = this.selectionService.selectedKeys$ //escucha el observable
-    .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
+    .pipe(skip(1),
+    takeUntil(this.destroy$)) //evitar primera carga al pasar de una pantalla a otra 
     .subscribe(event => {
       // si un item se seleccionó
       if (event.selected && event.toggledKey && event.front_parent!="core") {
-        this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {
+        this.showlevel1service.getOptionsBy(2, event.toggledKey)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(data => {
           this.level2Groups[event.toggledKey!] = data;
+          console.log("level2groups es :", this.level2Groups, "y this.level2Groups[event.toggledKey!]",this.level2Groups[event.toggledKey!])
         });
         console.log("evento ", event.toggledKey,event.front_parent)
       }
@@ -39,10 +46,12 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
       }
     });
 
-    this.state.level2Groups$.subscribe(groups => {
+    this.dragdropservice.level2Groups$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(groups => {
       this.level2Groups = groups;
       const ids = Object.keys(groups).map(key => `${key}-list`);
-      this.state.setDropListIds(ids);
+      this.dragdropservice.setDropListIds(ids);
       console.log("IDS ENVIADOS DESDE LEVEL2", ids);
     });
 
@@ -52,9 +61,7 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
   }
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+
   ngAfterViewInit() {
     console.log("afete")
     this.updateDropListIds();
@@ -66,7 +73,7 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
 
   private updateDropListIds() {
     const ids = this.dropLists.map(list => list.id);
-    this.state.setDropListIds(ids);
+    this.dragdropservice.setDropListIds(ids);
     console.log("Actualizando dropListIds: en options level2", ids);
   }
 
@@ -82,17 +89,22 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
     const fromSelected = event.previousContainer.id === 'selected-list';
     const toSelected = event.container.id === 'selected-list';
 
-    this.state.moveItemBetweenLists(item, fromSelected, toSelected, event.currentIndex);
+    this.dragdropservice.moveItemBetweenLists(item, fromSelected, toSelected, event.currentIndex);
     console.log("borrar el item", item.key_name)
     //this.showlevel1service.deleteValue(item.key_name);
     this.showlevel1service.clearValue(item.key_name).subscribe();
+  }
+    ngOnDestroy(): void {
+      this.dragdropservice.clearLevel2Groups();
+  this.destroy$.next();
+  this.destroy$.complete();
   }
 }
   /*
     console.log("dropeado")
     if (event.previousContainer !== event.container) {
     console.log("dropeado")
-    this.state.moveItem(
+    this.dragdropservice.moveItem(
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
