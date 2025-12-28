@@ -1,4 +1,8 @@
-
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .layout-grid{
     display: grid;
     grid-template-columns: 15% 1fr 25%;
@@ -7,6 +11,7 @@
     gap:10px;
     padding: 10px;
     box-sizing: border-box;
+     min-height: 0;
 }
 .estilos-level1 {
     background-color:#b1b1b1;
@@ -17,14 +22,21 @@
 .estilos-level2 {
     background-color: rgb(255, 255, 255);
     padding: 16px;
-    
-      
-  flex-wrap: wrap;   
-
+    flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+ 
+  overflow: auto; /* Para que el scroll interno funcione */
+   min-height: 0;
 }
 .estilos-selected {
+   display: flex;
     background-color: #b1b1b1;
+    /*flex-direction: column;*/
     padding: 16px;
     color: white;
-
+    min-height: 0;        /* PERMITE que el contenido interno haga scroll */
+  overflow: auto;  
+  width: 100%;
+  justify-content: center;
 }

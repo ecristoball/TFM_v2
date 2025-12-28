@@ -1,12 +1,14 @@
 <main class="main" >
   <div class="item-card"[ngClass] ="{'active':isActive}" (click)="onCardClick()">
     <h2>{{item.key_name}}</h2>
+    <!--
     <input 
       *ngIf="item.frontlevel === '22'"
       type="color" 
       [(ngModel)]="selectedBackgroundColor"
       (input)="onBackgroundChange()"
     />
+  -->
     <!-- Color del borde 
     <input 
       *ngIf="item.frontlevel === '22'"
@@ -16,6 +18,7 @@
     />
 -->
     <!-- Grosor del borde -->
+     <!--
     <input 
       *ngIf="item.frontlevel === '22'"
       type="number"
@@ -24,8 +27,9 @@
       [(ngModel)]="selectedBorderWidth"
       (input)="onBorderWidthChange(selectedBorderWidth)"
     />
+  -->
     <!-- SOLO se muestra si item.frontlevel === '21' -->
-    <span *ngIf="item.frontlevel === '22'">:{{ selectedBackgroundColor }}</span>
+  <!--  <span *ngIf="item.frontlevel === '22'">:{{ selectedBackgroundColor }}</span> -->
 
     <span *ngIf="item.value && item.value.active !== undefined">:{{ item.value.active }}</span>
     <span *ngIf="item.value && item.value.type">:{{ item.value.type }}</span>

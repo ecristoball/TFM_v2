@@ -19,7 +19,7 @@ level1Items: any[] = [];
     console.log("carga options document, selfie...")
     const user = this.authService.currentUser;
     const user2 = this.authService.user$;
-    const parentKey = 'core';
+    const parentKey = 'font';
 
     console.log(user, user2)
     if (!user) {

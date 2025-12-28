@@ -51,7 +51,20 @@ export class DialogoGenericoComponent {
       }
     }
   }
+hexToRgb(hex: string): string {
+  const cleanHex = hex.replace('#', '');
+  const bigint = parseInt(cleanHex, 16);
 
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+onColorChange(key: string) {
+  // Hook por si luego quieres lógica extra
+}
   private isFormValid(): boolean {
     for (const key in this.formValues) {
       const value = this.formValues[key];
@@ -88,6 +101,7 @@ export class DialogoGenericoComponent {
         break; // ya validamos el objeto, no seguimos con cada propiedad
       }
     }
+
     return true;
   }
 

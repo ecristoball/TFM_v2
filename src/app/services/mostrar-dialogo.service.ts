@@ -139,7 +139,18 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
   ]
 });
 
-  /**  Mapa de configuraciones. Ir añadiendo configuracions aquí para mostrar en selected*/
+private colorField = (key: string, defaultColor: string = '#000000') => ({
+  title: key,
+  fields: [{
+    label: 'Selecciona un color',
+    type: 'color',
+    key: 'color',
+    defaultValue: defaultColor
+  }]
+});
+
+
+  /****************  Mapa de configuraciones. ************/
   private dialogConfig: Record<string, any> = {
     // Ejemplo con select
     serviceMode: this.radioField('serviceMode', ['validation', 'ocr']),
@@ -151,7 +162,7 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     authority:this.radioField('authority',['fnmt','izenpe','standard']),
 
     // seleccion
-    borderColor: this.radioField('borderColor', ['idv'], 'idv'),
+    //header_borderColor: this.radioField('header_borderColor', ['idv'], 'idv'),
     operationMode: this.radioField('operationMode', ['idv'], 'idv'),
     language: this.radioField('language', ['es', 'en']),
     platform: this.radioField('platform', ['web'],'web'),
@@ -159,7 +170,7 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     types: this.radioField('types', ['pep', 'pep-class-1', 'pep-class-2', 'pep-class-3', 'pep-class-4', 'sanction', 'warning', 'adverse-media-v2-property', 'adverse-media-v2-financial-aml-cft', 'adverse-media-v2-fraud-linked', 'adverse-media-v2-narcotics-aml-cft', 'adverse-media-v2-violence-aml-cft', 'adverse-media-v2-terrorism', 'adverse-media-v2-cybercrime', 'adverse-media-v2-general-aml-cft', 'adverse-media-v2-regulatory', 'adverse-media-v2-financial-difficulty', 'adverse-media-v2-violence-non-aml-cft', 'adverse-media-v2-other-financial', 'adverse-media-v2-other-serious', 'adverse-media-v2-other-minor'],'web'),
 
     
-    // Ejemplo con number
+    // Tipo number
     minimumAcceptableAge: this.numberField('minimumAcceptableAge',1,100),
     maximumAcceptableTimeSinceExpiration: this.numberField('maximumAcceptableTimeSinceExpiration'),
     manualCaptureDelay: this.numberField('manualCaptureDelay'),
@@ -167,8 +178,8 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     video_detectionTimeout: this.numberField('video_detectionTimeout'),
     challengeLength: this.numberField('challengeLength'),
     selfie_detectionTimeout: this.numberField('selfie_detectionTimeout'),
-
-    // Ejemplo con boolean
+    
+    // Tipo boolean
     extendedCoverage: this.booleanField('extendedCoverage'),
     geolocation: this.booleanField('geolocation'),
     manualCaptureShow: this.booleanField('manualCaptureShow'),
@@ -191,7 +202,7 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     helpModal_Show:this.booleanField('helpModal_Show'),  
     closeButton_Show:this.booleanField('closeButton_Show'),
 
-    //ejemplo con string
+    //Tipo string
     defaultCountry:this.textField('defaultCountry'),
     title:this.textField('title'),
     libraryDocumentIds:this.textField('libraryDocumentIds'),
@@ -200,8 +211,23 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     signers_name:this.textField('signers_name'),
     signers_email:this.textField('signers_email'),
     redirectionUrl:this.textField('redirectionUrl'),
+    familyPrimary:this.textField('familyPrimary'),
+    familySecondary:this.textField('familySecondary'),
+    borderWidthPrimary: this.textField('borderWidthPrimary'),
+    borderWidth: this.textField('borderWidth'), 
+    widthBorderVisited: this.textField('widthBorderVisited'), 
+    borderWidthSecondary: this.textField('borderWidthSecondary'), 
+    borderWidthTertiary: this.textField('borderWidthTertiary'), 
+    borderWidthTertiaryInverse: this.textField('borderWidthTertiaryInverse'), 
+    borderWidthOutline: this.textField('borderWidthOutline'), 
+    borderRadius: this.textField('borderRadius'), 
+    header_borderWidth: this.textField('header_borderWidth'), 
+    modal_borderWidth: this.textField('header_borderWidth'), 
+    modal_borderRadius: this.textField('modal_borderRadius'), 
+    dropDown_borderRadius: this.textField('dropDown_borderRadius'), 
+    
      
-    //ejemplo de array
+    //Tipo array
     countryFilter: this.arrayField('countryFilter'),
     documentTypes: this.arrayField('documentTypes'),
 
@@ -219,6 +245,11 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
     //contextualData: this.objectField('contextualData', ['user_id', 'user_data']),
     //contextualData: this.objectField('contextualData', ['user_id', 'user_data'])
     contextualData: this.objectField('Contextual Data', ['user_id', 'user_data']),
+    custom1_familyPrimary: this.objectField('custom1_familyPrimary Data', ['name', 'url','weight','style', 'stretch', 'display','unicodeRange']),
+    custom2_familyPrimary: this.objectField('custom2_familyPrimary Data', ['name', 'url','weight','style', 'stretch', 'display','unicodeRange']),
+    custom1_familySecondary: this.objectField('custom1_familySecondary Data', ['name', 'url','weight','style', 'stretch', 'display','unicodeRange']),
+    custom2_familySecondary: this.objectField('custom2_familySecondary Data', ['name', 'url','weight','style', 'stretch', 'display','unicodeRange']),
+
 
     antispoofing: this.infoConfirmField('Se aplicarán las siguientes palancas:',
       {
@@ -237,11 +268,56 @@ private radioWithTextField = (key: string, radioLabel: string, textLabel: string
         "ScoreGroup-ReplayAttackTest": 1,
         "ScoreGroup-PhotoAuthenticity": 1
       }
-    )
+    ),
+    //tipo color
 
-  };
+    header_borderColor: this.colorField('header_borderColor', '#ff0000'),
+    header_backgroundColor: this.colorField('header_backgroundColor', '#ff0000'),
+    darkTextColor: this.colorField('darkTextColor', '#ff0000'),
+    lightTextColor: this.colorField('lightTextColor', '#ff0000'),
+    brandPrimaryColor: this.colorField('brandPrimaryColor', '#ff0000'),
+    brandSecondaryColor: this.colorField('brandSecondaryColor', '#ff0000'),
+    spinner_containerColor: this.colorField('spinner_containerColor', '#ff0000'),
+    spinner_progressColor: this.colorField('spinner_progressColor', '#ff0000'),
+    backgroundColorPrimary: this.colorField('backgroundColorPrimary', '#ff0000'),
+    labelColorPrimary: this.colorField('labelColorPrimary', '#ff0000'),
+    borderColorPrimary: this.colorField('borderColorPrimary', '#ff0000'),
+    textColor: this.colorField('textColor', '#ff0000'),
+    iconColor: this.colorField('iconColor', '#ff0000'),
+    borderColor: this.colorField('borderColor', '#ff0000'),
+    colorHover: this.colorField('colorHover', '#ff0000'),
+    colorPressed: this.colorField('colorPressed', '#ff0000'),
+    textColorVisited: this.colorField('textColorVisited', '#ff0000'),
+    borderColorVisited: this.colorField('borderColorVisited', '#ff0000'),
+    backgroundColorSecondary: this.colorField('backgroundColorSecondary', '#ff0000'),
+    contentColorVisited: this.colorField('contentColorVisited', '#ff0000'),
+    iconColorSecondary: this.colorField('iconColorSecondary', '#ff0000'),
+    labelColorSecondary: this.colorField('labelColorSecondary', '#ff0000'),
+    borderColorSecondary: this.colorField('borderColorSecondary', '#ff0000'),
+    backgroundColorTertiary: this.colorField('backgroundColorTertiary', '#ff0000'),
+    iconColorTertiary: this.colorField('iconColorTertiary', '#ff0000'),
+    labelColorTertiary: this.colorField('labelColorTertiary', '#ff0000'),
+    borderColorTertiary: this.colorField('borderColorTertiary', '#ff0000'),
+    backgroundColorTertiaryInverse: this.colorField('backgroundColorTertiaryInverse', '#ff0000'),
+    iconColorTertiaryInverse: this.colorField('iconColorTertiaryInverse', '#ff0000'),
+    labelColorTertiaryInverse: this.colorField('labelColorTertiaryInverse', '#ff0000'),
+    borderColorTertiaryInverse: this.colorField('borderColorTertiaryInverse', '#ff0000'),
+    backgroundColorOutline: this.colorField('backgroundColorOutline', '#ff0000'),
+    iconColorOutline: this.colorField('iconColorOutline', '#ff0000'),
+    borderColorOutline: this.colorField('borderColorOutline', '#ff0000'),
+    labelColorOutline: this.colorField('labelColorOutline', '#ff0000'),
+    dropDown_backgroundColor: this.colorField('dropDown_backgroundColor', '#ff0000'),
+    dropDown_borderColor: this.colorField('dropDown_borderColor', '#ff0000'),
+    modal_backgroundColor: this.colorField('modal_backgroundColor', '#ff0000'), 
+    modal_titleColor: this.colorField('modal_titleColor', '#ff0000'), 
+    modal_descriptionColor: this.colorField('modal_descriptionColor', '#ff0000'), 
+    modal_iconColorStart: this.colorField('modal_iconColorStart', '#ff0000'), 
+    modal_iconColorStartError: this.colorField('iconColorStartError', '#ff0000'), 
+    modal_iconColorStartSuccess: this.colorField('iconColorStartSuccess', '#ff0000'), 
+    modal_iconColorEnd: this.colorField('iconColorEnd', '#ff0000'), 
+    modal_borderColor: this.colorField('borderColor', '#ff0000'), 
 
-
+  }
 
   /** 🪟 Abre el diálogo según el tipo */
   openDialogForItem(itemType: string) {

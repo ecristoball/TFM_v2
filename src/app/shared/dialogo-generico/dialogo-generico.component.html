@@ -111,7 +111,30 @@
         </li>
       </ul>
     </div>
+<!-- Selector de color -->
+<div *ngIf="field.type === 'color'" class="color-field">
+  <label>{{ field.label }}</label>
 
+  <input
+    type="color"
+    [(ngModel)]="formValues[field.key]"
+    (change)="onColorChange(field.key)"
+  />
+
+  <div class="color-info">
+    <div
+      class="color-preview"
+      [style.background]="formValues[field.key]"
+    ></div>
+
+    <div class="color-values">
+      <p><strong>HEX:</strong> {{ formValues[field.key] }}</p>
+      <p><strong>RGB:</strong> {{ hexToRgb(formValues[field.key]) }}</p>
+    </div>
+  </div>
+</div>
+
+  
   </div>
 
 </mat-dialog-content>

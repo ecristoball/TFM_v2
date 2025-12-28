@@ -50,12 +50,13 @@
   
 }
 h2{
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color:#000D44;
 }
 .slash {
   color: #FF7777; /* el color que quieras */
 }
-p{
-  color:#000D44;
+h3{
+    color:#000D44;
+    font-size: 1.3rem;
 }

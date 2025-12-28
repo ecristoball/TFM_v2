@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Showlevel1Service } from '../../../../../services/showlevel1.service';
+import { takeUntil,Subject } from 'rxjs';
+import { AuthService} from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-temas',
@@ -8,19 +9,38 @@ import { Showlevel1Service } from '../../../../../services/showlevel1.service';
 })
 export class TemasComponent {
 level1Items: any[] = [];
-
-  constructor(private showlevel1service: Showlevel1Service) {}
-
-  ngOnInit(): void {
-    this.showlevel1service.getByFrontLevel(200).subscribe(data => {
-      this.level1Items = data;
-      console.log(data);
-    });
-  }
-  mostrar(){
-    this.showlevel1service.getByFrontLevel(20).subscribe(data => {
-      this.level1Items = data;
-      console.log(data);
-    });
-  }
+ 
+   constructor( private authService:AuthService) {}
+ 
+   private destroy$ = new Subject<void>();
+ 
+   ngOnInit() {
+     console.log("carga componentes de estilos")
+     const user = this.authService.currentUser;
+     const user2 = this.authService.user$;
+     const parentKey = 'theme';
+ 
+     console.log(user, user2)
+     if (!user) {
+       console.error("Usuario no autenticado");
+       return;
+     }
+     const userId = user.id;
+     console.log("userid es : ",userId)
+     this.authService.getUserFunctionalities(userId,parentKey)
+       .pipe(takeUntil(this.destroy$))
+       .subscribe({
+         next: (data:any) => {
+           console.log("DATA COMPLETA DEL BACKEND:", data);
+           this.level1Items = data
+           console.log(this.level1Items);
+         },
+         error: (err) => console.error(err)
+       }); 
+   }
+ 
+   ngOnDestroy() {
+     this.destroy$.next();
+     this.destroy$.complete();
+   }
 }

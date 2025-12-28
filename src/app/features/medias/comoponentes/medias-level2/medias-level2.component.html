@@ -1,0 +1,23 @@
+ <h2><span class="slash">/</span>OPCIONES DISPONIBLES</h2>
+ <h3>Selecciona el item y personaliza lasa urls en la parte OPCIONES SELECCIONADAS </h3>
+<main class="cont">
+  <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
+    <p class="group-title">{{ groupKey | uppercase }}</p>
+    <div
+      cdkDropList
+      [id]="groupKey + '-list'"
+      class="group-items"
+      
+    >
+      <app-item
+        *ngFor="let item of level2Groups[groupKey]"
+        [item]="item"
+        class="item"
+        cdkDrag
+      
+      >{{ item.name }}</app-item>
+    </div>
+  </div>
+</main>
+
+
