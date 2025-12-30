@@ -1,43 +1,50 @@
-<div class="wrapper">
-    <h2><span class="slash">/</span>PERSONALIZACIÓN DE TEXTOS</h2>
-    <main class="main-container">
-    <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Documento">
+<mat-card class="wrapper">
+
+  <h2><span class="slash">/</span>PERSONALIZACIÓN DE TEXTOS</h2>
+
+  <main class="main-container">
+
+    <mat-card-content>
+      <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Documento">
+    </mat-card-content>
 
     <!-- TEXTO FIJO -->
     <mat-form-field appearance="outline" class="full-width" *ngIf="mostrarTextoVacio">
-        <mat-label>Texto por defecto</mat-label>
-        <textarea
+      <mat-label>Texto por defecto</mat-label>
+      <textarea
         matInput
         [value]="valorTexto"
         readonly
         cdkTextareaAutosize
         cdkAutosizeMinRows="2"
         cdkAutosizeMaxRows="10">
-        </textarea>
+      </textarea>
     </mat-form-field>
 
     <!-- TEXTO LIBRE -->
-    <mat-form-field  appearance="outline"  class="full-width textarea-white"  *ngIf="mostrarTextoVacio">
-
-
-    <mat-label>Personaliza tu texto aquí</mat-label>
-    <textarea
+    <mat-form-field appearance="outline" class="full-width-white" *ngIf="mostrarTextoVacio">
+      <mat-label>Personaliza tu texto aquí</mat-label>
+      <textarea
         matInput
         [(ngModel)]="textoPorDefecto"
         cdkTextareaAutosize
         cdkAutosizeMinRows="2"
         cdkAutosizeMaxRows="10">
-    </textarea>
+      </textarea>
     </mat-form-field>
 
     <div class="actions" *ngIf="mostrarTextoVacio">
-        <button mat-stroked-button color="accent" (click)="onCancel()">CANCELAR</button>
-        <button mat-raised-button color="primary" (click)="insertValue()">GUARDAR CAMBIOS</button>
-    </div>
-    </main>
-    <div class="actions-general">
-        <button mat-stroked-button color="warn" (click)="onDelete()">BORRAR</button>
-        <button mat-raised-button color="primary" (click)="crearJson()">MOSTRAR JSON</button>
+      <button mat-stroked-button color="accent" (click)="onCancel()">CANCELAR</button>
+      <button mat-raised-button color="primary" (click)="insertValue()">GUARDAR CAMBIOS</button>
     </div>
 
+  </main>
+
+ 
+
+  <div class="actions-general">
+    <button mat-stroked-button color="warn" (click)="onDelete()">BORRAR</button>
+    <button mat-raised-button color="primary" (click)="crearJson()">MOSTRAR JSON</button>
   </div>
+
+</mat-card>

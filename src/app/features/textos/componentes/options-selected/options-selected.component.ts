@@ -9,7 +9,6 @@ import { DialogoJsonComponent } from '../../../../shared/dialogo-json/dialogo-js
 import { MatDialog } from '@angular/material/dialog';
 
 
-
 @Component({
   selector: 'app-options-selected',
   templateUrl: './options-selected.component.html',

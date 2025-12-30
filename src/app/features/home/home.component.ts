@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+
+
 
 @Component({
   selector: 'app-home',
@@ -8,7 +8,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+}
+/*
   myForm: FormGroup;
   loginOK = false;
   errorMessage = '';
@@ -43,5 +44,6 @@ export class HomeComponent {
       }
     });
   }
+    */
 
-}
+

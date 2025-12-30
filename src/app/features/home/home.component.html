@@ -1,45 +1,25 @@
-<h2> configurador XpressIf NoCode</h2>
-<div class="back"></div>
-<!--
-<form (ngSubmit)="onSubmit()" [formGroup]="homeForm" class="home-form">
-  <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email" type="email" required>
-  </mat-form-field>
+<div class="landing">
 
-  <mat-form-field appearance="fill">
-    <mat-label>Password</mat-label>
-    <input matInput formControlName="password" type="password" required>
-  </mat-form-field>
+  <!-- Título superior -->
+  <h1 class="mat-display-large landing-title">
+    Configurador xpressId NoCode
+  </h1>
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="homeForm.invalid">
-    Login
-  </button>
-</form>
-
-<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>*
+  <!-- Capa oscura + contenido -->
+  <div class="overlay">
+    <!--
+    <h2 class="mat-headline-medium">
+      Bienvenido a mi aplicación
+    </h2>
 -->
-<!--
- <h2>LOGIN</h2>
+    <p class="mat-body-large">
+      Define la configuración de tu fichero json de forma fácil y rápida
+    </p>
 
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <button mat-raised-button color="primary" class="login-btn">
+      <!--   <button mat-raised-button color="primary" (click)="goToLogin()">-->
+      Iniciar sesión
+    </button>
+  </div>
 
-  <label>Email</label>
-  <input type="email" formControlName="email">
-  
-  <label>Password</label>
-  <input type="password" formControlName="password">
-
-  <button type="submit" [disabled]="myForm.invalid">Enviar</button>
-</form>
-
-<div *ngIf="loginOK" style="color: green; margin-top: 10px;">
-  ✔ Login OK
 </div>
-
-<div *ngIf="errorMessage" style="color: red; margin-top: 10px;">
-  {{ errorMessage }}
-</div>
-<app-login></app-login>
-
--->
