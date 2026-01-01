@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCardModule,
     MatDividerModule,
     MatCard,
+    MatCardModule,
+    MatIcon,
+    MatTooltipModule
   ]
 })
 export class TextosModule { }

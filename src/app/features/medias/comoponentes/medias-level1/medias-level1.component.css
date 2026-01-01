@@ -1,11 +1,17 @@
+.layout-grid{
+  margin: 2rem auto;
+  margin-bottom:2rem;
+  max-width: 85%;
+  padding: 16px;
+}
 h2{
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   color:#000D44;
 }
 .slash {
   color: #FF7777; /* el color que quieras */
 }
 h3{
-    color:#000D44;
-    font-size: 1.3rem;
+  color:#000D44;
+  font-size: 1.3rem;
 }

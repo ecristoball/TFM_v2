@@ -1,8 +1,8 @@
 .item-card{
-    border:1px solid #ccc;
+    border:1px solid #CCCCCC;
     border-radius: 6px;
-    background-color: #ffffff;
-    padding:4px;
+    background-color: #FFFFFF;
+    padding:16px;
     margin-top: 16px;
     color: #000000;
     max-width: 300px;
@@ -22,6 +22,12 @@ h2{
     overflow: hidden;
     line-height:1;
 }
+
 .item-card.active{
     background-color:#ff7777;
 }
+
+.item-card:hover {
+  transform: translateY(-2px);
+}
+

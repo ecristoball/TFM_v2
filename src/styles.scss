@@ -76,8 +76,13 @@ html, body {
 body { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
-    border:1px solid #f30404;
 }
 
 
 
+.tooltip-grande.mdc-tooltip .mdc-tooltip__surface{
+  font-size: 18px;     
+  line-height: 1.4;
+  max-width: 280px;     
+  padding: 10px 12px;
+}

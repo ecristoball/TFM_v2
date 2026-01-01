@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EstilosModule } from '../../estilos.module';
 
 @Component({
   selector: 'app-estilos-level1',

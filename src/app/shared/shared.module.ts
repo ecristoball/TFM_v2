@@ -14,7 +14,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { DialogoJsonComponent } from './dialogo-json/dialogo-json.component'; ;
-
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { DialogoJsonComponent } from './dialogo-json/dialogo-json.component'; ;
     MatButtonModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCardModule
   ],
   exports: [
     ItemComponent, 

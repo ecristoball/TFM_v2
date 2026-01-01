@@ -18,6 +18,10 @@ import { OptionsComponent } from './components/options-level1/options/options.co
 // Importar módulos de Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SetupComponent } from './components/options-level1/setup/setup.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +41,10 @@ import { SetupComponent } from './components/options-level1/setup/setup.componen
     DragDropModule,
     MatDialogModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatTooltipModule,
+    MatIconModule
   ]
 })
 export class FuncionalidadModule {

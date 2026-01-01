@@ -1,6 +1,14 @@
-
- <h2><span class="slash">/</span>OPCIONES DISPONIBLES</h2>
- <p>Arrastra a la parte de opciones seleccionadas los componentes que quieres personalizar. </p>
+<h2 class="section-title">
+  <span class="slash">/</span>FUNCIONALIDADES DISPONIBLES
+  <button
+    mat-icon-button
+    matTooltip="Arrastra a la parte de opciones seleccionadas los componentes que quieres personalizar. Puedes cancelar arrastrando de nuevo hacia este contenedor."
+    matTooltipClass="tooltip-grande"
+    aria-label="Ayuda funcionalidades">
+    <mat-icon>info</mat-icon>
+  </button>
+</h2>
+<p>Arrastra a la parte de opciones seleccionadas los componentes que quieres personalizar. </p>
 <main class="cont">
   <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
     <p class="group-title">{{ groupKey | uppercase }}</p>

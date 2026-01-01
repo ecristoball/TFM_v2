@@ -1,0 +1,10 @@
+.container{ 
+   margin: 2rem auto;
+   margin-bottom:2rem;
+   max-width: 85%;
+}
+h3{
+   font-size: 1.2rem;
+    color:#000D44;
+   font-weight: 500;
+}

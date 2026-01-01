@@ -7,6 +7,9 @@ import { MediasLevel1Component } from './comoponentes/medias-level1/medias-level
 import { MediasLevel2Component } from './comoponentes/medias-level2/medias-level2.component';
 import { MediasSelectedComponent } from './comoponentes/medias-selected/medias-selected.component';
 import { SharedModule } from '../../shared/shared.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,11 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     MediasRoutingModule,
-    SharedModule
+    SharedModule,
+    MatCardModule,
+    MatIconModule,
+    MatIcon,
+    MatTooltipModule
   ]
 })
 export class MediasModule { }

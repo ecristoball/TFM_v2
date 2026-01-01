@@ -7,8 +7,6 @@
   background-position: center;
 }
 
-/****/
-
 .landing {
   position: relative;
   height: 100vh;
@@ -31,7 +29,6 @@
   font-size: 4rem;
   font-weight: 800;
   text-align: left;
-
 }
 
 /* OVERLAY */
@@ -45,11 +42,9 @@
   border-radius: 12px;
   text-align: center;
   color: white;
-
   max-width: 600px; /* ancho máximo deseado */
   margin: 0 auto;    /* centra horizontalmente */
   text-align: center; /* opcional: centra texto */
-  
 }
 
 .mat-headline-medium {

@@ -14,6 +14,8 @@ import { appInitializer } from './app-init';
 import { APP_INITIALIZER } from '@angular/core';
 import { HomeModule } from './features/home/home.module';
 import { CanDirective } from './directivas/can.directive';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 //import { TextosComponent } from './textos/textos.component';
 //import { SetupComponent } from './features/setup/setup.component';
 //import { MediasComponent } from './features/medias/medias.component';
@@ -37,7 +39,9 @@ import { CanDirective } from './directivas/can.directive';
     HttpClientModule,
     FormsModule,
     //EstilosModule,
-    HomeModule
+    HomeModule,
+    MatToolbarModule,
+    MatButtonModule,
 
   ],
   providers: [

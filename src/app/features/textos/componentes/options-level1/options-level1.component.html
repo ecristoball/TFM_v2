@@ -1,6 +1,16 @@
 <main class="main-container">
-    <h2><span class="slash">/</span>TEXTOS DISPONIBLES</h2>
-    <h3>Pulsa sobre el elemento que deseas configurar.</h3>
-    <h3>Para eliminarlo, vuelve a pulsarlo.</h3> 
-    <app-item-list [items]="level1Items"></app-item-list>
+    <h2 class="section-title">
+        <span class="slash">/</span>TEXTOS DISPONIBLES
+        <button
+        mat-icon-button
+        matTooltip="Pulsa sobre el elemento que deseas configurar.Para eliminarlo, vuelve a pulsarlo."
+        matTooltipClass="tooltip-grande"
+        aria-label="Ayuda funcionalidades">
+        <mat-icon>info</mat-icon>
+        </button>
+    </h2>
+    <div class="layout-grid">
+        <app-item-list [items]="level1Items"></app-item-list>
+    </div>
+    
 </main>

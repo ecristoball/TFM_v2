@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from '../login/login.component';
 import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -26,6 +27,7 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatToolbarModule,
     MatCardModule,
+    RouterModule,
   ]
 })
 export class HomeModule { }

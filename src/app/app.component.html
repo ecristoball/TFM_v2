@@ -1,40 +1,33 @@
 <div class="app-container">
-  <nav class="navbar">
+  <mat-toolbar color="accent" class="app-toolbar">
    <div class="logo">
       <img src="assets/logo.png" alt="MiLogo" />
     </div>
-    <ul class="nav-links">
+  <span class="spacer"></span> 
 
-      <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
+      <!-- Menú de navegación -->
+  <ng-container *ngIf="!(authService.user$ | async)">
+    <button mat-button class="nav-btn" routerLink="/home" routerLinkActive="active-link">INICIO</button>
+  </ng-container>
 
-      <!-- Esta opción pueden verla todos  -->
-           <!-- Mostrar login solo si NO hay usuario -->
-      <li *ngIf="!(authService.user$ | async)">
-        <a routerLink="/login" routerLinkActive="active">LOGIN</a>
-      </li>
+  <ng-container *appCan="[1, 2, 3]">
+    <button mat-button class="nav-btn" routerLink="/funcionalidad" routerLinkActive="active-link">FUNCIONALIDADES</button>
+  </ng-container>
 
-      <li *appCan="[1, 2, 3]">
-        <a routerLink="/funcionalidad" routerLinkActive="active">FUNCIONALIDADES</a>
-      </li>
+  <ng-container *appCan="[1, 2]">
+    <button mat-button class="nav-btn" routerLink="/estilos" routerLinkActive="active-link">ESTILOS</button>
+  </ng-container>
 
-      <!-- Esta opción SOLO para admin -->
-      <li *appCan="[1, 2]">
-        <a routerLink="/estilos" routerLinkActive="active">ESTILOS</a>
-      </li>
-      
-       <li *appCan="1">
+  <ng-container *appCan="1">
+    <button mat-button class="nav-btn" routerLink="/textos" routerLinkActive="active-link">TEXTOS</button>
+    <button mat-button class="nav-btn" routerLink="/medias" routerLinkActive="active-link">MEDIAS</button>
+  </ng-container>
 
-        <a routerLink="/textos" routerLinkActive="active">TEXTOS</a>
-      </li>
-       <li *appCan="1">
-        <a routerLink="/medias" routerLinkActive="active">MEDIAS</a>
-      </li>
-      <!-- Mostrar logout solo si hay usuario -->
-      <li *ngIf="authService.user$ | async">
-        <a href="#" (click)="logout()">Logout</a>
-      </li>
-    </ul>
-  </nav>
+  <ng-container *ngIf="authService.user$ | async">
+    <button mat-button class="nav-btn" (click)="logout()">LOGOUT</button>
+  </ng-container>
+    
+</mat-toolbar>
 
   <main class="main-content">
     <router-outlet></router-outlet>

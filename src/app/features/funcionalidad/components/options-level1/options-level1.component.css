@@ -1,4 +1,3 @@
-
 .main-container {
   display: flex;
   flex-direction: column;
@@ -8,41 +7,39 @@
   width: 100%;
   max-width: 100%;
   flex:1;
- 
 }
 .layout-grid{
-    display: block;
-    grid-template-columns: 15% 1fr 25%;
-    height: 100%;
-    gap:10px;
-    padding: 10px;
-    box-sizing: border-box;
-     flex: 1 1 auto;      /* ocupa todo el espacio disponible */
+  display: block;
+  grid-template-columns: 15% 1fr 25%;
+  height: 100%;
+   gap:10px;
+  padding: 10px;
+  box-sizing: border-box;
+  flex: 1 1 auto;      /* ocupa todo el espacio disponible */
   overflow-y: auto;    /* scroll si hay muchos items */
   min-height: 0;       /* muy importante para que flex funcione correctamente */
 }
-.componentes {
-
-    padding: 16px;
-    border:1px solid #ffffff;
-
-}
-.temas {
-    padding: 16px;   
-  flex-wrap: wrap;  
-      border:1px solid #ffffff; 
-
-}
-.fuentes {
-    border:1px solid #ffffff;
-    padding: 16px;
-    color: white;
-
-}
 h2{
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   color:#000D44;
 }
 .slash {
   color: #FF7777; /* el color que quieras */
+}
+.section-card {
+  padding: 16px;
+  height: 100%;
+}
+.mat-body-large{
+  color:#000D44;
+  font-size: 1.2rem;;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title button {
+  transform: translateY(-2px);
 }

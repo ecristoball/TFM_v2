@@ -18,6 +18,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -37,6 +40,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatButtonModule,
     EstilosRoutingModule,
+    MatIconModule,
+    MatTooltipModule
   ]
 })
 export class EstilosModule { 
