@@ -1,63 +1,38 @@
-.main-container {
+
+/* CONTENEDOR PADRE */
+.wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;        /* ocupar toda la altura del contenedor padre */
-  gap: 1rem;           /* opcional, espacio entre elementos */
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 100%;
-  flex:1;
- 
+  height: 100%;
+  align-items: center;
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-container {
+  width: 90%;
+  max-width: 90%;
+  flex: 1; /* empuja actions-general hacia abajo */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
 }
 .selected-container {
   flex: 1 1 auto;      /* ocupa todo el espacio disponible */
   overflow-y: auto;    /* scroll si hay muchos items */
   min-height: 0;       /* muy importante para que flex funcione correctamente */
+  border: 2px dashed #999999;
 }
-
 .actions {
-  flex: 0 0 auto;      /* tamaño fijo según contenido */
   display: flex;
-  gap: 3rem;         /* espacio entre botones */
-  justify-content: center; /* opcional: alinea botones a la derecha */
-  padding: 0.5rem 0;
-  
-}
-.json-btn{
-    border:1px solid #FF7777;
-    border-radius: 5px;
-    background-color: #FF7777;
-    padding:4px;
-  
-    color: #000000;
-    max-width: 300px;
-    font-size: 1rem;
-    text-align: center;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding:16px;
-    bottom: 10px;
-
-}
-.del-btn{
-  display: flex;
-    align-items: center;
-    justify-content: center;
-      border-radius: 5px;
-  bottom: 10px;
-  padding:16px;
-  right: 200px;
-    font-size: 1rem;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top:1rem;
 }
 h2{
-  font-size: 1.7rem;
-  color:#000D44;
+    font-size: 1.7rem;
+    color:#000D44;
 }
 .slash {
-  color: #FF7777; /* el color que quieras */
+    color: #FF7777; /* el color que quieras */
 }

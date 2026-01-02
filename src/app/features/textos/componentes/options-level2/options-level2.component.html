@@ -1,5 +1,14 @@
- <h2><span class="slash">/</span>OPCIONES DISPONIBLES</h2>
- <h3>Selecciona el item y personaliza los textos en la parte OPCIONES SELECCIONADAS </h3>
+<h2 class="section-title">
+  <span class="slash">/</span>OPCIONES DISPONIBLES
+  <button
+    mat-icon-button
+    matTooltip="Pulsa sobre el elemento que deseas configurar y personaliza el texto en la parte PERSONALIZACIÓN DE TEXTOS.Para eliminarlo, vuelve a pulsarlo."
+    matTooltipClass="tooltip-grande"
+    aria-label="Ayuda funcionalidades">
+    <mat-icon>info</mat-icon>
+  </button>
+</h2>
+<h3>Pulsa sobre el item. </h3>
 <main class="cont">
   <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
     <p class="group-title">{{ groupKey | uppercase }}</p>
@@ -7,14 +16,12 @@
       cdkDropList
       [id]="groupKey + '-list'"
       class="group-items"
-      
     >
       <app-item
         *ngFor="let item of level2Groups[groupKey]"
         [item]="item"
         class="item"
         cdkDrag
-      
       >{{ item.name }}</app-item>
     </div>
   </div>

@@ -26,6 +26,10 @@ h2{
 .slash {
   color: #FF7777; /* el color que quieras */
 }
+h3{
+  font-size: 1.2rem;
+  color:#000D44;
+}
 .section-card {
   padding: 16px;
   height: 100%;

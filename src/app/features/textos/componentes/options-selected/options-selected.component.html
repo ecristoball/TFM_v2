@@ -10,7 +10,7 @@
 
     <!-- TEXTO FIJO -->
     <mat-form-field appearance="outline" class="full-width" *ngIf="mostrarTextoVacio">
-      <mat-label>Texto por defecto</mat-label>
+      <mat-label class="label-width">Texto por defecto</mat-label>
       <textarea
         matInput
         [value]="valorTexto"
@@ -23,8 +23,8 @@
 
     <!-- TEXTO LIBRE -->
     <mat-form-field appearance="outline" class="full-width-white" *ngIf="mostrarTextoVacio">
-      <mat-label>Personaliza tu texto aquí</mat-label>
-      <textarea
+      <mat-label class="label-width-white">Personaliza tu texto aquí</mat-label>
+      <textarea class="text-width-white"
         matInput
         [(ngModel)]="textoPorDefecto"
         cdkTextareaAutosize
@@ -38,9 +38,9 @@
       <button mat-raised-button color="primary" (click)="insertValue()">GUARDAR CAMBIOS</button>
     </div>
   </main>
-  
+
   <div class="actions-general">
-    <button mat-stroked-button color="warn" (click)="onDelete()">BORRAR</button>
+    <button mat-stroked-button color="accent" (click)="onDelete()">BORRAR</button>
     <button mat-raised-button color="primary" (click)="mostrarJson()">MOSTRAR JSON</button>
   </div>
 

@@ -1,5 +1,14 @@
- <h2><span class="slash">/</span>OPCIONES DISPONIBLES</h2>
- <h3>Selecciona el item y personaliza lasa urls en la parte OPCIONES SELECCIONADAS </h3>
+ <h2 class="section-title">
+        <span class="slash">/</span>OPCIONES DISPONIBLES
+        <button
+        mat-icon-button
+        matTooltip="Pulsa sobre el elemento que deseas configurar y personaliza la url de la imagen en la parte PERSONALIZACIÓN DE IMÁGENES.Para eliminarlo, vuelve a pulsarlo."
+        matTooltipClass="tooltip-grande"
+        aria-label="Ayuda funcionalidades">
+        <mat-icon>info</mat-icon>
+        </button>
+  </h2>
+ <h3>Pulsa sobre el item. </h3>
 <main class="cont">
   <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
     <p class="group-title">{{ groupKey | uppercase }}</p>

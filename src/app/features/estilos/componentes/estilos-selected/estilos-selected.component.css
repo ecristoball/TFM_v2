@@ -18,10 +18,11 @@
   
 }
 .selected-container {
-  min-height: 90%;
+  flex: 1 1 auto;      /* ocupa todo el espacio disponible */
+  overflow-y: auto;    /* scroll si hay muchos items */
+  min-height: 0;       /* muy importante para que flex funcione correctamente */
   border: 2px dashed #999999;
-  display: block;
-   }
+}
 .actions {
   display: flex;
   gap: 12px;

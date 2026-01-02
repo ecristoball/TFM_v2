@@ -5,7 +5,7 @@ main {
 }
 .layout-grid{
   display: grid;
-  grid-template-columns: 15% 1fr 25%;
+  grid-template-columns: 18% 1fr 22%;
   height: 100%;
   background-color: rgb(227, 228, 225);
   gap:10px;
@@ -41,7 +41,6 @@ main {
   color: white;
   min-height: 0; /* PERMITE que el contenido interno haga scroll */
   overflow: auto;  
-  width: 100%;
   justify-content: center;
   border-radius: 10px;
 }

@@ -1,23 +1,18 @@
-<main class="main-container">
-   <h2><span class="slash">/</span>OPCIONES SELECCIONADAS</h2>
-
-  <div
-    cdkDropList
-    id="selected-list"
-    [cdkDropListData]="selectedItems"
-    class="selected-container"
-    [cdkDropListConnectedTo]="dropListIds"
-    (cdkDropListDropped)="onItemDropped($event)">
- 
+<div class="wrapper">
+  <main class="main-container">
+    <h2><span class="slash">/</span>PERSONALIZACIÓN DE FUNCIONALIDADES</h2>
+    <div
+      cdkDropList
+      id="selected-list"
+      [cdkDropListData]="selectedItems"
+      class="selected-container"
+      [cdkDropListConnectedTo]="dropListIds"
+      (cdkDropListDropped)="onItemDropped($event)">
       <app-item *ngFor="let item of selectedItems" [item]="item" cdkDrag [cdkDragData]="item"></app-item>
-
-    <!--<button (click)="insertValue()"> insertar</button>-->
-    
-  </div>
-  <div class="actions">
-    <button class="del-btn" (click)="onDelete()"> BORRAR</button>
-    <button class="json-btn" (click)="mostrarJson()"> MOSTRAR JSON</button>
-    
-  </div>
-</main>
-
+    </div>
+  </main>
+    <div class="actions">
+      <button mat-stroked-button color="accent" (click)="onDelete()">BORRAR</button>
+      <button mat-raised-button color="primary" (click)="mostrarJson()">MOSTRAR JSON</button>
+    </div>
+</div>
