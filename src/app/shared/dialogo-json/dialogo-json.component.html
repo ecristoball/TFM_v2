@@ -1,11 +1,9 @@
 
 <h2 mat-dialog-title><span class="slash">/</span>JSON generado</h2>
-
 <mat-dialog-content>
   <pre>{{ jsonString }}</pre>
 </mat-dialog-content>
-
 <mat-dialog-actions align="end">
-  <button mat-button (click)="descargarFichero()">DESCARGAR FICHERO</button>
-  <button mat-button color="primary" (click)="closeDialog()">CERRAR</button>
+  <button mat-button color="accent" (click)="closeDialog()">CERRAR</button>
+  <button mat-button color="primary" (click)="descargarFichero()">DESCARGAR FICHERO</button>
 </mat-dialog-actions>
