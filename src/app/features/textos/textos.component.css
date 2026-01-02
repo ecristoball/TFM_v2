@@ -24,6 +24,8 @@ main {
     min-height: 0;        /* PERMITE que el contenido interno haga scroll */
     overflow:hidden;
     justify-content: center;  
+  border-radius: 10px;
+
 
 }
 .options-level2 {
@@ -35,6 +37,8 @@ main {
  
   overflow: auto; /* Para que el scroll interno funcione */
    min-height: 0;
+  border-radius: 10px;
+
    
 }
 .options-selected {
@@ -47,5 +51,7 @@ main {
   overflow: auto;  
   width: 100%;
   justify-content: center;
+  border-radius: 10px;
+
 
 }

@@ -1,38 +1,32 @@
 
+/* CONTENEDOR PADRE */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-container {
+  width: 90%;
+  max-width: 90%;
+  flex: 1; /* empuja actions-general hacia abajo */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+}
 .selected-container {
   min-height: 90%;
-  border: 2px dashed #999;
-  padding: 10px;
+  border: 2px dashed #999999;
   display: block;
    }
-.json-btn{
-    border:1px solid #ccc;
-    border-radius: 1px;
-    background-color: #ffffff;
-    padding:4px;
-    margin-top: 16px;
-    color: #000000;
-    max-width: 300px;
-    max-height: 30px;
-    text-align: center;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-      position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
-.del-btn{
+.actions {
   display: flex;
-    align-items: center;
-    justify-content: center;
-      position: absolute;
-  bottom: 10px;
-  right: 200px;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top:1rem;
 }
 h2{
     font-size: 1.7rem;

@@ -20,7 +20,23 @@ export class DialogoJsonComponent {
     this.dialogRef.close();
   }
 
-  copyToClipboard() {
-    navigator.clipboard.writeText(this.jsonString);
+  descargarFichero() {
+    //Crea blob con el contenido JSON
+    const blob = new Blob([this.jsonString], { type: 'application/json' });
+
+    //enlace temporal
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+
+    // Nombre del fichero
+    a.href = url;
+    a.download = 'data.json';
+
+    //  click
+    a.click();
+
+    // Libera la URL creada
+    window.URL.revokeObjectURL(url);
   }
+
 }

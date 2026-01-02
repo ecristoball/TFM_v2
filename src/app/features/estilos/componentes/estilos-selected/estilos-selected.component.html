@@ -1,16 +1,19 @@
-<main class="main-container">
-  <h2><span class="slash">/</span>ESTILOS SELECCIONADOS</h2>
-  <div
-    cdkDropList
-    id="selected-list"
-    [cdkDropListData]="selectedItems"
-    class="selected-container"
-    [cdkDropListConnectedTo]="dropListIds"
-    (cdkDropListDropped)="onItemDropped($event)">
-      <app-item *ngFor="let item of selectedItems" [item]="item" cdkDrag [cdkDragData]="item"></app-item>
-  </div>
+<div class="wrapper">
+  <main class="main-container">
+    <h2><span class="slash">/</span>ESTILOS SELECCIONADOS</h2>
+    <div
+      cdkDropList
+      id="selected-list"
+      [cdkDropListData]="selectedItems"
+      class="selected-container"
+      [cdkDropListConnectedTo]="dropListIds"
+      (cdkDropListDropped)="onItemDropped($event)">
+        <app-item *ngFor="let item of selectedItems" [item]="item" cdkDrag [cdkDragData]="item"></app-item>
+    </div>
+    
+  </main>
   <div class="actions">
-    <button mat-stroked-button color="warn" (click)="onDelete()">BORRAR</button>
-    <button mat-raised-button color="primary" (click)="crearJson()">MOSTRAR JSON</button>
+      <button mat-stroked-button color="warn" (click)="onDelete()">BORRAR</button>
+      <button mat-raised-button color="primary" (click)="mostrarJson()">MOSTRAR JSON</button>
   </div>
-</main>
+  </div>

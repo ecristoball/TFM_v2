@@ -140,68 +140,12 @@ dropListIds: string[] = [];
       });
     }
   
-  
-  
-  crearJson() {
-    this.showlevel1service.getLevelsBy().subscribe(data => {
-     this.tojsonItems = (data as any[]).map(item => ({
-    ...item,
-    value: this.parseValue(item.value)
-      })
-    );
-      console.log("datos de tabla", this.tojsonItems);
-      this.jsonResult = this.crearJsonService.convertTableToJson(this.tojsonItems);
-      console.log('JSON generado:', this.jsonResult);
-  
-       // 1VALIDACIÓN: comprobar los campos requeridos
-      const itemsInvalidos = this.tojsonItems.filter(item =>
-        item.required === 1 && (item.value === null || item.value === '' || item.value === undefined)
-      );
-  
-      if (itemsInvalidos.length > 0) {
-       const lista = itemsInvalidos.map(i => i.level1 || i.key_name).join(", ");
-    alert("Faltan valores obligatorios para: " + lista);
-    return;
-      }
-  
-      //const jsonData = this.generarJson(); // Aquí generas tu objeto JSON
-      this.dialog.open(DialogoJsonComponent, {
-        width: '600px',
-        data: this.jsonResult
-      });
-    });
+ mostrarJson() {
+  this.crearJsonService.generarJson();
+    
   }
   
-  parseValue(value: any) {
-    try {
-      // Si es una cadena JSON, se convierte al tipo correcto
-      return JSON.parse(value);
-    } catch {
-      // Si no lo es, se devuelve tal cual
-      return value;
-    }
-  }
-  
-  
-  
-  /*
-  onDrop(event: any) {
-    console.log ("drop")
-    const itemType = event.item.data?.type || 'scoresConfiguration';
-  
-    const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
-  
-    if (dialog$) {
-      dialog$.subscribe(result => {
-        if (result) {
-          console.log(`Resultado del diálogo (${itemType}):`, result);
-          // aquí puedes guardar el valor en tu backend Laravel
-        }
-      });
-    }
-  }
-    */
-  
+
     onDelete(){
       if (confirm('¿Seguro que quieres borrar todos los valores?')){
         this.showlevel1service.deleteAllValues().subscribe({
@@ -224,5 +168,4 @@ ngOnDestroy(): void {
   this.destroy$.next();
   this.destroy$.complete();
 }
-
-    }
+}

@@ -105,40 +105,12 @@ export class OptionsSelectedComponent implements OnDestroy {
     });
   }
 
-  crearJson() {
-    this.showlevel1service.getLevelsBy().subscribe(data => {
-      this.tojsonItems = (data as any[]).map(item => ({...item,value: this.parseValue(item.value)}));
-      
-      this.jsonResult = this.crearJsonService.convertTableToJson(this.tojsonItems);
-
-      //VALIDACIÓN: comprobar los campos requeridos
-      const itemsInvalidos = this.tojsonItems.filter(item =>
-        item.required === 1 && (item.value === null || item.value === '' || item.value === undefined)
-      );
-
-      if (itemsInvalidos.length > 0) {
-        const lista = itemsInvalidos.map(i => i.level1 || i.key_name).join(", ");
-        alert("Faltan valores obligatorios para: " + lista);
-        return;
-      }
-
-      this.dialog.open(DialogoJsonComponent, {
-        width: '900px',
-        data: this.jsonResult
-      });
-
-    });
+  mostrarJson() {
+  this.crearJsonService.generarJson();
+    
   }
 
-  parseValue(value: any) {
-    try {
-      // Si es una cadena JSON, se convierte al tipo correcto
-      return JSON.parse(value);
-    } catch {
-      // Si no lo es, se devuelve tal cual
-      return value;
-    }
-  }
+ 
   ngOnDestroy(): void {
     this.dragdropservice.clearLevel2Groups();
     this.destroy$.next();

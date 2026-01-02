@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100%;
   align-items: center;
-  background-color: red;
+  
 }
 
 /* CONTENIDO PRINCIPAL */
@@ -15,10 +15,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  /*border:1px solid #292929;*/
-}
-mat-card.wrapper {
-  padding: 0px;
+  padding: 1rem;
+  border:1px dashed #999999;
 }
 
 
@@ -29,7 +27,7 @@ mat-card.wrapper {
 }
 .full-width-white {
   width: 100%;
-  background-color: #FFFFFF;
+ /* background-color: #FFFFFF;*/
 }
 
 /* BOTONES INTERMEDIOS */
@@ -59,7 +57,7 @@ img {
 }
 
 .textarea-white textarea {
-  background-color: white;
+ /* background-color: white;*/
 }
 h2{
   font-size: 1.7rem;

@@ -109,44 +109,9 @@ console.log(this.imagenUrl, "la imagen")
     });
   }
 
-
-  crearJson() {
-    this.showlevel1service.getLevelsBy().subscribe(data => {
-    this.tojsonItems = (data as any[]).map(item => ({
-    ...item,
-    value: this.parseValue(item.value)
-      })
-    );
-      console.log("datos de tabla", this.tojsonItems);
-      this.jsonResult = this.crearJsonService.convertTableToJson(this.tojsonItems);
-      console.log('JSON generado:', this.jsonResult);
-
-      // 1VALIDACIÓN: comprobar los campos requeridos
-      const itemsInvalidos = this.tojsonItems.filter(item =>
-        item.required === 1 && (item.value === null || item.value === '' || item.value === undefined)
-      );
-
-      if (itemsInvalidos.length > 0) {
-      const lista = itemsInvalidos.map(i => i.level1 || i.key_name).join(", ");
-    alert("Faltan valores obligatorios para: " + lista);
-    return;
-      }
-
-      //const jsonData = this.generarJson(); // Aquí generas tu objeto JSON
-      this.dialog.open(DialogoJsonComponent, {
-        width: '600px',
-        data: this.jsonResult
-      });
-    });
-  }
-  parseValue(value: any) {
-    try {
-      // Si es una cadena JSON, se convierte al tipo correcto
-      return JSON.parse(value);
-    } catch {
-      // Si no lo es, se devuelve tal cual
-      return value;
-    }
+ mostrarJson() {
+  this.crearJsonService.generarJson();
+    
   }
   onDelete(){
     if (confirm('Esta acción borrará todos los datos almacenados hasta ahora. ¿Seguro que quieres borrar todos los valores?')){
