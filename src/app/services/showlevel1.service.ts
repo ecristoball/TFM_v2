@@ -38,6 +38,7 @@ export class Showlevel1Service {
     //Devuelve  los keynames asociados a un determinado frontparent 
     getOptionsBy(frontlevel: number, frontparent: string) {
         return this.http.get<JsonKey[]>(`${this.apiUrl}/${frontlevel}/${frontparent}`);
+        //filterByFrontLevelAndFrontParent'
     }
 
     //Devuelve toda la jerarquía para crear el json.
@@ -68,18 +69,16 @@ export class Showlevel1Service {
       );
     }
 
-getDefaultValue(keyName: string): Observable<any> {
-  console.log(keyName);
-  return this.http.get<any>(`${this.apiUrl}/defaultvalue/${keyName}`);
-}
+  getDefaultValue(keyName: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/defaultvalue/${keyName}`);
+  }
 
 
-getImageUrl(keyName: string): Observable<any> {
-  console.log(keyName);
-  return this.http.get<any>(
-    `${this.apiUrl}/imageurl/${keyName}`
-  );
-}
+  getImageUrl(keyName: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/imageurl/${keyName}`
+    );
+  }
 
 }
 

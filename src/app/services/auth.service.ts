@@ -58,7 +58,7 @@ export class AuthService {
   
   //user$ = this.userSubject.asObservable();
   get currentUser() {
-    console.log("estoy aaui", this.userSubject.value)
+ 
     return this.userSubject.value;
   }
 
@@ -67,8 +67,6 @@ export class AuthService {
   }
 
   getUserFunctionalities(userId: number, parentKey: string) {
-    console.log("auth service con userid",userId ,"y parentkey", parentKey)
-    console.log(this.http.get(`${this.apiUrlf}/${userId}/${parentKey}`),"eeeseteat")
     return this.http.get(`${this.apiUrlf}/${userId}/${parentKey}`);
   }
   functionalities$ = this.functionalitiesSubject.asObservable();

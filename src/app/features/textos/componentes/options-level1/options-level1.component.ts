@@ -21,21 +21,16 @@ export class OptionsLevel1Component {
     const user2 = this.authService.user$;
     const parentKey = 'textos';
 
-    console.log(user, user2)
     if (!user) {
       console.error("Usuario no autenticado");
       return;
     }
     const userId = user.id;
-    console.log("userid es : ",userId)
     this.authService.getUserFunctionalities(userId,parentKey)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (data:any) => {
-        console.log("DATA COMPLETA DEL BACKEND:", data);
-
         this.level1Items = data
-        console.log(this.level1Items);
       },
       error: (err) => console.error(err)
     });

@@ -35,13 +35,10 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe(data => {
           this.level2Groups[event.toggledKey!] = data;
-          console.log("level2groups es :", this.level2Groups, "y this.level2Groups[event.toggledKey!]",this.level2Groups[event.toggledKey!])
         });
-        console.log("evento ", event.toggledKey,event.front_parent)
       }
       // si un item se deseleccionó
       if (event.selected === false && event.toggledKey) {
-        console.log("estoy borrando")
         delete this.level2Groups[event.toggledKey];
       }
     });
@@ -52,7 +49,6 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
       this.level2Groups = groups;
       const ids = Object.keys(groups).map(key => `${key}-list`);
       this.dragdropservice.setDropListIds(ids);
-      console.log("IDS ENVIADOS DESDE LEVEL2", ids);
     });
 
    
@@ -63,7 +59,6 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("afete")
     this.updateDropListIds();
 
     this.dropLists.changes.subscribe(() => {
@@ -74,113 +69,25 @@ export class OptionsLevel2Component implements OnInit, OnDestroy,AfterViewInit {
   private updateDropListIds() {
     const ids = this.dropLists.map(list => list.id);
     this.dragdropservice.setDropListIds(ids);
-    console.log("Actualizando dropListIds: en options level2", ids);
   }
 
   //drop en options-level2, cuando vuelve de selected
   onItemDropped(event: CdkDragDrop<any[]>) {
-
-    console.log('previous:', event.previousContainer.id, 'destious:', event.container.id);
-    console.log('prevDataios:', event.previousContainer.data);
-    console.log('destDataios:', event.container.data);
     const item = event.previousContainer.data[event.previousIndex];
-    console.log("estoy aqui=", item)
 
     const fromSelected = event.previousContainer.id === 'selected-list';
     const toSelected = event.container.id === 'selected-list';
 
     this.dragdropservice.moveItemBetweenLists(item, fromSelected, toSelected, event.currentIndex);
-    console.log("borrar el item", item.key_name)
-    //this.showlevel1service.deleteValue(item.key_name);
     this.showlevel1service.clearValue(item.key_name).subscribe();
   }
-    ngOnDestroy(): void {
-      this.dragdropservice.clearLevel2Groups();
-  this.destroy$.next();
-  this.destroy$.complete();
+  ngOnDestroy(): void {
+    this.dragdropservice.clearLevel2Groups();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
-  /*
-    console.log("dropeado")
-    if (event.previousContainer !== event.container) {
-    console.log("dropeado")
-    this.dragdropservice.moveItem(
-      event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex
-    );
-    console.log("intento hacer drop")
-  }*/
-    /*
-  }
-    if (event.previousContainer.id === 'optionsSelected') {
-
-        const item = event.previousContainer.data[event.previousIndex];
-
-        // Insertar en el grupo correcto
-        this.level2Groups[groupKey].splice(event.currentIndex, 0, item);
-
-        // Eliminar de options-selected
-        event.previousContainer.data.splice(event.previousIndex, 1);
-
-        return;
-        */
  
-
-      /*
-    if (event.previousContainer !== event.container) {
-      
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }*/
-  
-
-
-
-/*
-
-    this.subscription = this.selectionService.selectedKey$.subscribe(key => {
-      if (!key) return;
-      this.loading = true;
-     
-      this.showlevel1service.getItemsBy(1, key).subscribe(data => {
-      this.level2Items = data;
-      this.loading = false;
-      console.log(data);
-    });
-    });
-    */
-
-
-/*
-
-    this.subscription = this.selectionService.selectedKey$.subscribe(key => {
-    // Si key === null -> limpiar lo cargado
-    if (!key) {
-      this.level2Groups = {};        // limpia las listas mostradas
-      this.loading = false;
-      return;
-    }
-
-    // Si hay clave -> cargar opciones de nivel 2
-    this.loading = true;
-    this.showlevel1service.getOptionsBy(2, key).subscribe(data => {
-      this.level2Groups[key] = data;
-      this.loading = false;
-      console.log(data);
-    }, err => {
-      this.loading = false;
-      console.error(err);
-    });
-  });
-
-*/
-
 
 
 

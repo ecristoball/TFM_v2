@@ -9,4 +9,3 @@ import { EstilosModule } from '../../estilos.module';
 export class EstilosLevel1Component {
 
 }
-console.log("cargando")

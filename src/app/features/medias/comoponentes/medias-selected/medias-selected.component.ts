@@ -37,19 +37,18 @@ export class MediasSelectedComponent {
           this.valorTexto= data;
           if (Array.isArray(data) && data[0]!== null) {
              this.mostrarTextoVacio = true;
-             console.log("es null",data)
+            
           }
           else{
             this.mostrarTextoVacio = false;
           }
           this.textoPorDefecto=data;
-          console.log("mostrando2", this.mostrarTextoVacio,data)
-          console.log("valor por defecto", this.valorTexto)
+         
         });
         this.showlevel1service.getImageUrl(event.toggledKey).subscribe(data => {
           this.imagenUrl = data.imagenUrl;
         });
-        console.log("evento ", event.toggledKey,event.front_parent)
+       
         if (event.toggledKey ) {
           this.mostrarTextoVacio = true;
         } else {
@@ -108,7 +107,7 @@ export class MediasSelectedComponent {
 
   if (selectedKeys.length > 0) {
     const key = selectedKeys[selectedKeys.length - 1];
-    console.log("laa key es",key)
+
     this.selectionService.toggleSelect(key); // 
   }
 

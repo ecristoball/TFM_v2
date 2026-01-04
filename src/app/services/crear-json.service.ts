@@ -12,8 +12,6 @@ export class CrearJsonService {
   constructor(private showlevel1service: Showlevel1Service,private dialog: MatDialog) { }
   
   generarJson(): void{
-
-
       this.showlevel1service.getLevelsBy().subscribe(data => {
         const items = (data as any[]).map(item => ({ ...item, value: this.parseValue(item.value) }));
         const jsonResult = this.convertTableToJson(items);
@@ -54,25 +52,18 @@ export class CrearJsonService {
         const key = row[`level${i}`];
         if (key) keys.push(key.trim());
       }
-
-
       const value = row["value"];
       let current = result;
-
-
       keys.forEach((rawKey, index) => {
         //Normalizamos el texto (sin espacios, minúsculas)
         const normalizedKey = rawKey.replace(/\s+/g, '');
         const isArray = normalizedKey.endsWith("[]");
         const cleanKey = normalizedKey.replace(/\[\]$/, "");
         const isLast = index === keys.length - 1;
-        console.log ("estoy en convertir")
-
         //Creamos el contenedor si no existe
         if (current[cleanKey] === undefined) {
           current[cleanKey] = isArray ? [] : {};
         }
-        console.log ("esto aqui");
         if (isArray) {
           if (isLast) {
             current[cleanKey].push(value);
@@ -97,14 +88,9 @@ export class CrearJsonService {
         }
       });
     });
-
-
     return result;
   }
-
-
-
-  
+ 
 }
  
 

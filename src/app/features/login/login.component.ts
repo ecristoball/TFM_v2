@@ -23,8 +23,6 @@ myForm: FormGroup;
   }
 
   onSubmit() {
-    console.log(environment.production);
-console.log(environment.apiUrl);
 
     if (this.myForm.invalid) return;
 
@@ -39,10 +37,9 @@ console.log(environment.apiUrl);
 
         // 1) saca el user_id que viene en la respuesta
         const userId = res.user.id;
-        console.log ("es el userid",userId, "es el res",res )
+      
       },
       error: (err) => {
-        console.error(err);
         this.errorMessage = 'Email o password incorrectos';
         this.loginOK = false;
       }

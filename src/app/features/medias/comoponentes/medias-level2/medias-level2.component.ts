@@ -24,7 +24,7 @@ export class MediasLevel2Component implements OnInit, OnDestroy {
     .subscribe(event => {
       // si un item se seleccionó
       if (event.selected && event.toggledKey) {
-        console.log(event, event.front_parent, event.toggledKey)
+      
         //extrae de la bbdd los valores de nivel2 que tienen en front_parent el valor seleccionado
         this.showlevel1service.getOptionsBy(32, event.toggledKey).subscribe(data => {
           if (data.length===0){
@@ -32,14 +32,14 @@ export class MediasLevel2Component implements OnInit, OnDestroy {
           }
           else { 
             this.level2Groups[event.toggledKey!] = data;
-            console.log("data",data)
+         
           }
          
         });
       }
       // si un item se deseleccionó
       if (event.selected === false && event.toggledKey) {
-        console.log("deseselecc", event.toggledKey)
+     
         delete this.level2Groups[event.toggledKey];
         this.showlevel1service.clearValue( event.toggledKey).subscribe();
       }

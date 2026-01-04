@@ -33,52 +33,32 @@ export class OptionsSelectedComponent {
       .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
       .subscribe(event => {
         // si un item se seleccionó
-        //if (event.selected && event.toggledKey && event.front_parent!="core") {
         // el elemento que se acaba de tocar
         if (event.toggledKey && event.selected) {
           this.selectedKey = event.toggledKey; // guarda la key
-         console.log("mostrando0", this.mostrarTextoVacio)
-          console.log('Elemento clicado:', event.toggledKey);
-
-        // si fue selección o deselección
-        console.log('¿Seleccionado?', event.selected);
-
-        // lista completa actual
-        console.log('Todos los seleccionados:', event.selectedKeys);
-
-        // quién emitió el evento
-        console.log('Origen:', event.front_parent);  
-          console.log("mostrando", this.mostrarTextoVacio)
+  
         this.showlevel1service.getDefaultValue(event.toggledKey).subscribe(data => {
           this.valorTexto= data;
           if (Array.isArray(data) && data[0]!== null) {
              this.mostrarTextoVacio = true;
-             console.log("es null",data)
+            
           }
           else{
             this.mostrarTextoVacio = false;
           }
           this.textoPorDefecto=data;
-          console.log("mostrando2", this.mostrarTextoVacio,data)
-          console.log("valor por defecto", this.valorTexto)
+
         });
         this.showlevel1service.getImageUrl(event.toggledKey).subscribe(data => {
          this.imagenUrl = data.imagenUrl;
         });
-        console.log("evento ", event.toggledKey,event.front_parent)
         if (event.toggledKey ) {
           this.mostrarTextoVacio = true;
         } else {
           this.mostrarTextoVacio = false;
           this.valorTexto = '';
         }
-      //}
-      // si un item se deseleccionó
-      /*
-      if (event.selected === false && event.toggledKey) {
-        console.log("estoy borrando")
-        delete this.level2Groups[event.toggledKey];
-      }*/
+    
         }
         else  {
           this.mostrarTextoVacio = false;
@@ -90,7 +70,6 @@ export class OptionsSelectedComponent {
         }
        
     });
-console.log(this.imagenUrl, "la imagen")
   }
   
   insertValue() {
@@ -98,7 +77,6 @@ console.log(this.imagenUrl, "la imagen")
       console.warn('No hay key seleccionada');
       return;
     }
-    console.log('Insertando:', this.selectedKey, this.textoPorDefecto);
 
     this.showlevel1service.updateValue(
       this.selectedKey,
@@ -117,9 +95,6 @@ console.log(this.imagenUrl, "la imagen")
     if (confirm('Esta acción borrará todos los datos almacenados hasta ahora. ¿Seguro que quieres borrar todos los valores?')){
       this.showlevel1service.deleteAllValues().subscribe({
         next: (res) => {
-          console.log('Valores eliminados correctamente:', res);
-          //this.tojsonItems = [];
-          //this.jsonResult = null;
         },
         error: (err) => console.error('Error al eliminar valores:', err)
       });
@@ -131,7 +106,6 @@ console.log(this.imagenUrl, "la imagen")
 
   if (selectedKeys.length > 0) {
     const key = selectedKeys[selectedKeys.length - 1];
-    console.log("laa key es",key)
     this.selectionService.toggleSelect(key); // 
   }
 
@@ -141,7 +115,7 @@ console.log(this.imagenUrl, "la imagen")
   this.valorTexto = '';
   this.textoPorDefecto = '';
   this.imagenUrl = '';
-  console.log(this.imagenUrl, "la imagen")
+
   this.selectedKey = null;
 
   }

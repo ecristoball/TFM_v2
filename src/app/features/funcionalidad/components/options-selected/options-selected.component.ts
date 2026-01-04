@@ -35,7 +35,6 @@ export class OptionsSelectedComponent implements OnDestroy {
   dropListIds: string[] = [];
 
   ngOnInit() {
-    console.log(this.dropListIds)
     this.dragdropservice.selectedItems$.subscribe(items => {
       this.selectedItems = items;
     });
@@ -50,20 +49,13 @@ export class OptionsSelectedComponent implements OnDestroy {
       .subscribe(event => {
           // si un item se seleccionó
         if (event.selected && event.toggledKey ) {
-            //this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {
-             // this.level2Groups[event.toggledKey!] = data;
-             console.log("er")
-            //});
-            console.log("evento ", event.toggledKey,event.front_parent)
           }
-    
           // si un item se deseleccionó
           if (event.selected === false && event.toggledKey) {
             this.tojsonItems=[];
             this.selectedItems = [];
             this.jsonResult = null;
             this.copiedItem = {};
-            console.log ("dlete")
           }
         });
     if (event.previousContainer !== event.container) {
@@ -81,15 +73,11 @@ export class OptionsSelectedComponent implements OnDestroy {
             // Guardar en el backend
             this.insertValue(itemType, result);
              item.locked = true;
-             console.log("result",result)
-             
 
           // Insertamos el clon en la lista destino
             this.dragdropservice.addItemToSelected(this.copiedItem);
-            console.log("Item copiado sin borrar el original:", this.copiedItem);
           }
           if (!result){
-             console.log("El diálogo se cerró SIN datos");
              return
           }
         });
@@ -98,7 +86,6 @@ export class OptionsSelectedComponent implements OnDestroy {
   }
 
   insertValue(key:string,valor:any){
-    console.log("insert",key,valor)
     this.showlevel1service.updateValue(key, valor).subscribe({
       next: (res) => console.log(res),
       error: (err) => console.error(err)
@@ -109,7 +96,6 @@ export class OptionsSelectedComponent implements OnDestroy {
   this.crearJsonService.generarJson();
     
   }
-
  
   ngOnDestroy(): void {
     this.dragdropservice.clearLevel2Groups();
@@ -121,10 +107,9 @@ export class OptionsSelectedComponent implements OnDestroy {
     if (confirm('¿Seguro que quieres borrar todos los valores?')){
       this.showlevel1service.deleteAllValues().subscribe({
         next: (res) => {
-            console.log('Valores eliminados correctamente:', res);
-              this.selectedItems = [];
-        this.tojsonItems = [];
-        this.jsonResult = null;
+          this.selectedItems = [];
+          this.tojsonItems = [];
+          this.jsonResult = null;
 
         //bloqueados por drag&drop
         this.copiedItem = {};

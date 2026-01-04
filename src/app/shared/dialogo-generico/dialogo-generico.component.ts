@@ -15,9 +15,9 @@ export class DialogoGenericoComponent {
   ) {}
 
   ngOnInit() {
-    console.log("data inyectado",this.data)
+    
     if (this.data.type === 'object') {
-      console.log("iterable")
+      
       this.formValues = {};
       this.data.fields.forEach((f: any) => {
         this.formValues[f.key] = ''; // valores iniciales
@@ -26,8 +26,8 @@ export class DialogoGenericoComponent {
     }
     //tipos con dapos por default
     if (this.data.type === 'info-confirm'){
-        console.log("veo valores por defecto",this.data.defaultValues)
-   // 🔹 USAMOS EL VALOR POR DEFECTO
+        
+   // USAMOS EL VALOR POR DEFECTO
       this.formValues = this.data.defaultValues;
       return; // NO seguir procesando los demás tipos
     }
@@ -35,19 +35,19 @@ export class DialogoGenericoComponent {
     for (const field of this.data.fields) {
       if (field.type === 'multiselect') {
         this.formValues[field.key] = {};
-        console.log("valor1")
+       
       }  
       else if (field.type === 'radio-with-text') {
       this.formValues[field.key] = { selectedOption: '', otherText: '' };
       }
       else if (field.defaultValues !== undefined){
-        console.log("veo valores por defecto",field.defaultValues)
-   // 🔹 USAMOS EL VALOR POR DEFECTO
+       
+   // USAMOS EL VALOR POR DEFECTO
       this.formValues[field.key] = field.defaultValues;
       }
       else {
         this.formValues[field.key] = '';
-        console.log(this.formValues, "salida default");
+        
       }
     }
   }
@@ -68,7 +68,7 @@ onColorChange(key: string) {
   private isFormValid(): boolean {
     for (const key in this.formValues) {
       const value = this.formValues[key];
-      console.log("value:",value);
+      
 
       // Validación para campos simples
       if (value === null || value === undefined || value === '') {
@@ -116,13 +116,13 @@ onColorChange(key: string) {
 
     // Recorremos los valores del formulario
     for (const key in this.formValues) {
-      console.log("ob",this.data, this.data.type)
+
       if (this.formValues.hasOwnProperty(key)) {
         let value = this.formValues[key];
 
         // Convertir a número si el tipo del campo es number
         const fieldConfig = this.data.fields.find((f: any) => f.key === key);
-        console.log("ob", this.data.type, fieldConfig)
+       
         if (fieldConfig?.type === 'number' && value !== null && value !== '') {
           value = Number(value); // aquí transformamos el string a número
         }
@@ -134,7 +134,7 @@ onColorChange(key: string) {
             return;
         }
        if (fieldConfig?.type === 'array' && typeof value === 'string' && value.includes(',')) {
-          console.log("estoy en conversion")
+         
         // Convertimos la cadena separada por comas en un array
         value = value.split(',').map((v: string) => v.trim()).filter((v: string) => v !== '');
         }
@@ -154,7 +154,7 @@ onColorChange(key: string) {
   }
   
   cancel() {
-    console.log("cancelado")
+  
     this.dialogRef.close(null);
   }
 

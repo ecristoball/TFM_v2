@@ -17,155 +17,106 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './estilos-selected.component.css'
 })
 export class EstilosSelectedComponent implements OnDestroy {
- private destroy$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
   tojsonItems: any[] = [];
   jsonResult: any;
-private subscription!: Subscription;
+  private subscription!: Subscription;
   constructor (private mostrarDialogoService: MostrarDialogoService, 
     private showlevel1service: Showlevel1Service, private crearJsonService:CrearJsonService,
     private dialog: MatDialog,
-   private selectionService:SelectionService,
-    private dragdropservice: DragDropService) {}
+    private selectionService:SelectionService,
+    private dragdropservice: DragDropService
+  ) {}
 
- 
   @Input() connectedTo: string[] = [];
   selectedItems: any[] = [];
   copiedItem: any={};
-dropListIds: string[] = [];
+  dropListIds: string[] = [];
 
   ngOnInit() {
-    console.log(this.dropListIds)
     this.dragdropservice.selectedItems$.subscribe(items => {
       this.selectedItems = items;
-      console.log("itesss", items)
+      
     });
     this.dragdropservice.dropListIds$.subscribe(ids => {
-      console.log('dropListIds', ids);
+      
       this.dropListIds = ids;
     });
   } 
+
   onItemDropped(event: CdkDragDrop<any[]>) {
-      console.log('prev:', event.previousContainer.id, 'dest:', event.container.id);
-      console.log('prevData:', event.previousContainer.data);
-      console.log('destData:', event.container.data);
-      this.subscription = this.selectionService.selectedKeys$ //escucha el observable
-        .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
-        .subscribe(event => {
-            // si un item se seleccionó
-            if (event.selected && event.toggledKey ) {
-              //this.showlevel1service.getOptionsBy(2, event.toggledKey).subscribe(data => {
-               // this.level2Groups[event.toggledKey!] = data;
-               console.log("er")
-              //});
-              console.log("evento ", event.toggledKey,event.front_parent)
-            }
+    this.subscription = this.selectionService.selectedKeys$ //escucha el observable
+    .pipe(skip(1)) //evitar primera carga al pasar de una pantalla a otra 
+    .subscribe(event => {
+      // si un item se seleccionó
+      if (event.selected && event.toggledKey ) {
       
-            // si un item se deseleccionó
-            if (event.selected === false && event.toggledKey) {
-              this.tojsonItems=[];
-              this.selectedItems = [];
-              this.jsonResult = null;
-              this.copiedItem = {};
-              console.log ("dlete")
-            }
-          });
-      console.log("itemgropxx")
-      if (event.previousContainer !== event.container) {
-        console.log("itemgrop2222")
-        const item = event.previousContainer.data[event.previousIndex];
-        console.log("itemgrop222888", item)
-        this.copiedItem = { ...item };
-        const itemType = event.item.data?.type || this.copiedItem.key_name;
-        console.log("item ess ", itemType)
-     
-          const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
-          
-          console.log ("dialogo", dialog$,itemType)
-       
-  
-        // Muestra el dialogo, todavía no se ha hecho drop
-        if (dialog$) {
-          dialog$.subscribe(result => {
-            if (result) {/* eva 1412
-              console.log(`Resultado del diálogo (${itemType}):`, result);
-              console.log("selecteditems es", this.selectedItems)
-              // Actualizar el valor directamente en el componente
-              const updatedItem = this.selectedItems.find(i => i.key_name === itemType);
-              console.log("updated",updatedItem)
-              if (updatedItem) {
-                updatedItem.value = result;
-                console.log("Item actualizado localmente:", updatedItem,updatedItem.value, result);
-              }  
-  */
-  this.copiedItem.value = result;
-  console.log("copia a selected", this.copiedItem)
-  
-    // actualizar el ITEM ORIGINAL 
-    /*
-    const originalItem = event.previousContainer.data.find(
-      (i: any) => i.key_name === itemType
-    );
-  
-    if (originalItem) {
-     // originalItem.value = result;
-    }*/
-              // Guardar en el backend
-              this.insertValue(itemType, result);
-               item.locked = true;
-               console.log("result",result)
-               
-  
-            // Insertamos el clon en la lista destino
-              this.dragdropservice.addItemToSelected(this.copiedItem);
-              console.log("item esssssssssssss ", this.copiedItem)
-              //event.container.data.splice(event.currentIndex, 0, this.copiedItem);
-              console.log("Item copiado sin borrar el original:", this.copiedItem);
-            }
-            if (!result){
-               console.log("El diálogo se cerró SIN datos");
-               return
-            }
-          });
-        }
-             
       }
-      console.log ("drop")
+      
+      // si un item se deseleccionó
+      if (event.selected === false && event.toggledKey) {
+        this.tojsonItems=[];
+        this.selectedItems = [];
+        this.jsonResult = null;
+        this.copiedItem = {};
+      }
+    });
+    if (event.previousContainer !== event.container) {
+      const item = event.previousContainer.data[event.previousIndex];
+      this.copiedItem = { ...item };
+      const itemType = event.item.data?.type || this.copiedItem.key_name;
+     
+      const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
+
+      // Muestra el dialogo, todavía no se ha hecho drop
+      if (dialog$) {
+        dialog$.subscribe(result => {
+          if (result) {
+            this.copiedItem.value = result;
+         
+              // Guardar en el backend
+            this.insertValue(itemType, result);
+            item.locked = true; 
+            // Insertamos el clon en la lista destino
+            this.dragdropservice.addItemToSelected(this.copiedItem);
+          }
+          if (!result){
+               return
+          }
+        });
+      }       
     }
-  
-    insertValue(key:string,valor:any){
-      console.log("insert",key,valor)
-      this.showlevel1service.updateValue(key, valor).subscribe({
-        next: (res) => console.log(res),
-        error: (err) => console.error(err)
-      });
-    }
-  
- mostrarJson() {
-  this.crearJsonService.generarJson();
-    
   }
   
-
-    onDelete(){
-      if (confirm('¿Seguro que quieres borrar todos los valores?')){
-        this.showlevel1service.deleteAllValues().subscribe({
-          next: (res) => {
-              console.log('Valores eliminados correctamente:', res);
-                this.selectedItems = [];
+  insertValue(key:string,valor:any){
+    this.showlevel1service.updateValue(key, valor).subscribe({
+      next: (res) => console.log(res),
+      error: (err) => console.error(err)
+    });
+  }
+  
+  mostrarJson() {
+    this.crearJsonService.generarJson(); 
+  }
+  
+  onDelete(){
+    if (confirm('¿Seguro que quieres borrar todos los valores?')){
+      this.showlevel1service.deleteAllValues().subscribe({
+        next: (res) => {
+          this.selectedItems = [];
           this.tojsonItems = [];
           this.jsonResult = null;
-  
-          // 🔹 Opcional: si tienes items bloqueados por drag&drop
+          //items bloqueados por drag&drop
           this.copiedItem = {};
-              // Si quieres, actualiza tu vista aquí (por ejemplo, recargar datos)
-            },
-            error: (err) => console.error('Error al eliminar valores:', err)
-          });
-      }
+        },
+       error: (err) => console.error('Error al eliminar valores:', err)
+      });
     }
-ngOnDestroy(): void {
-  this.dragdropservice.clearLevel2Groups();
-  this.destroy$.next();
-  this.destroy$.complete();
-}
+  }
+  
+  ngOnDestroy(): void {
+    this.dragdropservice.clearLevel2Groups();
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

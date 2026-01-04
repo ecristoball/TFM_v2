@@ -67,27 +67,6 @@ export class MostrarDialogoService {
     
     }]
   });
-/*
-private objectField = (key: string, fields: string[]) => ({
-  title: key,
-  type: 'object',
-  properties: fields.map(f => ({
-    label: f,
-    type: 'text',
-    key: f
-  }))
-});
-
-
-private objectField = (key: string, fields: string[]) => ({
-  key,
-  type: 'object',
-  children: fields.map(f => ({
-    key: f,
-    type: 'text',
-    label: f,
-  }))
-});*/
 
 private objectField = (title: string, fields: string[]) => ({
   title,
@@ -120,9 +99,6 @@ private infoConfirmField = (key: string, defaultValues: any) => ({
   }]
  
 });
-
-
-
 
 private radioWithTextField = (key: string, radioLabel: string, textLabel: string) => ({
   title: key,
@@ -323,8 +299,6 @@ private colorField = (key: string, defaultColor: string = '#000000') => ({
   /** 🪟 Abre el diálogo según el tipo */
   openDialogForItem(itemType: string) {
     const config = this.dialogConfig[itemType];
-    console.log ("config",config)
-
     if (!config) {
       console.warn(`No hay configuración para el tipo: ${itemType}`);
       return null;

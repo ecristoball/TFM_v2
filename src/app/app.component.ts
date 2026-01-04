@@ -15,15 +15,15 @@ export class AppComponent {
 
 logout() {
   const confirmLogout = confirm('¿Seguro que quieres cerrar sesión?');
-  console.log(confirmLogout)
+
   if (!confirmLogout) return;
-  console.log("he pasado")
+
   this.showlevel1service.deleteAllValues().subscribe({
     next: () => {
       
       
       // Ahora cerramos sesión
-      console.log("antes de logout")
+
       this.authService.logout();
     },
     error: (err) => {
